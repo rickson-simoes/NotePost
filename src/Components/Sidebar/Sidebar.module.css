@@ -28,13 +28,6 @@
   margin: 0.500rem 0 1rem;
 }
 
-.sidebar .avatarImage {
-  box-sizing: initial;
-  width: 5rem;
-  border-radius: 30%;
-  border: 2px solid var(--yellow-green);
-}
-
 .sidebar footer {
   display: flex;
   justify-content: center;
