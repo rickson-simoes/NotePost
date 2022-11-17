@@ -5,10 +5,10 @@ import { PostForm } from "../PostForm";
 
 export function MainContent() {
   return (
-    <main>
+    <div>
       <Actionbar />
 
       <PostForm />
-    </main>
+    </div>
   )
 }

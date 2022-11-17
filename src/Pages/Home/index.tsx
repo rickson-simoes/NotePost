@@ -8,11 +8,11 @@ export function Home() {
     <>
       <Header />
 
-      <div className={styles.wrapContent}>
+      <main className={styles.wrapContent}>
         <Sidebar />
 
         <MainContent />
-      </div>
+      </main>
     </>
   )
 }
