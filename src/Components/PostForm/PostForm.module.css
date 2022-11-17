@@ -1,0 +1,50 @@
+.postForm {
+  margin-top: 2rem;
+  border-bottom: 1px solid var(--gray-800);
+  padding-bottom: 1rem;
+}
+
+.postForm textarea {
+  width: 100%;
+  resize: none;
+  background-color: var(--gray-200);
+  border: 0;
+  height: 6rem;
+  padding: 1rem;
+  border-radius: 8px;
+
+  transition: all 0.2s;
+}
+
+.postForm textarea:focus {
+  outline: transparent;
+  box-shadow: 0 0 0 2px var(--yellow-green);
+}
+
+
+.postForm footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.875rem;
+}
+
+.postForm footer button {
+  height: 2.5rem;
+  width: 8rem;
+  border-radius: 8px;
+  background-color: var(--yellow-green);
+  color: var(--white);
+  cursor: pointer;
+
+  transition: all 0.2s;
+}
+
+.postForm footer button:hover {
+  filter: brightness(1.2);
+}
+
+.postForm footer div {
+  display: flex;
+  align-items: center;
+  gap: 0.600rem;
+}
