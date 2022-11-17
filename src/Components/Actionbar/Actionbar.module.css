@@ -1,0 +1,28 @@
+.actionBar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actionBar button {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  color: var(--yellow-green);
+  background-color: var(--gray-600);
+  border: 0;
+  gap: 0.200rem;
+  padding: 0px 9px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.actionBar button:hover {
+  background-color: var(--yellow-green);
+  color: black;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
