@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--gray-700);
+  font-size: 2rem;
+  padding: 1rem 0;
+  color: var(--yellow-green);
+  font-weight: 100;
+}
+
+.header svg {
+  margin-right: 0.312rem;
+}
+
+span {
+  color: var(--white);
+}
