@@ -6,10 +6,11 @@
 
 :root {
   --white: #FFFFFF;
-  --gray-100: #e1e1e6;
-  --gray-300: #c4c4cc;
+  --gray-200: #c4c4cc;
+  --gray-300: #808080;
   --gray-400: #636363;
-  --gray-700: #242424;
+  --gray-600: #303030;
+  --gray-800: #242424;
   --gray-900: #121214;
 
   --yellow-green: #959741;
@@ -20,7 +21,7 @@
 body {
   background: var(--gray-900);
   -webkit-font-smoothing: antialiased;
-  color: var(--gray-300);
+  color: var(--gray-200);
 }
 
 body,
@@ -30,11 +31,4 @@ button {
   font-weight: 400;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
-}
-
-
-body {
-  background: var(--gray-900);
-  color: var(--gray-300);
-  -webkit-font-smoothing: antialiased;
 }
