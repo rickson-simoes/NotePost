@@ -8,8 +8,15 @@ export function Home() {
 
       <div className={styles.wrapContent}>
 
+        <aside>
+          aloo
+        </aside>
+
+        <main>
+          testeee
+        </main>
+
       </div>
-      <h1>Home</h1>
     </>
   )
 }
