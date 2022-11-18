@@ -1,7 +1,8 @@
 import { Actionbar } from "../Actionbar";
-
 import { PostForm } from "../PostForm";
 import { Avatar } from "../Avatar";
+
+import { ShareNetwork, Pencil } from "phosphor-react";
 
 import styles from './MainContent.module.css';
 
@@ -12,7 +13,7 @@ export function MainContent() {
 
       <PostForm />
 
-      <div className={styles.MainContentOfAllPosts}>
+      <div className={styles.postList}>
         <article className={styles.post}>
           <header className={styles.postAuthor}>
             <Avatar
@@ -26,6 +27,20 @@ export function MainContent() {
               </time>
             </div>
           </header>
+
+          <section className={styles.postContent}>
+            content of the post
+          </section>
+
+          <footer className={styles.postReactionBox}>
+            <button>
+              <Pencil />
+            </button>
+
+            <button>
+              <ShareNetwork />
+            </button>
+          </footer>
         </article>
       </div>
 
