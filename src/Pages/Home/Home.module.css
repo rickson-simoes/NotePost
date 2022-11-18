@@ -8,3 +8,13 @@
   padding: 0 1.5rem;
   margin: 2rem auto;
 }
+
+@media (max-width: 768px) {
+  .wrapContent {
+    grid-template-columns: 1fr;
+  }
+
+  html {
+    font-size: 85%;
+  }
+}
