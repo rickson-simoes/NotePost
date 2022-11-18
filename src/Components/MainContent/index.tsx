@@ -1,7 +1,9 @@
 import { Actionbar } from "../Actionbar";
 
-import styles from './MainContent.module.css';
 import { PostForm } from "../PostForm";
+import { Avatar } from "../Avatar";
+
+import styles from './MainContent.module.css';
 
 export function MainContent() {
   return (
@@ -10,19 +12,23 @@ export function MainContent() {
 
       <PostForm />
 
-      <div>
-        <article>
-          <header>
-            <div className={styles.postAuthor}>
-              <img src="" alt="" />
-              <div className={styles.postAuthorInfo}>
-                <strong>Annie Doe <span>(you)</span></strong>
-                <time title="17/11/2022 16:00" dateTime="Tuesday, 17 november 2022">17/11/2022 - 16:40</time>
-              </div>
+      <div className={styles.MainContentOfAllPosts}>
+        <article className={styles.post}>
+          <header className={styles.postAuthor}>
+            <Avatar
+              src="https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+              avatarSideBar={false}
+            />
+            <div className={styles.postAuthorInfo}>
+              <strong>Annie Doe <span>(You)</span></strong>
+              <time title="17/11/2022 16:00" dateTime="Tuesday, 17 november 2022">
+                17/11/2022 - 16:40
+              </time>
             </div>
           </header>
         </article>
       </div>
+
     </div>
   )
 }

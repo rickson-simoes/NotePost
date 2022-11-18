@@ -1,15 +1,16 @@
-.avatarImage {
-  width: 5rem;
-  height: 4rem;
-  object-fit: cover;
-  border-radius: 30%;
-  border: 2px solid var(--yellow-green);
-}
-
-.avatarImagePost {
-  width: 4rem;
-  height: 4rem;
+.avatar {
   object-fit: cover;
   border-radius: 50%;
   border: 2px solid var(--yellow-green);
+}
+
+
+.avatarImage {
+  width: 4rem;
+  height: 4rem;
+}
+
+.avatarImagePost {
+  width: 3rem;
+  height: 3rem;
 }

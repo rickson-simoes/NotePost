@@ -7,7 +7,13 @@ interface IAvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 export function Avatar({ avatarSideBar = true, ...props }: IAvatarProps) {
+
   return (
-    <img className={avatarSideBar ? styles.avatarImage : styles.avatarImagePost} alt="User avatar photo" loading='eager' {...props} />
+    <img
+      className={`${styles.avatar} ${avatarSideBar ? styles.avatarImage : styles.avatarImagePost}`}
+      alt="User avatar photo"
+      loading="lazy"
+      {...props}
+    />
   )
 }

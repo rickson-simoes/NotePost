@@ -1,0 +1,21 @@
+.postAuthor {
+  display: flex;
+  align-items: center;
+}
+
+.postAuthorInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.600rem;
+  gap: 0.300rem;
+}
+
+.postAuthorInfo span,
+time {
+  color: var(--gray-400);
+  font-size: 0.875rem;
+}
+
+.postAuthorInfo span {
+  margin-left: 0.100rem;
+}
