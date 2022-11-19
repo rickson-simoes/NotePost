@@ -25,15 +25,15 @@ interface IPostsListContent {
 
 export function MainContent() {
   const [postListContent, setPostListContent] = useState<IPostsListContent[]>([]);
+  const [principalUserUUID, setPrincipalUserUUID] = useState("");
 
   useEffect(() => {
-    const getLocalStoragePostList = JSON.parse(localStorage.getItem("@PostsListContent") as string);
+    const getLocalStoragePostList = JSON.parse(localStorage.getItem("@Posterr:PostList") as string);
+    const getLocalStorageMainUserUUID = JSON.parse(localStorage.getItem("@Posterr:UserUUID") as string);
 
-    setPostListContent(getLocalStoragePostList)
+    setPostListContent(getLocalStoragePostList);
+    setPrincipalUserUUID(getLocalStorageMainUserUUID);
   }, []);
-
-
-  const userUUID = "58e4aa7f-fd4c-4a0b-9333-a6287fce6736";
 
   return (
     <div>
@@ -50,7 +50,7 @@ export function MainContent() {
                 postAvatarSrc={value.postAvatarSrc}
                 postContent={value.postContent}
                 postDate={value.postDate}
-                isUserPrincipal={value.postAuthorID === userUUID}
+                isUserPrincipal={value.postAuthorID === principalUserUUID}
                 key={value.postId}
               />
             }
@@ -60,7 +60,7 @@ export function MainContent() {
                 postAuthor={value.postAuthor}
                 postAvatarSrc={value.postAvatarSrc}
                 postDate={value.postDate}
-                isUserPrincipal={value.postShared.postSharedAuthorID === userUUID}
+                isUserPrincipal={value.postShared.postSharedAuthorID === principalUserUUID}
                 postSharedAuthor={value.postShared.postSharedAuthor}
                 postSharedAvatarSrc={value.postShared.postSharedAvatarSrc}
                 postSharedContent={value.postShared.postSharedContent}
@@ -75,7 +75,7 @@ export function MainContent() {
                 postAvatarSrc={value.postAvatarSrc}
                 postContent={value.postContent}
                 postDate={value.postDate}
-                isUserPrincipal={value.postShared.postSharedAuthorID === userUUID}
+                isUserPrincipal={value.postShared.postSharedAuthorID === principalUserUUID}
                 postSharedAuthor={value.postShared.postSharedAuthor}
                 postSharedAvatarSrc={value.postShared.postSharedAvatarSrc}
                 postSharedContent={value.postShared.postSharedContent}
