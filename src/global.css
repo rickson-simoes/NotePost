@@ -6,6 +6,8 @@
 
 :root {
   --white: #FFFFFF;
+
+  --gray-100: #e0e0e0;
   --gray-200: #c4c4cc;
   --gray-300: #808080;
   --gray-400: #636363;
@@ -15,6 +17,7 @@
   --gray-900: #121214;
 
   --yellow-green: #959741;
+  --yellow-green-brighter: #81813d;
   --yellow-green-darker: #484827;
 
   --red-500: #ff2c3e;

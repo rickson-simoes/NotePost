@@ -13,7 +13,7 @@ export function MainContent() {
 
       <PostForm />
 
-      <div className={styles.postList}>
+      <div>
         <article className={styles.post}>
           <header className={styles.postAuthor}>
             <Avatar
@@ -21,7 +21,10 @@ export function MainContent() {
               avatarSideBar={2}
             />
             <div className={styles.postAuthorInfo}>
-              <strong>Thomas Garden <span> - Quote Post <Pencil size={12} /></span></strong>
+              <div className={styles.postAuthorNameAndTag}>
+                <strong>Thomas Garden</strong>
+                <span className={styles.RepostQuotePost}> Quote Post <Pencil size={16} /></span>
+              </div>
               <time title="19/11/2022 18:30" dateTime="Tuesday, 19 november 2022">
                 19/11/2022 - 18:30
               </time>
@@ -39,7 +42,10 @@ export function MainContent() {
                 avatarSideBar={3}
               />
               <div className={styles.postAuthorInfo}>
-                <strong>Annie Doe <span>(You)</span></strong>
+                <div className={styles.postAuthorNameAndTag}>
+                  <strong>Annie Doe</strong>
+                  <span>&nbsp;(You)</span>
+                </div>
                 <time title="17/11/2022 16:00" dateTime="Tuesday, 17 november 2022">
                   17/11/2022 - 16:40
                 </time>
@@ -52,7 +58,6 @@ export function MainContent() {
           </section>
         </article>
 
-
         <article className={styles.post}>
           <header className={styles.postAuthor}>
             <Avatar
@@ -60,7 +65,10 @@ export function MainContent() {
               avatarSideBar={2}
             />
             <div className={styles.postAuthorInfo}>
-              <strong>Lee Mel <span>- Repost <ShareNetwork size={12} /></span></strong>
+              <div className={styles.postAuthorNameAndTag}>
+                <strong>Lee Mel</strong>
+                <span className={styles.RepostQuotePost}> Repost <ShareNetwork size={14} /></span>
+              </div>
               <time title="18/11/2022 17:40" dateTime="Tuesday, 18 november 2022">
                 18/11/2022 - 17:40
               </time>
@@ -74,7 +82,10 @@ export function MainContent() {
                 avatarSideBar={3}
               />
               <div className={styles.postAuthorInfo}>
-                <strong>Annie Doe <span>(You)</span></strong>
+                <div className={styles.postAuthorNameAndTag}>
+                  <strong>Annie Doe</strong>
+                  <span>(You)</span>
+                </div>
                 <time title="17/11/2022 16:00" dateTime="Tuesday, 17 november 2022">
                   17/11/2022 - 16:40
                 </time>
@@ -94,7 +105,10 @@ export function MainContent() {
               avatarSideBar={2}
             />
             <div className={styles.postAuthorInfo}>
-              <strong>Annie Doe <span>(You)</span></strong>
+              <div className={styles.postAuthorNameAndTag}>
+                <strong>Annie Doe</strong>
+                <span>(You)</span>
+              </div>
               <time title="17/11/2022 16:00" dateTime="Tuesday, 17 november 2022">
                 17/11/2022 - 16:40
               </time>
