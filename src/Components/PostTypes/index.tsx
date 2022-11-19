@@ -1,6 +1,5 @@
 import { Pencil, ShareNetwork } from "phosphor-react";
-import { v4 as uuidv4 } from 'uuid';
-import { format, formatDistanceToNow } from 'date-fns';
+import { format } from 'date-fns';
 
 import { Avatar } from "../Avatar";
 
@@ -9,7 +8,7 @@ import styles from './PostsTypes.module.css';
 interface IPostContent {
   postAuthor: string;
   postAvatarSrc: string;
-  postDate: Date;
+  postDate: string;
   postContent?: string;
   isUserPrincipal: boolean;
 }
@@ -17,12 +16,14 @@ interface IPostContent {
 interface IRepostAndQuoteContent extends IPostContent {
   postSharedAuthor: string;
   postSharedAvatarSrc: string;
-  postSharedDate: Date;
+  postSharedDate: string;
   postSharedContent: string;
 }
 
-function FormatDate(date: Date) {
-  return format(date, "d 'of' LLLL',' HH:mm");
+function FormatDate(dateString: string) {
+  const dateInNewFormat = new Date(dateString);
+
+  return format(dateInNewFormat, "d 'of' LLLL',' HH:mm");
 };
 
 export function Post({ postAuthor, postAvatarSrc, postDate, postContent, isUserPrincipal }: IPostContent) {
