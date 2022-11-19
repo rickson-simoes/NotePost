@@ -5,12 +5,17 @@
 }
 
 
-.avatarImage {
+.avatarLarge {
   width: 6rem;
   height: 6rem;
 }
 
-.avatarImagePost {
+.avatarMedium {
   width: 4rem;
   height: 4rem;
+}
+
+.avatarSmall {
+  width: 3rem;
+  height: 3rem;
 }

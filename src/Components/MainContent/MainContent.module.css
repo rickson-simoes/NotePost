@@ -1,12 +1,12 @@
 .post {
   background-color: var(--gray-600);
   border-radius: 8px;
-  padding: 1rem;
+  padding: 0.750rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   border: 10px solid var(--gray-800);
-  outline: 1px solid var(--yellow-green);
+  outline: 2px solid var(--yellow-green-darker);
   ;
 }
 
@@ -29,7 +29,10 @@
 .postAuthorInfo span,
 time {
   color: var(--gray-400);
-  font-size: 0.875rem;
+}
+
+.postAuthorInfo time {
+  font-size: 0.750rem;
 }
 
 .postAuthorInfo span {
@@ -39,7 +42,7 @@ time {
 .postContent {
   background-color: var(--gray-400);
   border-radius: 8px;
-  padding: 0.875rem;
+  padding: 0.750rem;
 }
 
 .postReactionBox {
@@ -58,4 +61,21 @@ time {
 
 .postReactionBox svg:hover {
   color: var(--gray-400);
+}
+
+.repostContent {
+  width: 85%;
+  box-shadow: 2px 3px 7px 0px var(--gray-900);
+  background-color: var(--gray-800);
+  border-radius: 8px;
+  padding: 0.750rem;
+  display: flex;
+  gap: 0.875rem;
+  flex-direction: column;
+}
+
+.repostContentText {
+  background-color: var(--gray-500);
+  padding: 0.750rem;
+  border-radius: 8px;
 }
