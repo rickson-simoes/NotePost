@@ -4,6 +4,36 @@
   "avatar": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
   "backgroundAvatar": "https://images.unsplash.com/photo-1528722828814-77b9b83aafb2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
   "bio": "I like food and travel ✈",
-  "follows": 2,
-  "followers": 2
+  "follows": [
+    {
+      "id": "58e4aa7f-fd4c-4d0b-9333-a6287fce6736",
+      "name": "Thomas Garden",
+      "avatar": "https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+      "backgroundAvatar": "https://images.unsplash.com/photo-1523292562811-8fa7962a78c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+      "bio": "Politics is something that I like"
+    },
+    {
+      "id": "58e4aa7f-fd4c-4c0b-9333-a6287fce6736",
+      "name": "Lee Mel",
+      "avatar": "https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+      "backgroundAvatar": "https://images.unsplash.com/photo-1546238232-20216dec9f72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+      "bio": "Politics is something that I like"
+    }
+  ],
+  "followers": [
+    {
+      "id": "58e4aa7f-fd4c-4d0b-9333-a6287fce6736",
+      "name": "Thomas Garden",
+      "avatar": "https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+      "backgroundAvatar": "https://images.unsplash.com/photo-1523292562811-8fa7962a78c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+      "bio": "Politics is something that I like"
+    },
+    {
+      "id": "58e4aa7f-fd4c-4c0b-9333-a6287fce6736",
+      "name": "Lee Mel",
+      "avatar": "https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+      "backgroundAvatar": "https://images.unsplash.com/photo-1546238232-20216dec9f72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+      "bio": "Politics is something that I like"
+    }
+  ]
 }
