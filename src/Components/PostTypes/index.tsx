@@ -52,13 +52,17 @@ export function Post({ postAuthor, postAvatarSrc, postDate, postContent, isUserP
       </section>
 
       <footer className={styles.postReactionBox}>
-        <button>
-          <Pencil />
-        </button>
+        {!isUserPrincipal &&
+          <>
+            <button>
+              <Pencil />
+            </button>
 
-        <button>
-          <ShareNetwork />
-        </button>
+            <button>
+              <ShareNetwork />
+            </button>
+          </>}
+
       </footer>
     </article>
   )

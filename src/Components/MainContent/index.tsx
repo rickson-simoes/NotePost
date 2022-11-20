@@ -9,29 +9,49 @@ import { Post, QuotePost, Repost } from "../PostTypes";
 import { IUserInformation, IPostsListContent } from "../../@Types";
 
 import styles from './MainContent.module.css';
-
-interface IMainContentConfiguration {
-  isPostSomethingButtonEnabled: boolean;
-  isToggleAllPostsEnabled: boolean;
-}
+import { useLocation } from "react-router-dom";
 
 export function MainContent() {
   const [postListContent, setPostListContent] = useState<IPostsListContent[]>([]);
+  const [postListContentFilter, setPostListContentFilter] = useState<IPostsListContent[]>([]);
   const [principalUser, setPrincipalUser] = useState<IUserInformation>();
-  const [isPostSomethingButtonEnabled, setIsPostSomethingButtonEnabled] = useState<boolean>(true);
-  const [isToggleEnabled, setisToggleEnabled] = useState<boolean>(true);
 
+  function useQuery() {
+    const { search } = useLocation();
+
+    return new URLSearchParams(search);
+  }
+
+  function filterPostList(mainUser: IUserInformation, postList: IPostsListContent[]) {
+    const ids: string[] = [];
+    mainUser?.follows.map(val => ids.push(val.id));
+
+    return postList.filter(val => {
+      for (const id of ids) {
+        if (val.postAuthorID == id) {
+          return val;
+        }
+      }
+    });
+  }
+
+  let query = useQuery();
   useEffect(() => {
-    const getLocalStoragePostList = JSON.parse(localStorage.getItem("@Posterr:PostList") as string);
-    const getLocalStorageMainUser = JSON.parse(localStorage.getItem("@Posterr:MainUserInformation") as string);
-    const getLocalStoragePostSomethingButton = JSON.parse(localStorage.getItem("@Posterr:MainContentPostSomethingButton") as string);
-    const getLocalStorageToggle = JSON.parse(localStorage.getItem("@Posterr:MainContentToggle") as string);
+    const getLocalStorageMainUser: IUserInformation = JSON.parse(localStorage.getItem("@Posterr:MainUserInformation") as string);
+    const getLocalStoragePostListFilter: IPostsListContent[] = JSON.parse(localStorage.getItem("@Posterr:PostList") as string);
+    const getLocalStoragePostList: IPostsListContent[] = JSON.parse(localStorage.getItem("@Posterr:PostList") as string);
 
-    setPostListContent(getLocalStoragePostList);
     setPrincipalUser(getLocalStorageMainUser);
-    setIsPostSomethingButtonEnabled(getLocalStoragePostSomethingButton);
-    setisToggleEnabled(getLocalStorageToggle);
-  }, []);
+    setPostListContentFilter(getLocalStoragePostListFilter);
+    setPostListContent(getLocalStoragePostList);
+
+    if (query.get("toggle") == "Following") {
+      const postListFiltered = filterPostList(getLocalStorageMainUser, getLocalStoragePostList);
+
+      setPostListContentFilter(postListFiltered);
+    }
+  }, [query.get("toggle")]);
+
 
   function handleSubmitNewPost(text: string) {
     const newPostToInsert: IPostsListContent = {
@@ -57,30 +77,33 @@ export function MainContent() {
 
       return [newPostToInsert, ...postListContent];
     });
+
+    setPostListContentFilter(() => {
+      const newPostListValue = [newPostToInsert, ...postListContentFilter];
+      localStorage.setItem("@Posterr:PostListFilter", JSON.stringify(newPostListValue));
+
+      return [newPostToInsert, ...postListContentFilter];
+    });
   }
 
-  function handlePostSomethingButton(props: boolean) {
-    setIsPostSomethingButtonEnabled(state => {
-      localStorage.setItem("@Posterr:MainContentPostSomethingButton", JSON.stringify(props))
-      return state = props;
-    })
-  }
+  function handleToggle(props: string) {
+    if (props == "Following") {
+      const postListFiltered = filterPostList(principalUser as IUserInformation, postListContent);
 
-  function handleToggleAllPostsFollowingEnabled(props: boolean) {
-    setisToggleEnabled(state => {
-      localStorage.setItem("@Posterr:MainContentToggle", JSON.stringify(props))
-      return state = props;
-    })
+      setPostListContentFilter(postListFiltered);
+    } else {
+      setPostListContentFilter(postListContent);
+    }
   }
 
   return (
     <div>
-      <Actionbar isButtonPostSomethingEnabled={handlePostSomethingButton} isToggleAllPostsFollowingPressed={handleToggleAllPostsFollowingEnabled} />
+      <Actionbar onToggleChange={handleToggle} />
 
-      {isPostSomethingButtonEnabled && <PostForm onSubmitNewPost={handleSubmitNewPost} />}
+      <PostForm onSubmitNewPost={handleSubmitNewPost} />
 
       <div className={styles.mainContent}>
-        {postListContent.map(value => {
+        {postListContentFilter.map(value => {
           switch (value.postType) {
             case "Post": {
               return <Post

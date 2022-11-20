@@ -1,36 +1,63 @@
-import { NotePencil, ToggleLeft, ToggleRight } from "phosphor-react";
-import { useState } from "react";
+import { ToggleLeft, ToggleRight } from "phosphor-react";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import styles from './Actionbar.module.css';
 
 interface IActionBar {
-  isButtonPostSomethingEnabled: (props: boolean) => void;
-  isToggleAllPostsFollowingPressed: (props: boolean) => void;
+  onToggleChange: (value: string) => void;
 }
 
-export function Actionbar({ isButtonPostSomethingEnabled, isToggleAllPostsFollowingPressed }: IActionBar) {
-  const [isButtonPressed, setIsButtonPressed] = useState<boolean>(false);
-  const [isTogglePressed, setIsTogglePressed] = useState<boolean>(true);
+export function Actionbar({ onToggleChange }: IActionBar) {
+  const [toggle, setToggle] = useState<string>("All");
 
-  function handlePostSomethingButton() {
-    setIsButtonPressed(state => !state);
-    isButtonPostSomethingEnabled(isButtonPressed);
+  function useQuery() {
+    const { search } = useLocation();
+
+    return new URLSearchParams(search);
   }
+  let query = useQuery();
+
+  useEffect(() => {
+    if (query.get("toggle") == "Following") {
+      localStorage.setItem("@Posterr:MainContentToggle", "Following");
+    } else {
+      localStorage.setItem("@Posterr:MainContentToggle", "All");
+    }
+
+    const getLocalStorageToggle = localStorage.getItem("@Posterr:MainContentToggle") as string;
+
+    setToggle(getLocalStorageToggle);
+  }, [])
 
   function handleToggleAllPostsFollowing() {
-    setIsTogglePressed(state => !state);
-    isToggleAllPostsFollowingPressed(isTogglePressed)
+    if (toggle == "All") {
+      localStorage.setItem("@Posterr:MainContentToggle", "Following");
+      setToggle(state => {
+        const newState = "Following";
+        onToggleChange(newState);
+        return state = newState
+      });
+    } else {
+      localStorage.setItem("@Posterr:MainContentToggle", "All");
+      setToggle(state => {
+        const newState = "All";
+        onToggleChange(newState);
+        return state = newState
+      });
+    }
   }
-
 
   return (
     <div className={styles.actionBar}>
-      <button onClick={handlePostSomethingButton}><NotePencil size={25} /> Post something</button>
-
       <div className={styles.toggle} onClick={handleToggleAllPostsFollowing}>
-        {isTogglePressed ?
-          <><strong> All Posts</strong>&nbsp; / Following &nbsp; <ToggleLeft size={34} /></> :
-          <>All Posts /<strong>&nbsp;Following</strong>&nbsp;<ToggleRight size={34} /></>}
+        {toggle == "All" ?
+          <>
+            <Link to="/?toggle=Following"><strong> All Posts</strong>&nbsp; / Following &nbsp; <ToggleLeft size={34} /></Link>
+          </> :
+          <>
+            <Link to="?toggle=All">All Posts /<strong>&nbsp;Following</strong>&nbsp;<ToggleRight size={34} /></Link>
+          </>}
       </div>
     </div>
   )

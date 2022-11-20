@@ -1,6 +1,6 @@
 .actionBar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .actionBar button {
@@ -21,8 +21,9 @@
   color: black;
 }
 
-.toggle {
+.toggle a {
   display: flex;
   align-items: center;
   cursor: pointer;
+  color: inherit;
 }
