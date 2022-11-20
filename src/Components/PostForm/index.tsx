@@ -26,6 +26,7 @@ export function PostForm({ onSubmitNewPost }: IPostForm) {
     event.preventDefault();
     onSubmitNewPost(textAreaPost);
     setTextAreaPost("");
+    setTextAreaLength(0);
   }
 
   return (
@@ -40,6 +41,7 @@ export function PostForm({ onSubmitNewPost }: IPostForm) {
       <footer>
         <button
           type="submit"
+          disabled={textAreaLength > 777}
         >
           Post
         </button>

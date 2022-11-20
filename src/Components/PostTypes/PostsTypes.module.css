@@ -95,6 +95,7 @@ span.RepostQuotePost {
 }
 
 .repostContent {
+  word-break: break-all;
   width: 85%;
   box-shadow: 2px 3px 7px 0px var(--gray-900);
   background-color: var(--gray-800);

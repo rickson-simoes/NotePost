@@ -35,12 +35,17 @@
   background-color: var(--yellow-green);
   color: var(--white);
   cursor: pointer;
-
+  border: 0;
   transition: all 0.2s;
 }
 
 .postForm footer button:hover {
   filter: brightness(1.2);
+}
+
+.postForm footer button[disabled] {
+  cursor: not-allowed;
+  filter: opacity(0.5);
 }
 
 .postForm footer div {
