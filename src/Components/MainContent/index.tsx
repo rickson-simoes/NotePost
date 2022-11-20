@@ -6,12 +6,11 @@ import { Actionbar } from "../Actionbar";
 import { PostForm } from "../PostForm";
 import { Post, QuotePost, Repost } from "../PostTypes";
 
-import { IMainUserInformation, IPostsListContent } from "../../@Types";
-
+import { IUserInformation, IPostsListContent } from "../../@Types";
 
 export function MainContent() {
   const [postListContent, setPostListContent] = useState<IPostsListContent[]>([]);
-  const [principalUser, setPrincipalUser] = useState<IMainUserInformation>();
+  const [principalUser, setPrincipalUser] = useState<IUserInformation>();
 
   useEffect(() => {
     const getLocalStoragePostList = JSON.parse(localStorage.getItem("@Posterr:PostList") as string);

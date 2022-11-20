@@ -17,12 +17,13 @@ export interface IPostsListContent {
   postShared: IPostsListContentShared;
 };
 
-export interface IMainUserInformation {
+
+export interface IUserInformation {
   id: string;
   name: string;
   avatar: string;
   backgroundAvatar: string;
   bio: string;
-  follows: number;
-  followers: number;
+  follows: IUserInformation[];
+  followers: IUserInformation[];
 }

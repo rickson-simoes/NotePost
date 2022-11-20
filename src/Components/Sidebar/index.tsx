@@ -4,12 +4,11 @@ import { Avatar } from '../Avatar';
 
 import styles from './Sidebar.module.css';
 
-import { IMainUserInformation } from "../../@Types";
+import { IUserInformation } from "../../@Types";
 import { Link } from 'react-router-dom';
-import { User } from '../../Pages/User';
 
 export function Sidebar() {
-  const [userInformation, setUserInformation] = useState<IMainUserInformation>();
+  const [userInformation, setUserInformation] = useState<IUserInformation>();
 
   useEffect(() => {
     const getFromlocalStorage = JSON.parse(localStorage.getItem("@Poster:MainUserInformation")!);
