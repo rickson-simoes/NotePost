@@ -37,6 +37,11 @@
   background-color: var(--gray-600);
 }
 
-.sidebar footer svg {
+.sidebar footer a svg {
   color: var(--yellow-green);
+  transition: all 1.2s;
+}
+
+.sidebar footer a svg:hover {
+  filter: brightness(1.5);
 }

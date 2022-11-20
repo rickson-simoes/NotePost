@@ -7,33 +7,9 @@ import { Post, QuotePost, Repost } from "../PostTypes";
 
 import { v4 as uuidv4 } from 'uuid';
 
-interface IPostsListContentShared {
-  postSharedAuthorID: string;
-  postSharedAuthor: string;
-  postSharedAvatarSrc: string;
-  postSharedDate: string | "";
-  postSharedContent: string;
-}
+import { IMainUserInformation, IPostsListContent } from "../../@Types";
 
-interface IPostsListContent {
-  postId: string;
-  postAuthorID: string;
-  postAuthor: string;
-  postAvatarSrc: string;
-  postType: "Post" | "Repost" | "QuotePost";
-  postDate: string;
-  postContent: string;
-  postShared: IPostsListContentShared;
-};
 
-interface IMainUserInformation {
-  id: string;
-  name: string;
-  avatar: string;
-  bio: string;
-  follows: number;
-  followers: number;
-}
 
 export function MainContent() {
   const [postListContent, setPostListContent] = useState<IPostsListContent[]>([]);

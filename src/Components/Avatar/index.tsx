@@ -7,8 +7,6 @@ interface IAvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 export function Avatar({ avatarSideBar = 1, ...props }: IAvatarProps) {
-  //styles.avatarImagePost
-
   let avatarSize;
 
   switch (avatarSideBar) {
