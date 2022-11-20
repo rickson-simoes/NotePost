@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { format } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Actionbar } from "../Actionbar";
 import { PostForm } from "../PostForm";
 import { Post, QuotePost, Repost } from "../PostTypes";
 
-import { v4 as uuidv4 } from 'uuid';
-
 import { IMainUserInformation, IPostsListContent } from "../../@Types";
-
 
 
 export function MainContent() {

@@ -10,10 +10,15 @@ interface IPostForm {
 
 export function PostForm({ onSubmitNewPost }: IPostForm) {
   const [textAreaPost, setTextAreaPost] = useState("");
+  const [textAreaLength, setTextAreaLength] = useState<number>(0);
 
   function handlePostText(event: ChangeEvent<HTMLTextAreaElement>) {
     setTextAreaPost((state) => {
       return state = event.target.value;
+    });
+
+    setTextAreaLength(state => {
+      return state = event.target.value.length
     });
   }
 
@@ -39,7 +44,7 @@ export function PostForm({ onSubmitNewPost }: IPostForm) {
           Post
         </button>
 
-        <div><PencilLine size={20} />00/777</div>
+        <div><PencilLine size={20} />{textAreaLength}/777</div>
       </footer>
     </form>
   )
