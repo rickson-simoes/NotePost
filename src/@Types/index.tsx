@@ -17,7 +17,6 @@ export interface IPostsListContent {
   postShared: IPostsListContentShared;
 };
 
-
 export interface IUserInformation {
   id: string;
   name: string;

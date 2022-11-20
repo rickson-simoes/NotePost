@@ -11,7 +11,7 @@ export function Sidebar() {
   const [userInformation, setUserInformation] = useState<IUserInformation>();
 
   useEffect(() => {
-    const getFromlocalStorage = JSON.parse(localStorage.getItem("@Poster:MainUserInformation")!);
+    const getFromlocalStorage = JSON.parse(localStorage.getItem("@Posterr:MainUserInformation")!);
 
     setUserInformation(getFromlocalStorage);
   }, []);

@@ -8,16 +8,29 @@ import { Post, QuotePost, Repost } from "../PostTypes";
 
 import { IUserInformation, IPostsListContent } from "../../@Types";
 
+import styles from './MainContent.module.css';
+
+interface IMainContentConfiguration {
+  isPostSomethingButtonEnabled: boolean;
+  isToggleAllPostsEnabled: boolean;
+}
+
 export function MainContent() {
   const [postListContent, setPostListContent] = useState<IPostsListContent[]>([]);
   const [principalUser, setPrincipalUser] = useState<IUserInformation>();
+  const [isPostSomethingButtonEnabled, setIsPostSomethingButtonEnabled] = useState<boolean>(true);
+  const [isToggleEnabled, setisToggleEnabled] = useState<boolean>(true);
 
   useEffect(() => {
     const getLocalStoragePostList = JSON.parse(localStorage.getItem("@Posterr:PostList") as string);
-    const getLocalStorageMainUser = JSON.parse(localStorage.getItem("@Poster:MainUserInformation") as string);
+    const getLocalStorageMainUser = JSON.parse(localStorage.getItem("@Posterr:MainUserInformation") as string);
+    const getLocalStoragePostSomethingButton = JSON.parse(localStorage.getItem("@Posterr:MainContentPostSomethingButton") as string);
+    const getLocalStorageToggle = JSON.parse(localStorage.getItem("@Posterr:MainContentToggle") as string);
 
     setPostListContent(getLocalStoragePostList);
     setPrincipalUser(getLocalStorageMainUser);
+    setIsPostSomethingButtonEnabled(getLocalStoragePostSomethingButton);
+    setisToggleEnabled(getLocalStorageToggle);
   }, []);
 
   function handleSubmitNewPost(text: string) {
@@ -46,13 +59,27 @@ export function MainContent() {
     });
   }
 
+  function handlePostSomethingButton(props: boolean) {
+    setIsPostSomethingButtonEnabled(state => {
+      localStorage.setItem("@Posterr:MainContentPostSomethingButton", JSON.stringify(props))
+      return state = props;
+    })
+  }
+
+  function handleToggleAllPostsFollowingEnabled(props: boolean) {
+    setisToggleEnabled(state => {
+      localStorage.setItem("@Posterr:MainContentToggle", JSON.stringify(props))
+      return state = props;
+    })
+  }
+
   return (
     <div>
-      <Actionbar />
+      <Actionbar isButtonPostSomethingEnabled={handlePostSomethingButton} isToggleAllPostsFollowingPressed={handleToggleAllPostsFollowingEnabled} />
 
-      <PostForm onSubmitNewPost={handleSubmitNewPost} />
+      {isPostSomethingButtonEnabled && <PostForm onSubmitNewPost={handleSubmitNewPost} />}
 
-      <div>
+      <div className={styles.mainContent}>
         {postListContent.map(value => {
           switch (value.postType) {
             case "Post": {
