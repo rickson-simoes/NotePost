@@ -7,7 +7,7 @@ import { Actionbar } from "../Actionbar";
 import { PostForm } from "../PostForm";
 import { Post, QuotePost, Repost } from "../PostTypes";
 
-import { IUserInformation, IPostsListContent, IPostContent } from "../../@Types";
+import { IUserInformation, IPostsListContent, IPostContent, IQuotePostContent } from "../../@Types";
 
 import styles from './MainContent.module.css';
 import { useLocation } from "react-router-dom";
@@ -57,7 +57,7 @@ export function MainContent() {
   }, [query.get("toggle")]);
 
 
-  function handleSubmitNewPost(text: string) {
+  function isFivePostsAlreadyReached() {
     const todayUserPosts = postListContent.filter(val => {
       const toDate = new Date(val.postDate);
       if (isToday(toDate) && principalUser?.id == val.postAuthorID) {
@@ -69,6 +69,27 @@ export function MainContent() {
 
     if (countTodayUserPosts === 5) {
       setIsUserAllowedToPost(false);
+      return true;
+    }
+
+    return false;
+  }
+
+
+  function handleToggle(props: string) {
+    if (props == "following") {
+      const postListFiltered = filterPostList(principalUser as IUserInformation, postListContent);
+
+      setPostListContent(postListFiltered);
+    } else {
+      setPostListContent(postListContent);
+    }
+  }
+
+  function submitContentToPostList(postTextContent: string, postType: "QuotePost" | "Post" | "Repost", postListQuoteContent?: IQuotePostContent) {
+    const checkFivePosts = isFivePostsAlreadyReached();
+
+    if (checkFivePosts) {
       return;
     }
 
@@ -77,16 +98,16 @@ export function MainContent() {
       postAuthorID: principalUser?.id!,
       postAuthor: principalUser?.name!,
       postAvatarSrc: principalUser?.avatar!,
-      postContent: text,
+      postContent: postTextContent,
       postDate: format(new Date(Date.now()), "yyyy-LL-dd HH:mm:ss"),
       postShared: {
-        postSharedAuthor: "",
-        postSharedAuthorID: "",
-        postSharedAvatarSrc: "",
-        postSharedContent: "",
-        postSharedDate: ""
+        postSharedAuthor: postListQuoteContent?.postSharedAuthor || "",
+        postSharedAuthorID: postListQuoteContent?.postSharedAuthorID || "",
+        postSharedAvatarSrc: postListQuoteContent?.postSharedAvatarSrc || "",
+        postSharedContent: postListQuoteContent?.postSharedContent || "",
+        postSharedDate: postListQuoteContent?.postSharedDate || ""
       },
-      postType: "Post",
+      postType: postType,
     };
 
     const newPostListValue = [newPostToInsert, ...postListContent];
@@ -105,21 +126,15 @@ export function MainContent() {
     };
   }
 
-  function handleToggle(props: string) {
-    if (props == "following") {
-      const postListFiltered = filterPostList(principalUser as IUserInformation, postListContent);
-
-      setPostListContent(postListFiltered);
-    } else {
-      setPostListContent(postListContent);
-    }
+  function handleSubmitNewPost(text: string) {
+    submitContentToPostList(text, "Post");
   }
 
-  function handleQuotePost(props: IPostContent, textContent: string) {
-    console.log("teste de props quote post");
-    console.log(props);
-    console.log(textContent);
-    console.log("teste de props quote post");
+  function handleQuotePostSubmitContent(props: IQuotePostContent) {
+    submitContentToPostList(props.postContent, "QuotePost", props);
+  }
+  function handleRepostSubmitContent(props: IQuotePostContent) {
+    submitContentToPostList(props.postContent = "", "Repost", props);
   }
 
   return (
@@ -139,7 +154,8 @@ export function MainContent() {
                 postDate={value.postDate}
                 postAuthorID={value.postAuthorID}
                 isUserPrincipal={value.postAuthorID === principalUser?.id}
-                onQuotePost={handleQuotePost}
+                onSubmitQuotePost={handleQuotePostSubmitContent}
+                onSubmitRepost={handleRepostSubmitContent}
                 key={value.postId}
               />
             }

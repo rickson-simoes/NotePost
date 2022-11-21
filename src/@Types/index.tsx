@@ -34,7 +34,8 @@ export interface IPostContent {
   postContent?: string;
   isUserPrincipal: boolean;
   postAuthorID?: string;
-  onQuotePost: (props: IPostContent, teste: string) => void;
+  onSubmitQuotePost: (props: IQuotePostContent) => void;
+  onSubmitRepost: (props: IQuotePostContent) => void;
 }
 
 export interface IRepostAndQuoteContent {
@@ -48,4 +49,13 @@ export interface IRepostAndQuoteContent {
   postSharedAvatarSrc: string;
   postSharedDate: string;
   postSharedContent: string;
+}
+
+export interface IQuotePostContent {
+  postContent: string;
+  postSharedAuthorID: string;
+  postSharedAuthor: string;
+  postSharedAvatarSrc: string;
+  postSharedContent: string;
+  postSharedDate: string;
 }

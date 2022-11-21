@@ -121,7 +121,7 @@ span.RepostQuotePost {
 
 .modalForm {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
   gap: 1rem;
 }
@@ -136,6 +136,13 @@ span.RepostQuotePost {
   box-shadow: 0 0 0 2px var(--yellow-green);
 }
 
+.modalMaxCharacters {
+  display: flex;
+  align-items: center;
+  color: var(--gray-300);
+  font-size: 0.875rem;
+}
+
 .modalButton {
   border-radius: 8px;
   color: var(--yellow-green);
@@ -145,6 +152,7 @@ span.RepostQuotePost {
   cursor: pointer;
   transition: all 0.2s;
   padding: 0 1.5rem;
+  height: 2.8rem;
 }
 
 .modalButton:hover {
