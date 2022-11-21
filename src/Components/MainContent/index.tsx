@@ -18,7 +18,6 @@ export function MainContent() {
 
   function useQuery() {
     const { search } = useLocation();
-
     return new URLSearchParams(search);
   }
 
@@ -40,11 +39,11 @@ export function MainContent() {
 
   useEffect(() => {
     const getLocalStorageMainUser: IUserInformation = JSON.parse(localStorage.getItem("@Posterr:MainUserInformation") as string);
-    const getLocalStoragePostListFilter: IPostsListContent[] = JSON.parse(localStorage.getItem("@Posterr:PostList") as string);
     const getLocalStoragePostList: IPostsListContent[] = JSON.parse(localStorage.getItem("@Posterr:PostList") as string);
 
     setPrincipalUser(getLocalStorageMainUser);
-    setPostListContentFilter(getLocalStoragePostListFilter);
+
+    setPostListContentFilter(getLocalStoragePostList);
     setPostListContent(getLocalStoragePostList);
 
     if (toggleLowerCase == "following") {
@@ -72,25 +71,18 @@ export function MainContent() {
       postType: "Post",
     };
 
-    setPostListContent(() => {
+    setPostListContent((state) => {
       const newPostListValue = [newPostToInsert, ...postListContent];
+      const postListFiltered = filterPostList(principalUser as IUserInformation, newPostListValue);
       localStorage.setItem("@Posterr:PostList", JSON.stringify(newPostListValue));
 
-      return [newPostToInsert, ...postListContent];
-    });
-
-    setPostListContentFilter(() => {
-      const newPostListValue = [newPostToInsert, ...postListContentFilter];
-      const postListFiltered = filterPostList(principalUser as IUserInformation, newPostListValue);
-
       if (toggleLowerCase == "following") {
-        localStorage.setItem("@Posterr:PostListFilter", JSON.stringify(postListFiltered));
-        return postListFiltered;
-      }
+        setPostListContentFilter(postListFiltered);
+      } else {
+        setPostListContentFilter(newPostListValue);
+      };
 
-      localStorage.setItem("@Posterr:PostListFilter", JSON.stringify(newPostListValue));
-
-      return [newPostToInsert, ...postListContentFilter];
+      return state = newPostListValue;
     });
   }
 
@@ -98,9 +90,9 @@ export function MainContent() {
     if (props == "following") {
       const postListFiltered = filterPostList(principalUser as IUserInformation, postListContent);
 
-      setPostListContentFilter(postListFiltered);
+      setPostListContent(postListFiltered);
     } else {
-      setPostListContentFilter(postListContent);
+      setPostListContent(postListContent);
     }
   }
 
