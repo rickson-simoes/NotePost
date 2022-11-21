@@ -36,6 +36,8 @@ export function MainContent() {
   }
 
   let query = useQuery();
+  const toggleLowerCase = query.get("toggle")?.toLowerCase();
+
   useEffect(() => {
     const getLocalStorageMainUser: IUserInformation = JSON.parse(localStorage.getItem("@Posterr:MainUserInformation") as string);
     const getLocalStoragePostListFilter: IPostsListContent[] = JSON.parse(localStorage.getItem("@Posterr:PostList") as string);
@@ -45,13 +47,12 @@ export function MainContent() {
     setPostListContentFilter(getLocalStoragePostListFilter);
     setPostListContent(getLocalStoragePostList);
 
-    if (query.get("toggle") == "Following") {
+    if (toggleLowerCase == "following") {
       const postListFiltered = filterPostList(getLocalStorageMainUser, getLocalStoragePostList);
 
       setPostListContentFilter(postListFiltered);
     }
   }, [query.get("toggle")]);
-
 
   function handleSubmitNewPost(text: string) {
     const newPostToInsert: IPostsListContent = {
@@ -80,6 +81,13 @@ export function MainContent() {
 
     setPostListContentFilter(() => {
       const newPostListValue = [newPostToInsert, ...postListContentFilter];
+      const postListFiltered = filterPostList(principalUser as IUserInformation, newPostListValue);
+
+      if (toggleLowerCase == "following") {
+        localStorage.setItem("@Posterr:PostListFilter", JSON.stringify(postListFiltered));
+        return postListFiltered;
+      }
+
       localStorage.setItem("@Posterr:PostListFilter", JSON.stringify(newPostListValue));
 
       return [newPostToInsert, ...postListContentFilter];
@@ -87,7 +95,7 @@ export function MainContent() {
   }
 
   function handleToggle(props: string) {
-    if (props == "Following") {
+    if (props == "following") {
       const postListFiltered = filterPostList(principalUser as IUserInformation, postListContent);
 
       setPostListContentFilter(postListFiltered);
