@@ -111,3 +111,51 @@ span.RepostQuotePost {
   padding: 0.750rem;
   border-radius: 8px;
 }
+
+.modalH4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.modalForm {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modalInputText {
+  padding: 0.675rem;
+  outline: none;
+}
+
+.modalInputText:focus {
+  outline: transparent;
+  box-shadow: 0 0 0 2px var(--yellow-green);
+}
+
+.modalButton {
+  border-radius: 8px;
+  color: var(--yellow-green);
+  background-color: var(--gray-600);
+  border: 0;
+  gap: 0.200rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0 1.5rem;
+}
+
+.modalButton:hover {
+  background-color: var(--yellow-green);
+  color: black;
+}
+
+.modalAuthorQuoteContent {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.475rem;
+}

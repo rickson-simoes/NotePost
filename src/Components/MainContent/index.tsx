@@ -6,7 +6,7 @@ import { Actionbar } from "../Actionbar";
 import { PostForm } from "../PostForm";
 import { Post, QuotePost, Repost } from "../PostTypes";
 
-import { IUserInformation, IPostsListContent } from "../../@Types";
+import { IUserInformation, IPostsListContent, IPostContent } from "../../@Types";
 
 import styles from './MainContent.module.css';
 import { useLocation } from "react-router-dom";
@@ -104,6 +104,13 @@ export function MainContent() {
     }
   }
 
+  function handleQuotePost(props: IPostContent, textContent: string) {
+    console.log("teste de props quote post");
+    console.log(props);
+    console.log(textContent);
+    console.log("teste de props quote post");
+  }
+
   return (
     <div>
       <Actionbar onToggleChange={handleToggle} />
@@ -119,7 +126,9 @@ export function MainContent() {
                 postAvatarSrc={value.postAvatarSrc}
                 postContent={value.postContent}
                 postDate={value.postDate}
+                postAuthorID={value.postAuthorID}
                 isUserPrincipal={value.postAuthorID === principalUser?.id}
+                onQuotePost={handleQuotePost}
                 key={value.postId}
               />
             }

@@ -26,3 +26,26 @@ export interface IUserInformation {
   follows: IUserInformation[];
   followers: IUserInformation[];
 }
+
+export interface IPostContent {
+  postAuthor: string;
+  postAvatarSrc: string;
+  postDate: string;
+  postContent?: string;
+  isUserPrincipal: boolean;
+  postAuthorID?: string;
+  onQuotePost: (props: IPostContent, teste: string) => void;
+}
+
+export interface IRepostAndQuoteContent {
+  postAuthor: string;
+  postAvatarSrc: string;
+  postDate: string;
+  postContent?: string;
+  isUserPrincipal: boolean;
+  postAuthorID?: string;
+  postSharedAuthor: string;
+  postSharedAvatarSrc: string;
+  postSharedDate: string;
+  postSharedContent: string;
+}
