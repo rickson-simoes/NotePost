@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
+import { isToday } from 'date-fns'
 
 import { Actionbar } from "../Actionbar";
 import { PostForm } from "../PostForm";
@@ -15,6 +16,7 @@ export function MainContent() {
   const [postListContent, setPostListContent] = useState<IPostsListContent[]>([]);
   const [postListContentFilter, setPostListContentFilter] = useState<IPostsListContent[]>([]);
   const [principalUser, setPrincipalUser] = useState<IUserInformation>();
+  const [isUserAllowedToPost, setIsUserAllowedToPost] = useState<boolean>(true);
 
   function useQuery() {
     const { search } = useLocation();
@@ -51,9 +53,25 @@ export function MainContent() {
 
       setPostListContentFilter(postListFiltered);
     }
+
   }, [query.get("toggle")]);
 
+
   function handleSubmitNewPost(text: string) {
+    const todayUserPosts = postListContent.filter(val => {
+      const toDate = new Date(val.postDate);
+      if (isToday(toDate) && principalUser?.id == val.postAuthorID) {
+        return val;
+      }
+    });
+
+    const countTodayUserPosts = todayUserPosts.length;
+
+    if (countTodayUserPosts === 5) {
+      setIsUserAllowedToPost(false);
+      return;
+    }
+
     const newPostToInsert: IPostsListContent = {
       postId: uuidv4(),
       postAuthorID: principalUser?.id!,
@@ -71,19 +89,20 @@ export function MainContent() {
       postType: "Post",
     };
 
+    const newPostListValue = [newPostToInsert, ...postListContent];
+
     setPostListContent((state) => {
-      const newPostListValue = [newPostToInsert, ...postListContent];
-      const postListFiltered = filterPostList(principalUser as IUserInformation, newPostListValue);
-      localStorage.setItem("@Posterr:PostList", JSON.stringify(newPostListValue));
-
-      if (toggleLowerCase == "following") {
-        setPostListContentFilter(postListFiltered);
-      } else {
-        setPostListContentFilter(newPostListValue);
-      };
-
       return state = newPostListValue;
     });
+
+    const postListFiltered = filterPostList(principalUser as IUserInformation, newPostListValue);
+    localStorage.setItem("@Posterr:PostList", JSON.stringify(newPostListValue));
+
+    if (toggleLowerCase == "following") {
+      setPostListContentFilter(postListFiltered);
+    } else {
+      setPostListContentFilter(newPostListValue);
+    };
   }
 
   function handleToggle(props: string) {
@@ -107,7 +126,7 @@ export function MainContent() {
     <div>
       <Actionbar onToggleChange={handleToggle} />
 
-      <PostForm onSubmitNewPost={handleSubmitNewPost} />
+      <PostForm onSubmitNewPost={handleSubmitNewPost} isUserAllowedToPost={isUserAllowedToPost} />
 
       <div className={styles.mainContent}>
         {postListContentFilter.map(value => {

@@ -6,9 +6,10 @@ import styles from './PostForm.module.css';
 
 interface IPostForm {
   onSubmitNewPost: (text: string) => void;
+  isUserAllowedToPost: boolean;
 }
 
-export function PostForm({ onSubmitNewPost }: IPostForm) {
+export function PostForm({ onSubmitNewPost, isUserAllowedToPost }: IPostForm) {
   const [textAreaPost, setTextAreaPost] = useState("");
   const [textAreaLength, setTextAreaLength] = useState<number>(0);
 
@@ -38,10 +39,12 @@ export function PostForm({ onSubmitNewPost }: IPostForm) {
         required
       />
 
+      <label className={styles.labelWarning}>{!isUserAllowedToPost && "Sorry you're not allowed to have more than five (5) posts a day."}</label>
+
       <footer>
         <button
           type="submit"
-          disabled={textAreaLength > 777}
+          disabled={textAreaLength > 777 || !isUserAllowedToPost}
         >
           Post
         </button>

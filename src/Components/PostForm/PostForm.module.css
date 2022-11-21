@@ -21,6 +21,11 @@
   box-shadow: 0 0 0 2px var(--yellow-green);
 }
 
+.labelWarning {
+  color: var(--red-500);
+  font-weight: 200;
+}
+
 
 .postForm footer {
   display: flex;
