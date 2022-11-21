@@ -49,6 +49,7 @@ export interface IRepostAndQuoteContent {
   postSharedAvatarSrc: string;
   postSharedDate: string;
   postSharedContent: string;
+  postSharedAuthorID: string;
 }
 
 export interface IQuotePostContent {

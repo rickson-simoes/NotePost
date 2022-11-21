@@ -165,8 +165,10 @@ export function MainContent() {
                 postAuthor={value.postAuthor}
                 postAvatarSrc={value.postAvatarSrc}
                 postDate={value.postDate}
+                postAuthorID={value.postAuthorID}
                 isUserPrincipal={value.postShared.postSharedAuthorID === principalUser?.id}
                 postSharedAuthor={value.postShared.postSharedAuthor}
+                postSharedAuthorID={value.postShared.postSharedAuthorID}
                 postSharedAvatarSrc={value.postShared.postSharedAvatarSrc}
                 postSharedContent={value.postShared.postSharedContent}
                 postSharedDate={value.postShared.postSharedDate}
@@ -180,8 +182,10 @@ export function MainContent() {
                 postAvatarSrc={value.postAvatarSrc}
                 postContent={value.postContent}
                 postDate={value.postDate}
+                postAuthorID={value.postAuthorID}
                 isUserPrincipal={value.postShared.postSharedAuthorID === principalUser?.id}
                 postSharedAuthor={value.postShared.postSharedAuthor}
+                postSharedAuthorID={value.postShared.postSharedAuthorID}
                 postSharedAvatarSrc={value.postShared.postSharedAvatarSrc}
                 postSharedContent={value.postShared.postSharedContent}
                 postSharedDate={value.postShared.postSharedDate}

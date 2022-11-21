@@ -9,6 +9,7 @@ import { Avatar } from "../Avatar";
 
 import styles from './PostsTypes.module.css';
 import { IPostContent, IQuotePostContent, IRepostAndQuoteContent } from "../../@Types";
+import { Link } from "react-router-dom";
 
 function FormatDate(dateString: string) {
   const dateInNewFormat = new Date(dateString);
@@ -82,7 +83,7 @@ export function Post(props: IPostContent) {
         />
         <div className={styles.postAuthorInfo}>
           <div className={styles.postAuthorNameAndTag}>
-            <strong>{props.postAuthor}</strong>
+            <strong><Link to={"/user?id=" + props.postAuthorID}>{props.postAuthor}</Link></strong>
             <span>{props.isUserPrincipal && "(You)"}</span>
           </div>
           <time title={postDateFormatted} dateTime={postDateFormatted}>
@@ -125,7 +126,7 @@ export function Repost(props: IRepostAndQuoteContent) {
         />
         <div className={styles.postAuthorInfo}>
           <div className={styles.postAuthorNameAndTag}>
-            <strong>{props.postAuthor}</strong>
+            <strong><Link to={"/user?id=" + props.postAuthorID}>{props.postAuthor}</Link></strong>
             <span className={styles.RepostQuotePost}> Repost <ShareNetwork size={14} /></span>
           </div>
           <time title={postDateFormatted} dateTime={postDateFormatted}>
@@ -142,7 +143,7 @@ export function Repost(props: IRepostAndQuoteContent) {
           />
           <div className={styles.postAuthorInfo}>
             <div className={styles.postAuthorNameAndTag}>
-              <strong>{props.postSharedAuthor}</strong>
+              <strong><Link to={"/user?id=" + props.postSharedAuthorID}>{props.postSharedAuthor}</Link></strong>
               <span>{props.isUserPrincipal && "(You)"}</span>
             </div>
             <time title={postSharedDateFormatted} dateTime={postSharedDateFormatted}>
@@ -172,7 +173,7 @@ export function QuotePost(props: IRepostAndQuoteContent) {
         />
         <div className={styles.postAuthorInfo}>
           <div className={styles.postAuthorNameAndTag}>
-            <strong>{props.postAuthor}</strong>
+            <strong><Link to={"/user?id=" + props.postAuthorID}>{props.postAuthor}</Link></strong>
             <span className={styles.RepostQuotePost}> Quote Post <Pencil size={16} /></span>
           </div>
           <time title={postDateFormatted} dateTime={postDateFormatted}>
@@ -193,7 +194,7 @@ export function QuotePost(props: IRepostAndQuoteContent) {
           />
           <div className={styles.postAuthorInfo}>
             <div className={styles.postAuthorNameAndTag}>
-              <strong>{props.postSharedAuthor}</strong>
+              <strong><Link to={"/user?id=" + props.postSharedAuthorID}>{props.postSharedAuthor}</Link></strong>
               <span>{props.isUserPrincipal && "(You)"}</span>
             </div>
             <time title={postSharedDateFormatted} dateTime={postSharedDateFormatted}>
