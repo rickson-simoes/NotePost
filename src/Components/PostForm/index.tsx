@@ -46,7 +46,7 @@ export function PostForm({ onSubmitNewPost }: IPostForm) {
           Post
         </button>
 
-        <div><PencilLine size={20} />{textAreaLength}/777</div>
+        <div><PencilLine size={20} />{777 - textAreaLength}</div>
       </footer>
     </form>
   )
