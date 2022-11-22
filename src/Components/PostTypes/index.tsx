@@ -47,12 +47,12 @@ export function Post(props: IPostContent) {
 
   function handleSubmitQuotePost() {
 
-    props.onSubmitQuotePost(QuotePostSubmit);
+    props.onSubmitQuotePost?.(QuotePostSubmit);
     handleModalQuotePostClose();
   }
 
   function handleRepostThisContent() {
-    props.onSubmitRepost(QuotePostSubmit);
+    props.onSubmitRepost?.(QuotePostSubmit);
   }
 
   return (

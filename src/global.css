@@ -20,7 +20,10 @@
   --yellow-green-brighter: #81813d;
   --yellow-green-darker: #484827;
 
+  --green-500: #308d30;
+
   --red-500: #ff2c3e;
+  --red-300: #eb5c5c;
 }
 
 body {
@@ -51,4 +54,8 @@ a {
   background-color: black;
   border: 1px solid var(--yellow-green-brighter);
   top: 40%;
+}
+
+._2I1sI:hover {
+  color: var(--gray-500);
 }

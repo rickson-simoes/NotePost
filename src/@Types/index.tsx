@@ -23,8 +23,12 @@ export interface IUserInformation {
   avatar: string;
   backgroundAvatar: string;
   bio: string;
+  joined: string;
   follows: IUserInformation[];
   followers: IUserInformation[];
+  totalFollowers?: number;
+  totalFollows?: number;
+  totalPosts?: number;
 }
 
 export interface IPostContent {
@@ -34,8 +38,8 @@ export interface IPostContent {
   postContent?: string;
   isUserPrincipal: boolean;
   postAuthorID?: string;
-  onSubmitQuotePost: (props: IQuotePostContent) => void;
-  onSubmitRepost: (props: IQuotePostContent) => void;
+  onSubmitQuotePost?: (props: IQuotePostContent) => void;
+  onSubmitRepost?: (props: IQuotePostContent) => void;
 }
 
 export interface IRepostAndQuoteContent {
