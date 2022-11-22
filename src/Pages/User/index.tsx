@@ -1,17 +1,19 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
+import { v4 as uuidv4 } from 'uuid';
+import { format, isToday } from "date-fns";
+import { UserCirclePlus, UserMinus } from 'phosphor-react';
 
-import { IPostsListContent, IUserInformation, IUserInfoToFollowUnfollow } from "../../@Types";
+import { IPostsListContent, IUserInformation, IUserInfoToFollowUnfollow, IQuotePostContent } from "../../@Types";
 
 import { Home } from "../Home";
 import { Avatar } from "../../Components/Avatar";
 
 import styles from './User.module.css';
-import { UserCirclePlus, UserMinus } from 'phosphor-react';
+
 import { PostForm } from '../../Components/PostForm';
 import { Post, QuotePost, Repost } from "../../Components/PostTypes";
-import { format, isToday } from "date-fns";
 
 export function User() {
   const [isOpen, setIsOpen] = useState(true);
@@ -84,48 +86,77 @@ export function User() {
     return false;
   }
 
-  function handleSubmitNewPost(text: string) {
+  function submitContentToPostList(postTextContent: string, postType: "QuotePost" | "Post" | "Repost", postListQuoteContent?: IQuotePostContent) {
     const checkFivePosts = isFivePostsAlreadyReached();
 
     if (checkFivePosts) {
       return;
     }
 
-    console.log(text);
+    const newPostToInsert: IPostsListContent = {
+      postId: uuidv4(),
+      postAuthorID: mainUserInformation?.id!,
+      postAuthor: mainUserInformation?.name!,
+      postAvatarSrc: mainUserInformation?.avatar!,
+      postContent: postTextContent,
+      postDate: format(new Date(Date.now()), "yyyy-LL-dd HH:mm:ss"),
+      postShared: {
+        postSharedAuthor: postListQuoteContent?.postSharedAuthor || "",
+        postSharedAuthorID: postListQuoteContent?.postSharedAuthorID || "",
+        postSharedAvatarSrc: postListQuoteContent?.postSharedAvatarSrc || "",
+        postSharedContent: postListQuoteContent?.postSharedContent || "",
+        postSharedDate: postListQuoteContent?.postSharedDate || ""
+      },
+      postType: postType,
+    };
+
+    const newPostListValue = [newPostToInsert, ...postListContentFilter];
+    const updateFullPostList = [newPostToInsert, ...postListContent]
+
+    setPostListContentFilter((state) => {
+      return state = newPostListValue;
+    });
+
+    localStorage.setItem("@Posterr:PostList", JSON.stringify(updateFullPostList));
+  }
+
+  function handleSubmitNewPost(text: string) {
+    submitContentToPostList(text, "Post");
+  }
+
+  function handleQuotePostSubmitContent(props: IQuotePostContent) {
+    submitContentToPostList(props.postContent, "QuotePost", props);
+  }
+  function handleRepostSubmitContent(props: IQuotePostContent) {
+    submitContentToPostList(props.postContent = "", "Repost", props);
   }
 
   function currentUserBeingViewed(id: string) {
     const userFound = allUsers?.find(user => user.id === id);
-
-    const totalFollowers = userFound?.followers.length;
-    const totalFollows = userFound?.follows.length;
     const totalPostsFilter = postListContent.filter(post => {
       if (post.postAuthorID === id) {
         return post;
       }
     });
-
     const totalPosts = totalPostsFilter.length;
 
+    const updatedUser: IUserInformation = {
+      avatar: userFound?.avatar!,
+      totalPosts: totalPosts,
+      backgroundAvatar: userFound?.backgroundAvatar!,
+      bio: userFound?.bio!,
+      followers: userFound?.followers!,
+      follows: userFound?.follows!,
+      id: userFound?.id!,
+      joined: userFound?.joined!,
+      name: userFound?.name!,
+      totalFollowers: userFound?.totalFollowers!,
+      totalFollows: userFound?.totalFollows!
+    };
+
     setUserProfile(state => {
-      return state = userFound;
+      return state = { ...updatedUser };
     });
-
-
-    // setUserProfile(state => {
-    //   const joined = FormatDate(userFound?.joined!);
-
-    //   return state = {
-    //     ...userFound,
-    //     totalFollowers,
-    //     totalFollows,
-    //     totalPosts,
-    //     joined
-    //   } as IUserInformation
-    // });
-
-
-    // console.log(userProfile);
   }
 
   function checkFollows() {
@@ -151,31 +182,28 @@ export function User() {
     const fixForNullDate = dateString == null ? new Date().toString() : dateString;
     const dateInNewFormat = new Date(fixForNullDate);
 
-    // return format(dateInNewFormat, "d 'of' LLLL',' yyyy");
-
-    return dateString;
+    return format(dateInNewFormat, "d 'of' LLLL',' yyyy");
   };
 
   function FollowButton() {
     const { id: idUserProfile, avatar, backgroundAvatar, bio, name } = userProfile as IUserInformation;
-
     const userToFollow: IUserInfoToFollowUnfollow = {
       id: idUserProfile,
       avatar,
       backgroundAvatar,
       bio,
       name
-    }
+    };
     const getAllUserInformation = mainUserInformation;
     getAllUserInformation?.follows.push(userToFollow);
-
+    const updateTotalFollows = getAllUserInformation?.follows.length;
+    Object.assign(getAllUserInformation!, { totalFollows: updateTotalFollows });
     setMainUserInformation(state => {
       return state = { ...getAllUserInformation! }
     });
     localStorage.setItem("@Posterr:MainUserInformation", JSON.stringify(mainUserInformation));
 
     const newUserProfile = userProfile;
-
     newUserProfile?.followers.push({
       id: mainUserInformation?.id!,
       avatar: mainUserInformation?.avatar!,
@@ -183,16 +211,13 @@ export function User() {
       bio: mainUserInformation?.bio!,
       name: mainUserInformation?.name!
     });
-
     const totalFollowers = newUserProfile?.followers.length;
     const totalFollows = newUserProfile?.follows.length;
-    const totalPostsFilter = postListContent.filter(post => {
+    const totalPosts = postListContent.filter(post => {
       if (post.postAuthorID === id) {
         return post;
       }
-    });
-
-    const totalPosts = totalPostsFilter.length;
+    }).length;
 
     Object.assign(newUserProfile!, { ...newUserProfile, totalFollowers, totalFollows, totalPosts });
 
@@ -202,49 +227,52 @@ export function User() {
 
     const indexOfUserInsideUserList = allUsers.findIndex(user => user.id === id);
     const updateAllUsers = allUsers;
-
     updateAllUsers.splice(indexOfUserInsideUserList, 1, userProfile!);
+
+    const indexOfMainUser = allUsers.findIndex(user => user.id === mainUserInformation?.id);
+    updateAllUsers.splice(indexOfMainUser, 1, mainUserInformation!);
 
     setAllUsers(state => {
       return state = [...updateAllUsers];
     });
-
     localStorage.setItem("@Posterr:AllUsers", JSON.stringify(allUsers));
-
-    console.log("UserProfile Ao ser clicado no Follow Button");
-    console.log(userProfile);
     checkFollows();
   }
 
   function UnfollowButton() {
-    const updatedUserProfile = userProfile;
-
-    const newUserProfile = updatedUserProfile?.followers.filter(user => user.id != mainUserInformation?.id);
-    const totalFollowers = newUserProfile!.length;
-    Object.assign(updatedUserProfile!, { ...updatedUserProfile, followers: newUserProfile, totalFollowers });
+    const indexOfMainUserInformation = userProfile?.followers.findIndex(user => user.id == mainUserInformation?.id);
+    userProfile?.followers.splice(indexOfMainUserInformation as number, 1);
+    const updateFollowersNumber = userProfile?.followers.length;
+    const newUserProfile = userProfile;
+    Object.assign(newUserProfile!, { ...userProfile, totalFollowers: updateFollowersNumber });
 
     setUserProfile(state => {
-      return state = { ...updatedUserProfile! }
+      return state = { ...newUserProfile! }
     });
 
+    // ATUALIZANDO PERFIL CLICADO NA LISTAGEM DE ALL USERS
     const indexOfUserInsideUserList = allUsers.findIndex(user => user.id === id);
     const updateAllUsers = allUsers;
+    updateAllUsers.splice(indexOfUserInsideUserList, 1, userProfile!);
+    //
 
-    updateAllUsers.splice(indexOfUserInsideUserList, 1, updatedUserProfile!);
+    // ATUALIZANDO MEU PERFIL NA LISTAGEM DE ALL USERS
+    const indexOfUserUnfollowed = mainUserInformation?.follows.findIndex(user => user.id == userProfile?.id);
+    mainUserInformation?.follows.splice(indexOfUserUnfollowed as number, 1)
+    const updateFollowsNumber = mainUserInformation?.follows.length;
+    const newMainUserInformation = mainUserInformation;
+    Object.assign(newMainUserInformation!, { ...mainUserInformation, totalFollows: updateFollowsNumber });
+
+    setMainUserInformation(state => {
+      return state = { ...mainUserInformation! }
+    });
+    const indexOfMainUser = allUsers.findIndex(user => user.id === mainUserInformation?.id);
+    updateAllUsers.splice(indexOfMainUser, 1, mainUserInformation!);
+
     setAllUsers(state => {
       return state = [...updateAllUsers];
     });
-
     localStorage.setItem("@Posterr:AllUsers", JSON.stringify(allUsers));
-
-    const getMainUserInformation = mainUserInformation;
-    const mainUserInformationUpdated = getMainUserInformation?.follows.filter(user => user.id != userProfile?.id);
-    Object.assign(getMainUserInformation!, { ...getMainUserInformation, follows: mainUserInformationUpdated });
-
-    setMainUserInformation(state => {
-      return state = { ...getMainUserInformation! }
-    });
-
     localStorage.setItem("@Posterr:MainUserInformation", JSON.stringify(mainUserInformation));
 
     checkFollows();
@@ -284,7 +312,7 @@ export function User() {
             <div className={styles.userInformationsOne}>
               <strong className={styles.name}>{userProfile?.name}</strong>
               <span className={styles.bio}>{userProfile?.bio}</span>
-              <span className={styles.geralInfos}>Joined: <strong>{userProfile?.joined}</strong></span>
+              <span className={styles.geralInfos}>Joined: <strong>{FormatDate(userProfile?.joined!)}</strong></span>
               <span className={styles.geralInfos}>Followers: <strong>{userProfile?.totalFollowers}</strong></span>
               <span className={styles.geralInfos}>Following: <strong>{userProfile?.totalFollows}</strong></span>
               <span className={styles.geralInfos}>Posts: <strong>{userProfile?.totalPosts}</strong></span>
@@ -320,6 +348,8 @@ export function User() {
                     postDate={value.postDate}
                     postAuthorID={value.postAuthorID}
                     isUserPrincipal={value.postAuthorID === mainUserInformation?.id}
+                    onSubmitQuotePost={handleQuotePostSubmitContent}
+                    onSubmitRepost={handleRepostSubmitContent}
                     key={value.postId}
                   />
                 }

@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import { format } from 'date-fns';
+import { format, isToday } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
-import { isToday } from 'date-fns'
-
 import { Actionbar } from "../Actionbar";
 import { PostForm } from "../PostForm";
 import { Post, QuotePost, Repost } from "../PostTypes";
