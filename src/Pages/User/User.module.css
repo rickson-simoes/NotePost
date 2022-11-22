@@ -76,7 +76,12 @@
   transition: all 0.5s;
 }
 
-.userInformationsTwo button:hover {
+.opacityButton {
+  opacity: 60%;
+  cursor: not-allowed;
+}
+
+.userInformationsTwo button:not(.opacityButton):hover {
   filter: brightness(2);
 }
 

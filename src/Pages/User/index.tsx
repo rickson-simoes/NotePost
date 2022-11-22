@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 
-import { IPostsListContent, IUserInformation } from "../../@Types";
+import { IPostsListContent, IUserInformation, IUserInfoToFollowUnfollow } from "../../@Types";
 
 import { Home } from "../Home";
 import { Avatar } from "../../Components/Avatar";
@@ -24,6 +24,8 @@ export function User() {
   const [postListContentFilter, setPostListContentFilter] = useState<IPostsListContent[]>([]);
 
   const [isUserAllowedToPost, setIsUserAllowedToPost] = useState<boolean>(true);
+
+  const [isAvailableToFollow, setIsAvailableToFollow] = useState<boolean>(true);
 
 
   function useQuery() {
@@ -92,8 +94,8 @@ export function User() {
     console.log(text);
   }
 
-  function currentUserBeingViewed(props: IUserInformation[]) {
-    const userFound = props?.find(user => user.id === id);
+  function currentUserBeingViewed(id: string) {
+    const userFound = allUsers?.find(user => user.id === id);
 
     const totalFollowers = userFound?.followers.length;
     const totalFollows = userFound?.follows.length;
@@ -106,24 +108,147 @@ export function User() {
     const totalPosts = totalPostsFilter.length;
 
     setUserProfile(state => {
-      const joined = FormatDate(userFound?.joined!);
-
-      return state = {
-        ...userFound,
-        totalFollowers,
-        totalFollows,
-        totalPosts,
-        joined
-      } as IUserInformation
+      return state = userFound;
     });
+
+
+    // setUserProfile(state => {
+    //   const joined = FormatDate(userFound?.joined!);
+
+    //   return state = {
+    //     ...userFound,
+    //     totalFollowers,
+    //     totalFollows,
+    //     totalPosts,
+    //     joined
+    //   } as IUserInformation
+    // });
+
+
+    // console.log(userProfile);
+  }
+
+  function checkFollows() {
+    if (mainUserInformation?.id === id) {
+      return setIsAvailableToFollow(state => {
+        return state = false;
+      });
+    }
+
+    const isUserInsideMyFollowersList = mainUserInformation?.follows.some(user => user.id === id);
+    if (isUserInsideMyFollowersList) {
+      return setIsAvailableToFollow(state => {
+        return state = false;
+      });
+    } else {
+      return setIsAvailableToFollow(state => {
+        return state = true;
+      });
+    }
   }
 
   function FormatDate(dateString: string | null) {
     const fixForNullDate = dateString == null ? new Date().toString() : dateString;
     const dateInNewFormat = new Date(fixForNullDate);
 
-    return format(dateInNewFormat, "d 'of' LLLL',' yyyy");
+    // return format(dateInNewFormat, "d 'of' LLLL',' yyyy");
+
+    return dateString;
   };
+
+  function FollowButton() {
+    const { id: idUserProfile, avatar, backgroundAvatar, bio, name } = userProfile as IUserInformation;
+
+    const userToFollow: IUserInfoToFollowUnfollow = {
+      id: idUserProfile,
+      avatar,
+      backgroundAvatar,
+      bio,
+      name
+    }
+    const getAllUserInformation = mainUserInformation;
+    getAllUserInformation?.follows.push(userToFollow);
+
+    setMainUserInformation(state => {
+      return state = { ...getAllUserInformation! }
+    });
+    localStorage.setItem("@Posterr:MainUserInformation", JSON.stringify(mainUserInformation));
+
+    const newUserProfile = userProfile;
+
+    newUserProfile?.followers.push({
+      id: mainUserInformation?.id!,
+      avatar: mainUserInformation?.avatar!,
+      backgroundAvatar: mainUserInformation?.backgroundAvatar!,
+      bio: mainUserInformation?.bio!,
+      name: mainUserInformation?.name!
+    });
+
+    const totalFollowers = newUserProfile?.followers.length;
+    const totalFollows = newUserProfile?.follows.length;
+    const totalPostsFilter = postListContent.filter(post => {
+      if (post.postAuthorID === id) {
+        return post;
+      }
+    });
+
+    const totalPosts = totalPostsFilter.length;
+
+    Object.assign(newUserProfile!, { ...newUserProfile, totalFollowers, totalFollows, totalPosts });
+
+    setUserProfile(state => {
+      return state = { ...newUserProfile! }
+    });
+
+    const indexOfUserInsideUserList = allUsers.findIndex(user => user.id === id);
+    const updateAllUsers = allUsers;
+
+    updateAllUsers.splice(indexOfUserInsideUserList, 1, userProfile!);
+
+    setAllUsers(state => {
+      return state = [...updateAllUsers];
+    });
+
+    localStorage.setItem("@Posterr:AllUsers", JSON.stringify(allUsers));
+
+    console.log("UserProfile Ao ser clicado no Follow Button");
+    console.log(userProfile);
+    checkFollows();
+  }
+
+  function UnfollowButton() {
+    const updatedUserProfile = userProfile;
+
+    const newUserProfile = updatedUserProfile?.followers.filter(user => user.id != mainUserInformation?.id);
+    const totalFollowers = newUserProfile!.length;
+    Object.assign(updatedUserProfile!, { ...updatedUserProfile, followers: newUserProfile, totalFollowers });
+
+    setUserProfile(state => {
+      return state = { ...updatedUserProfile! }
+    });
+
+    const indexOfUserInsideUserList = allUsers.findIndex(user => user.id === id);
+    const updateAllUsers = allUsers;
+
+    updateAllUsers.splice(indexOfUserInsideUserList, 1, updatedUserProfile!);
+    setAllUsers(state => {
+      return state = [...updateAllUsers];
+    });
+
+    localStorage.setItem("@Posterr:AllUsers", JSON.stringify(allUsers));
+
+    const getMainUserInformation = mainUserInformation;
+    const mainUserInformationUpdated = getMainUserInformation?.follows.filter(user => user.id != userProfile?.id);
+    Object.assign(getMainUserInformation!, { ...getMainUserInformation, follows: mainUserInformationUpdated });
+
+    setMainUserInformation(state => {
+      return state = { ...getMainUserInformation! }
+    });
+
+    localStorage.setItem("@Posterr:MainUserInformation", JSON.stringify(mainUserInformation));
+
+    checkFollows();
+  }
 
   useEffect(() => {
     const getLocalStorageMainUser: IUserInformation = JSON.parse(localStorage.getItem("@Posterr:MainUserInformation") as string);
@@ -138,14 +263,11 @@ export function User() {
     setMainUserInformation(getLocalStorageMainUser);
     setPostListContent(getLocalStoragePostList);
 
-    const userFound = getLocalStorageAllAppUsers?.find(user => user.id === id);
-
-    setUserProfile(userFound);
-
     const onlyPostsFromTheUser = filterPostList(getLocalStoragePostList);
     setPostListContentFilter(onlyPostsFromTheUser);
 
-    currentUserBeingViewed(getLocalStorageAllAppUsers);
+    currentUserBeingViewed(queryId);
+    checkFollows();
   }, [id]);
 
   Modal.setAppElement('#root');
@@ -169,8 +291,19 @@ export function User() {
             </div>
 
             <div className={styles.userInformationsTwo}>
-              <button className={styles.buttonFollow}>Follow <UserCirclePlus size={25} /></button>
-              <button className={styles.buttonUnfollow}>Unfollow <UserMinus size={25} /></button>
+              {isAvailableToFollow &&
+                <button
+                  onClick={FollowButton}
+                  className={`${mainUserInformation?.id === id && styles.opacityButton} ${styles.buttonFollow}`}>
+                  Follow <UserCirclePlus size={25} />
+                </button>}
+
+              {(!isAvailableToFollow && mainUserInformation?.id != id) &&
+                <button
+                  onClick={UnfollowButton}
+                  className={`${mainUserInformation?.id === id && styles.opacityButton} ${styles.buttonUnfollow}`}>
+                  Unfollow <UserMinus size={25} />
+                </button>}
             </div>
           </section>
 

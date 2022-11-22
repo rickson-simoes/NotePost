@@ -24,8 +24,8 @@ export interface IUserInformation {
   backgroundAvatar: string;
   bio: string;
   joined: string;
-  follows: IUserInformation[];
-  followers: IUserInformation[];
+  follows: IUserInfoToFollowUnfollow[];
+  followers: IUserInfoToFollowUnfollow[];
   totalFollowers?: number;
   totalFollows?: number;
   totalPosts?: number;
@@ -63,4 +63,12 @@ export interface IQuotePostContent {
   postSharedAvatarSrc: string;
   postSharedContent: string;
   postSharedDate: string;
+}
+
+export interface IUserInfoToFollowUnfollow {
+  id: string;
+  name: string;
+  avatar: string;
+  backgroundAvatar: string;
+  bio: string;
 }

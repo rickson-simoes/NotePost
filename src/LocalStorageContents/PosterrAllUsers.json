@@ -30,7 +30,10 @@
         "backgroundAvatar": "https://images.unsplash.com/photo-1546238232-20216dec9f72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
         "bio": "I love puppies"
       }
-    ]
+    ],
+    "totalFollowers": 2,
+    "totalFollows": 1,
+    "totalPosts": 2
   },
   {
     "id": "58e4aa7f-fd4c-4d0b-9333-a6287fce6736",
@@ -48,7 +51,10 @@
         "bio": "I like food and travel ✈"
       }
     ],
-    "followers": []
+    "followers": [],
+    "totalFollowers": 0,
+    "totalFollows": 1,
+    "totalPosts": 2
   },
   {
     "id": "58e4aa7f-fd4c-4c0b-9333-a6287fce6736",
@@ -74,6 +80,9 @@
         "backgroundAvatar": "https://images.unsplash.com/photo-1528722828814-77b9b83aafb2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
         "bio": "I like food and travel ✈"
       }
-    ]
+    ],
+    "totalFollowers": 1,
+    "totalFollows": 1,
+    "totalPosts": 2
   }
 ]
