@@ -250,13 +250,10 @@ export function User() {
       return state = { ...newUserProfile! }
     });
 
-    // ATUALIZANDO PERFIL CLICADO NA LISTAGEM DE ALL USERS
     const indexOfUserInsideUserList = allUsers.findIndex(user => user.id === id);
     const updateAllUsers = allUsers;
     updateAllUsers.splice(indexOfUserInsideUserList, 1, userProfile!);
-    //
 
-    // ATUALIZANDO MEU PERFIL NA LISTAGEM DE ALL USERS
     const indexOfUserUnfollowed = mainUserInformation?.follows.findIndex(user => user.id == userProfile?.id);
     mainUserInformation?.follows.splice(indexOfUserUnfollowed as number, 1)
     const updateFollowsNumber = mainUserInformation?.follows.length;
