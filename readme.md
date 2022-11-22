@@ -1,3 +1,6 @@
+PROJECT CREATED BY: RICKSON MONTEIRO MENEZES SIMÕES
+
+
 *Obs.:You can install the dependencies and execute the project, because the project detects if there's all four localstorage data to load the contents, if it don't then it generates automatically.*
 
 If there's any error with the localstorage you can follow this easy tutorial:
