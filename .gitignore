@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 /.git
 
-.readme.md
+/readme.md
