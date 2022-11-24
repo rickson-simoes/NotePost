@@ -18,7 +18,7 @@
 
 .actionBar button:hover {
   background-color: var(--yellow-green);
-  color: black;
+  color: var(--black);
 }
 
 .toggle a {

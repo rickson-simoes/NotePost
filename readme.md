@@ -6,10 +6,10 @@ PROJECT CREATED BY: RICKSON MONTEIRO MENEZES SIMÕES
 If there's any error with the localstorage you can follow this easy tutorial:
 (There's a example inside: *.src/LocalStorageContents/LocalStorageExample.png* about how it should look inside localstorage, also each file have it's own data to paste inside localstorage):
 
-@Posterr:MainContentToggle
-@Posterr:AllUsers
-@Posterr:PostList
-@Posterr:MainUserInformation
+@NotePost:MainContentToggle
+@NotePost:AllUsers
+@NotePost:PostList
+@NotePost:MainUserInformation
 
 ===============================================
 Install all dependencies:

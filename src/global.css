@@ -6,6 +6,7 @@
 
 :root {
   --white: #FFFFFF;
+  --black: #000000;
 
   --gray-100: #e0e0e0;
   --gray-200: #c4c4cc;
@@ -51,7 +52,7 @@ a {
 }
 
 ._3bARu {
-  background-color: black;
+  background-color: var(--black);
   border: 1px solid var(--yellow-green-brighter);
   top: 40%;
 }

@@ -157,7 +157,7 @@ span.RepostQuotePost {
 
 .modalButton:hover {
   background-color: var(--yellow-green);
-  color: black;
+  color: var(--black);
 }
 
 .modalAuthorQuoteContent {

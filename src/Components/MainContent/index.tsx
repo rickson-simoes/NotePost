@@ -38,8 +38,8 @@ export function MainContent() {
   const toggleLowerCase = query.get("toggle")?.toLowerCase();
 
   useEffect(() => {
-    const getLocalStorageMainUser: IUserInformation = JSON.parse(localStorage.getItem("@Posterr:MainUserInformation") as string);
-    const getLocalStoragePostList: IPostsListContent[] = JSON.parse(localStorage.getItem("@Posterr:PostList") as string);
+    const getLocalStorageMainUser: IUserInformation = JSON.parse(localStorage.getItem("@NotePost:MainUserInformation") as string);
+    const getLocalStoragePostList: IPostsListContent[] = JSON.parse(localStorage.getItem("@NotePost:PostList") as string);
 
     setPrincipalUser(getLocalStorageMainUser);
 
@@ -115,7 +115,7 @@ export function MainContent() {
     });
 
     const postListFiltered = filterPostList(principalUser as IUserInformation, newPostListValue);
-    localStorage.setItem("@Posterr:PostList", JSON.stringify(newPostListValue));
+    localStorage.setItem("@NotePost:PostList", JSON.stringify(newPostListValue));
 
     if (toggleLowerCase == "following") {
       setPostListContentFilter(postListFiltered);

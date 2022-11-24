@@ -71,14 +71,15 @@ export function User() {
   function isFivePostsAlreadyReached() {
     const todayUserPosts = postListContent.filter(val => {
       const toDate = new Date(val.postDate);
-      if (isToday(toDate) && userProfile?.id == val.postAuthorID) {
+      if (isToday(toDate) && mainUserInformation?.id == val.postAuthorID) {
         return val;
       }
     });
+    console.log(id);
 
     const countTodayUserPosts = todayUserPosts.length;
 
-    if (countTodayUserPosts === 5) {
+    if (countTodayUserPosts >= 5) {
       setIsUserAllowedToPost(false);
       return true;
     }
@@ -117,7 +118,7 @@ export function User() {
       return state = newPostListValue;
     });
 
-    localStorage.setItem("@Posterr:PostList", JSON.stringify(updateFullPostList));
+    localStorage.setItem("@NotePost:PostList", JSON.stringify(updateFullPostList));
   }
 
   function handleSubmitNewPost(text: string) {
@@ -201,7 +202,7 @@ export function User() {
     setMainUserInformation(state => {
       return state = { ...getAllUserInformation! }
     });
-    localStorage.setItem("@Posterr:MainUserInformation", JSON.stringify(mainUserInformation));
+    localStorage.setItem("@NotePost:MainUserInformation", JSON.stringify(mainUserInformation));
 
     const newUserProfile = userProfile;
     newUserProfile?.followers.push({
@@ -235,7 +236,7 @@ export function User() {
     setAllUsers(state => {
       return state = [...updateAllUsers];
     });
-    localStorage.setItem("@Posterr:AllUsers", JSON.stringify(allUsers));
+    localStorage.setItem("@NotePost:AllUsers", JSON.stringify(allUsers));
     checkFollows();
   }
 
@@ -269,16 +270,16 @@ export function User() {
     setAllUsers(state => {
       return state = [...updateAllUsers];
     });
-    localStorage.setItem("@Posterr:AllUsers", JSON.stringify(allUsers));
-    localStorage.setItem("@Posterr:MainUserInformation", JSON.stringify(mainUserInformation));
+    localStorage.setItem("@NotePost:AllUsers", JSON.stringify(allUsers));
+    localStorage.setItem("@NotePost:MainUserInformation", JSON.stringify(mainUserInformation));
 
     checkFollows();
   }
 
   useEffect(() => {
-    const getLocalStorageMainUser: IUserInformation = JSON.parse(localStorage.getItem("@Posterr:MainUserInformation") as string);
-    const getLocalStoragePostList: IPostsListContent[] = JSON.parse(localStorage.getItem("@Posterr:PostList") as string);
-    const getLocalStorageAllAppUsers: IUserInformation[] = JSON.parse(localStorage.getItem("@Posterr:AllUsers") as string);
+    const getLocalStorageMainUser: IUserInformation = JSON.parse(localStorage.getItem("@NotePost:MainUserInformation") as string);
+    const getLocalStoragePostList: IPostsListContent[] = JSON.parse(localStorage.getItem("@NotePost:PostList") as string);
+    const getLocalStorageAllAppUsers: IUserInformation[] = JSON.parse(localStorage.getItem("@NotePost:AllUsers") as string);
 
     const queryId = query.get("id") || mainUserInformation?.id as string;
 

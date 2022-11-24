@@ -22,26 +22,26 @@ export function Actionbar({ onToggleChange }: IActionBar) {
 
   useEffect(() => {
     if (toggleLowerCase == "following") {
-      localStorage.setItem("@Posterr:MainContentToggle", "following");
+      localStorage.setItem("@NotePost:MainContentToggle", "following");
     } else {
-      localStorage.setItem("@Posterr:MainContentToggle", "all");
+      localStorage.setItem("@NotePost:MainContentToggle", "all");
     }
 
-    const getLocalStorageToggle = localStorage.getItem("@Posterr:MainContentToggle") as string;
+    const getLocalStorageToggle = localStorage.getItem("@NotePost:MainContentToggle") as string;
 
     setToggle(getLocalStorageToggle);
   }, [])
 
   function handleToggleAllPostsFollowing() {
     if (toggle == "all") {
-      localStorage.setItem("@Posterr:MainContentToggle", "following");
+      localStorage.setItem("@NotePost:MainContentToggle", "following");
       setToggle(state => {
         const newState = "following";
         onToggleChange(newState);
         return state = newState
       });
     } else {
-      localStorage.setItem("@Posterr:MainContentToggle", "all");
+      localStorage.setItem("@NotePost:MainContentToggle", "all");
       setToggle(state => {
         const newState = "all";
         onToggleChange(newState);
