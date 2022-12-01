@@ -1,4 +1,4 @@
-<h1 align="center">✍🏻 NotePost</h1>
+<h1 align="center">📝 NotePost</h1>
 
 [Vite-url]: https://vitejs.dev/
 [Vite-image]: https://img.shields.io/badge/Vite-646CFF?style=square&logo=Vite&logoColor=646CFF&labelColor=gray&label=^3.2.3
