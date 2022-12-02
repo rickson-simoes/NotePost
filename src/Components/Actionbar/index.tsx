@@ -9,7 +9,9 @@ interface IActionBar {
 }
 
 export function Actionbar({ onToggleChange }: IActionBar) {
-  const [toggle, setToggle] = useState<string>("all");
+  const [toggle, setToggle] = useState<string>(localStorage.getItem("@NotePost:MainContentToggle")!);
+  const Following = "following";
+  const All = "all";
 
   function useQuery() {
     const { search } = useLocation();
@@ -21,10 +23,10 @@ export function Actionbar({ onToggleChange }: IActionBar) {
   const toggleLowerCase = query.get("toggle")?.toLowerCase();
 
   useEffect(() => {
-    if (toggleLowerCase == "following") {
-      localStorage.setItem("@NotePost:MainContentToggle", "following");
+    if (toggleLowerCase == Following) {
+      localStorage.setItem("@NotePost:MainContentToggle", Following);
     } else {
-      localStorage.setItem("@NotePost:MainContentToggle", "all");
+      localStorage.setItem("@NotePost:MainContentToggle", All);
     }
 
     const getLocalStorageToggle = localStorage.getItem("@NotePost:MainContentToggle") as string;
@@ -33,27 +35,21 @@ export function Actionbar({ onToggleChange }: IActionBar) {
   }, [])
 
   function handleToggleAllPostsFollowing() {
-    if (toggle == "all") {
-      localStorage.setItem("@NotePost:MainContentToggle", "following");
-      setToggle(state => {
-        const newState = "following";
-        onToggleChange(newState);
-        return state = newState
-      });
+    if (toggle == All) {
+      localStorage.setItem("@NotePost:MainContentToggle", Following);
+      setToggle(Following);
+      onToggleChange(Following);
     } else {
-      localStorage.setItem("@NotePost:MainContentToggle", "all");
-      setToggle(state => {
-        const newState = "all";
-        onToggleChange(newState);
-        return state = newState
-      });
+      localStorage.setItem("@NotePost:MainContentToggle", All);
+      setToggle(All);
+      onToggleChange(All);
     }
   }
 
   return (
     <div className={styles.actionBar}>
       <div className={styles.toggle} onClick={handleToggleAllPostsFollowing}>
-        {toggle == "all" ?
+        {toggle == All ?
           <>
             <Link to="/?toggle=following"><strong> All Posts</strong>&nbsp; / Following &nbsp; <ToggleLeft size={34} /></Link>
           </> :

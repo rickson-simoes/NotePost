@@ -10,9 +10,9 @@ const allUsersFromTheApplication = localStorage.getItem("@NotePost:AllUsers");
 const allPostsFromPostList = localStorage.getItem("@NotePost:PostList");
 const toggleButton = localStorage.getItem("@NotePost:MainContentToggle");
 
-if (mainUserInformation == null &&
-  allUsersFromTheApplication == null &&
-  allPostsFromPostList == null &&
+if (mainUserInformation == null ||
+  allUsersFromTheApplication == null ||
+  allPostsFromPostList == null ||
   toggleButton == null) {
 
   localStorage.setItem("@NotePost:MainContentToggle", "all");

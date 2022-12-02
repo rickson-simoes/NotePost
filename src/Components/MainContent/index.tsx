@@ -5,16 +5,16 @@ import { Actionbar } from "../Actionbar";
 import { PostForm } from "../PostForm";
 import { Post, QuotePost, Repost } from "../PostTypes";
 
-import { IUserInformation, IPostsListContent, IPostContent, IQuotePostContent } from "../../@Types";
+import { IUserInformation, IPostsListContent, IQuotePostContent } from "../../@Types";
 
 import styles from './MainContent.module.css';
 import { useLocation } from "react-router-dom";
 
 export function MainContent() {
-  const [postListContent, setPostListContent] = useState<IPostsListContent[]>([]);
-  const [postListContentFilter, setPostListContentFilter] = useState<IPostsListContent[]>([]);
-  const [principalUser, setPrincipalUser] = useState<IUserInformation>();
+  const [postListContent, setPostListContent] = useState<IPostsListContent[]>(JSON.parse(localStorage.getItem("@NotePost:PostList")!));
+  const [principalUser, setPrincipalUser] = useState<IUserInformation>(JSON.parse(localStorage.getItem("@NotePost:MainUserInformation")!));
   const [isUserAllowedToPost, setIsUserAllowedToPost] = useState<boolean>(true);
+  const Following = "following";
 
   function useQuery() {
     const { search } = useLocation();
@@ -23,43 +23,37 @@ export function MainContent() {
 
   function filterPostList(mainUser: IUserInformation, postList: IPostsListContent[]) {
     const ids: string[] = [];
-    mainUser?.follows.map(val => ids.push(val.id));
+    mainUser?.follows.map(user => ids.push(user.id));
 
-    return postList.filter(val => {
+    return postList.filter(post => {
       for (const id of ids) {
-        if (val.postAuthorID == id) {
-          return val;
+        if (post.postAuthorID == id) {
+          return post;
         }
       }
     });
   }
 
   let query = useQuery();
-  const toggleLowerCase = query.get("toggle")?.toLowerCase();
+  const queryToggle = query.get("toggle");
 
   useEffect(() => {
-    const getLocalStorageMainUser: IUserInformation = JSON.parse(localStorage.getItem("@NotePost:MainUserInformation") as string);
-    const getLocalStoragePostList: IPostsListContent[] = JSON.parse(localStorage.getItem("@NotePost:PostList") as string);
+    if (queryToggle?.toLowerCase() == Following) {
+      const postListFiltered = filterPostList(principalUser, postListContent);
 
-    setPrincipalUser(getLocalStorageMainUser);
-
-    setPostListContentFilter(getLocalStoragePostList);
-    setPostListContent(getLocalStoragePostList);
-
-    if (toggleLowerCase == "following") {
-      const postListFiltered = filterPostList(getLocalStorageMainUser, getLocalStoragePostList);
-
-      setPostListContentFilter(postListFiltered);
+      setPostListContent(postListFiltered);
+    } else {
+      setPostListContent(JSON.parse(localStorage.getItem("@NotePost:PostList")!));
     }
 
-  }, [query.get("toggle")]);
+  }, [queryToggle]);
 
 
   function isFivePostsAlreadyReached() {
-    const todayUserPosts = postListContent.filter(val => {
-      const toDate = new Date(val.postDate);
-      if (isToday(toDate) && principalUser?.id == val.postAuthorID) {
-        return val;
+    const todayUserPosts = postListContent.filter(post => {
+      const toDate = new Date(post.postDate);
+      if (isToday(toDate) && principalUser?.id == post.postAuthorID) {
+        return post;
       }
     });
 
@@ -75,7 +69,7 @@ export function MainContent() {
 
 
   function handleToggle(props: string) {
-    if (props == "following") {
+    if (props == Following) {
       const postListFiltered = filterPostList(principalUser as IUserInformation, postListContent);
 
       setPostListContent(postListFiltered);
@@ -117,10 +111,10 @@ export function MainContent() {
     const postListFiltered = filterPostList(principalUser as IUserInformation, newPostListValue);
     localStorage.setItem("@NotePost:PostList", JSON.stringify(newPostListValue));
 
-    if (toggleLowerCase == "following") {
-      setPostListContentFilter(postListFiltered);
+    if (queryToggle?.toLowerCase() == Following) {
+      setPostListContent(postListFiltered);
     } else {
-      setPostListContentFilter(newPostListValue);
+      setPostListContent(newPostListValue);
     };
   }
 
@@ -142,52 +136,52 @@ export function MainContent() {
       <PostForm onSubmitNewPost={handleSubmitNewPost} isUserAllowedToPost={isUserAllowedToPost} />
 
       <div className={styles.mainContent}>
-        {postListContentFilter.map(value => {
-          switch (value.postType) {
+        {postListContent.map(post => {
+          switch (post.postType) {
             case "Post": {
               return <Post
-                postAuthor={value.postAuthor}
-                postAvatarSrc={value.postAvatarSrc}
-                postContent={value.postContent}
-                postDate={value.postDate}
-                postAuthorID={value.postAuthorID}
-                isUserPrincipal={value.postAuthorID === principalUser?.id}
+                postAuthor={post.postAuthor}
+                postAvatarSrc={post.postAvatarSrc}
+                postContent={post.postContent}
+                postDate={post.postDate}
+                postAuthorID={post.postAuthorID}
+                isUserPrincipal={post.postAuthorID === principalUser?.id}
                 onSubmitQuotePost={handleQuotePostSubmitContent}
                 onSubmitRepost={handleRepostSubmitContent}
-                key={value.postId}
+                key={post.postId}
               />
             }
 
             case "Repost": {
               return <Repost
-                postAuthor={value.postAuthor}
-                postAvatarSrc={value.postAvatarSrc}
-                postDate={value.postDate}
-                postAuthorID={value.postAuthorID}
-                isUserPrincipal={value.postShared.postSharedAuthorID === principalUser?.id}
-                postSharedAuthor={value.postShared.postSharedAuthor}
-                postSharedAuthorID={value.postShared.postSharedAuthorID}
-                postSharedAvatarSrc={value.postShared.postSharedAvatarSrc}
-                postSharedContent={value.postShared.postSharedContent}
-                postSharedDate={value.postShared.postSharedDate}
-                key={value.postId}
+                postAuthor={post.postAuthor}
+                postAvatarSrc={post.postAvatarSrc}
+                postDate={post.postDate}
+                postAuthorID={post.postAuthorID}
+                isUserPrincipal={post.postShared.postSharedAuthorID === principalUser?.id}
+                postSharedAuthor={post.postShared.postSharedAuthor}
+                postSharedAuthorID={post.postShared.postSharedAuthorID}
+                postSharedAvatarSrc={post.postShared.postSharedAvatarSrc}
+                postSharedContent={post.postShared.postSharedContent}
+                postSharedDate={post.postShared.postSharedDate}
+                key={post.postId}
               />
             }
 
             case "QuotePost": {
               return <QuotePost
-                postAuthor={value.postAuthor}
-                postAvatarSrc={value.postAvatarSrc}
-                postContent={value.postContent}
-                postDate={value.postDate}
-                postAuthorID={value.postAuthorID}
-                isUserPrincipal={value.postShared.postSharedAuthorID === principalUser?.id}
-                postSharedAuthor={value.postShared.postSharedAuthor}
-                postSharedAuthorID={value.postShared.postSharedAuthorID}
-                postSharedAvatarSrc={value.postShared.postSharedAvatarSrc}
-                postSharedContent={value.postShared.postSharedContent}
-                postSharedDate={value.postShared.postSharedDate}
-                key={value.postId}
+                postAuthor={post.postAuthor}
+                postAvatarSrc={post.postAvatarSrc}
+                postContent={post.postContent}
+                postDate={post.postDate}
+                postAuthorID={post.postAuthorID}
+                isUserPrincipal={post.postShared.postSharedAuthorID === principalUser?.id}
+                postSharedAuthor={post.postShared.postSharedAuthor}
+                postSharedAuthorID={post.postShared.postSharedAuthorID}
+                postSharedAvatarSrc={post.postShared.postSharedAvatarSrc}
+                postSharedContent={post.postShared.postSharedContent}
+                postSharedDate={post.postShared.postSharedDate}
+                key={post.postId}
               />
             }
           }
