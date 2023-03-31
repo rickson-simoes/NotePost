@@ -26,9 +26,9 @@ export interface IUserInformation {
   joined: string;
   follows: IUserInfoToFollowUnfollow[];
   followers: IUserInfoToFollowUnfollow[];
-  totalFollowers?: number;
-  totalFollows?: number;
-  totalPosts?: number;
+  totalFollowers: number;
+  totalFollows: number;
+  totalPosts: number;
 }
 
 export interface IPostContent {
