@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { format, isToday } from 'date-fns';
-import { v4 as uuidv4 } from 'uuid';
 import { Actionbar } from "../Actionbar";
 import { PostForm } from "../PostForm";
 import { Post, QuotePost, Repost } from "../PostTypes";
@@ -9,8 +8,11 @@ import { IUserInformation, IPostsListContent, IQuotePostContent } from "../../@T
 
 import styles from './MainContent.module.css';
 import { useLocation } from "react-router-dom";
+import { AppManagementContext } from "../../Context/AppManagementContext";
 
 export function MainContent() {
+  const { mainUserInfo, updateMainUserInfo } = useContext(AppManagementContext);
+
   const [postListContent, setPostListContent] = useState<IPostsListContent[]>(JSON.parse(localStorage.getItem("@NotePost:PostList")!));
   const [principalUser, setPrincipalUser] = useState<IUserInformation>(JSON.parse(localStorage.getItem("@NotePost:MainUserInformation")!));
   const [isUserAllowedToPost, setIsUserAllowedToPost] = useState<boolean>(true);
@@ -86,10 +88,10 @@ export function MainContent() {
     }
 
     const newPostToInsert: IPostsListContent = {
-      postId: uuidv4(),
-      postAuthorID: principalUser?.id!,
-      postAuthor: principalUser?.name!,
-      postAvatarSrc: principalUser?.avatar!,
+      postId: crypto.randomUUID(),
+      postAuthorID: mainUserInfo.id,
+      postAuthor: mainUserInfo.name,
+      postAvatarSrc: mainUserInfo.avatar!,
       postContent: postTextContent,
       postDate: format(new Date(Date.now()), "yyyy-LL-dd HH:mm:ss"),
       postShared: {
