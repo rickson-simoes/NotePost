@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { Pencil, PencilLine, ShareNetwork } from "phosphor-react";
+import { Pencil, ShareNetwork } from "phosphor-react";
 import { format } from 'date-fns';
 // @ts-ignore
 import { Modal } from 'react-modal-overlay';
@@ -83,7 +83,7 @@ export function Post(props: IPostContent) {
         />
         <div className={styles.postAuthorInfo}>
           <div className={styles.postAuthorNameAndTag}>
-            <strong><Link to={"/user?id=" + props.postAuthorID}>{props.postAuthor}</Link></strong>
+            <strong><Link to={`/user/${props.postAuthorID}`}>{props.postAuthor}</Link></strong>
             <span>{props.isUserPrincipal && "(You)"}</span>
           </div>
           <time title={postDateFormatted} dateTime={postDateFormatted}>
@@ -126,7 +126,7 @@ export function Repost(props: IRepostAndQuoteContent) {
         />
         <div className={styles.postAuthorInfo}>
           <div className={styles.postAuthorNameAndTag}>
-            <strong><Link to={"/user?id=" + props.postAuthorID}>{props.postAuthor}</Link></strong>
+            <strong><Link to={`/user/${props.postAuthorID}`}>{props.postAuthor}</Link></strong>
             <span className={styles.RepostQuotePost}> Repost <ShareNetwork size={14} /></span>
           </div>
           <time title={postDateFormatted} dateTime={postDateFormatted}>
@@ -143,7 +143,7 @@ export function Repost(props: IRepostAndQuoteContent) {
           />
           <div className={styles.postAuthorInfo}>
             <div className={styles.postAuthorNameAndTag}>
-              <strong><Link to={"/user?id=" + props.postSharedAuthorID}>{props.postSharedAuthor}</Link></strong>
+              <strong><Link to={`/user/${props.postSharedAuthorID}`}>{props.postSharedAuthor}</Link></strong>
               <span>{props.isUserPrincipal && "(You)"}</span>
             </div>
             <time title={postSharedDateFormatted} dateTime={postSharedDateFormatted}>
@@ -173,7 +173,7 @@ export function QuotePost(props: IRepostAndQuoteContent) {
         />
         <div className={styles.postAuthorInfo}>
           <div className={styles.postAuthorNameAndTag}>
-            <strong><Link to={"/user?id=" + props.postAuthorID}>{props.postAuthor}</Link></strong>
+            <strong><Link to={`/user/${props.postAuthorID}`}>{props.postAuthor}</Link></strong>
             <span className={styles.RepostQuotePost}> Quote Post <Pencil size={16} /></span>
           </div>
           <time title={postDateFormatted} dateTime={postDateFormatted}>
@@ -194,7 +194,7 @@ export function QuotePost(props: IRepostAndQuoteContent) {
           />
           <div className={styles.postAuthorInfo}>
             <div className={styles.postAuthorNameAndTag}>
-              <strong><Link to={"/user?id=" + props.postSharedAuthorID}>{props.postSharedAuthor}</Link></strong>
+              <strong><Link to={`/user/${props.postSharedAuthorID}`}>{props.postSharedAuthor}</Link></strong>
               <span>{props.isUserPrincipal && "(You)"}</span>
             </div>
             <time title={postSharedDateFormatted} dateTime={postSharedDateFormatted}>
