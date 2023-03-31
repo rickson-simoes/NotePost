@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 import { AppManagementContext } from "../../Context/AppManagementContext";
 
 export function MainContent() {
-  const { mainUserInfo, updateMainUserInfo } = useContext(AppManagementContext);
+  const { mainUserInfo } = useContext(AppManagementContext);
 
   const [postListContent, setPostListContent] = useState<IPostsListContent[]>(JSON.parse(localStorage.getItem("@NotePost:PostList")!));
   const [principalUser, setPrincipalUser] = useState<IUserInformation>(JSON.parse(localStorage.getItem("@NotePost:MainUserInformation")!));
@@ -106,9 +106,7 @@ export function MainContent() {
 
     const newPostListValue = [newPostToInsert, ...postListContent];
 
-    setPostListContent((state) => {
-      return state = newPostListValue;
-    });
+    setPostListContent(newPostListValue);
 
     const postListFiltered = filterPostList(principalUser as IUserInformation, newPostListValue);
     localStorage.setItem("@NotePost:PostList", JSON.stringify(newPostListValue));
