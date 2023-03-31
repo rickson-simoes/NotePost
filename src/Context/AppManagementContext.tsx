@@ -1,31 +1,57 @@
-import { ReactNode, createContext, useState } from 'react';
-import { IPostsListContent, IUserInformation } from '../@Types';
+import { ReactNode, createContext, useReducer, useState } from 'react';
+import { IPostsListContent, IUserInformation, MainUserAction } from '../@Types';
 
 export interface IUserManagementContextTypes {
-  getMainUserInfo: () => void;
-  getPostList: () => void;
-  getAllUsers: () => void;
+  mainUserInfo: IUserInformation;
+  updateMainUserInfo: (user: IUserInformation) => void;
 }
 
 export interface IAppManagementContextProvider {
   children: ReactNode;
 }
 
-const AppManagementContext = createContext({} as IUserManagementContextTypes);
-
+export const AppManagementContext = createContext({} as IUserManagementContextTypes);
 
 export function AppManagementContextProvider({ children }: IAppManagementContextProvider) {
   //@WORKAROUND - CHANGE STATES TO REDUCERS
-  const [mainUserInformation, setMainUserInformation] = useState<IUserInformation>(JSON.parse(localStorage.getItem("@NotePost:MainUserInformation")!));
-  const [postsList, setPostsList] = useState<IPostsListContent[]>(JSON.parse(localStorage.getItem("@NotePost:PostList")!));
-  const [allUsers, setAllUsers] = useState<IUserInformation[]>(JSON.parse(localStorage.getItem("@NotePost:MainUserInformation")!));
+  const [mainUserInfo, mainUserInfoDispatch] = useReducer((state: IUserInformation, action: MainUserAction) => {
+    switch (action.type) {
+      case 'GET': {
+        return { ...state }
+      }
 
-  function getMainUserInfo() { }
-  function getAllUsers() { }
-  function getPostList() { }
+      case 'UPDATE': {
+        return { ...action.payload }
+      }
+    }
+  },
+    {} as IUserInformation,
+    (state) => {
+      const storedMainUser = localStorage.getItem("@NotePost:MainUserInformation");
+
+      if (storedMainUser) {
+        return JSON.parse(storedMainUser);
+      }
+
+      return state;
+    });
+
+
+  // const [postsList, setPostsList] = useState<IPostsListContent[]>(JSON.parse(localStorage.getItem("@NotePost:PostList")!));
+  // const [allUsers, setAllUsers] = useState<IUserInformation[]>(JSON.parse(localStorage.getItem("@NotePost:MainUserInformation")!));
+
+  function updateMainUserInfo(userData: IUserInformation) {
+    mainUserInfoDispatch({
+      type: 'UPDATE',
+      payload: userData
+    });
+  }
+
+  // function getAllUsers() { }
+  // function getPostList() { }
 
   return (
-    <AppManagementContext.Provider value={{ getMainUserInfo, getAllUsers, getPostList }}>
+    <AppManagementContext.Provider value={{ mainUserInfo, updateMainUserInfo }}>
       {children}
     </AppManagementContext.Provider>
   )
