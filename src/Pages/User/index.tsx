@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
-import { v4 as uuidv4 } from 'uuid';
 import { format, isToday } from "date-fns";
 import { UserCirclePlus, UserMinus } from 'phosphor-react';
 
@@ -15,8 +14,25 @@ import styles from './User.module.css';
 import { PostForm } from '../../Components/PostForm';
 import { Post, QuotePost, Repost } from "../../Components/PostTypes";
 
+export const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: "#0e0e0e",
+    border: "0"
+  },
+  overlay: {
+    backgroundColor: "rgb(0 0 0 / 68%)"
+  }
+};
+
 export function User() {
   const { id } = useParams();
+
   const [isOpen, setIsOpen] = useState(true);
   const [mainUserInformation, setMainUserInformation] = useState<IUserInformation>();
   const allUsers: IUserInformation[] = JSON.parse(localStorage.getItem("@NotePost:AllUsers") as string);
@@ -37,22 +53,6 @@ export function User() {
   }
 
   let query = useQuery();
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      backgroundColor: "#0e0e0e",
-      border: "0"
-    },
-    overlay: {
-      backgroundColor: "rgb(0 0 0 / 68%)"
-    }
-  };
 
   const navigate = useNavigate();
 
@@ -95,7 +95,7 @@ export function User() {
     }
 
     const newPostToInsert: IPostsListContent = {
-      postId: uuidv4(),
+      postId: crypto.randomUUID(),
       postAuthorID: mainUserInformation?.id!,
       postAuthor: mainUserInformation?.name!,
       postAvatarSrc: mainUserInformation?.avatar!,
