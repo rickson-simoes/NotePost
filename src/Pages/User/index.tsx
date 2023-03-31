@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 import { v4 as uuidv4 } from 'uuid';
 import { format, isToday } from "date-fns";
@@ -16,10 +16,10 @@ import { PostForm } from '../../Components/PostForm';
 import { Post, QuotePost, Repost } from "../../Components/PostTypes";
 
 export function User() {
+  const { id } = useParams();
   const [isOpen, setIsOpen] = useState(true);
-  const [id, setId] = useState("");
   const [mainUserInformation, setMainUserInformation] = useState<IUserInformation>();
-  const [allUsers, setAllUsers] = useState<IUserInformation[]>([]);
+  const allUsers: IUserInformation[] = JSON.parse(localStorage.getItem("@NotePost:AllUsers") as string);
   const [userProfile, setUserProfile] = useState<IUserInformation>();
 
   const [postListContent, setPostListContent] = useState<IPostsListContent[]>([]);
@@ -28,6 +28,7 @@ export function User() {
   const [isUserAllowedToPost, setIsUserAllowedToPost] = useState<boolean>(true);
 
   const [isAvailableToFollow, setIsAvailableToFollow] = useState<boolean>(true);
+
 
 
   function useQuery() {
@@ -75,7 +76,6 @@ export function User() {
         return val;
       }
     });
-    console.log(id);
 
     const countTodayUserPosts = todayUserPosts.length;
 
@@ -132,10 +132,11 @@ export function User() {
     submitContentToPostList(props.postContent = "", "Repost", props);
   }
 
-  function currentUserBeingViewed(id: string) {
-    const userFound = allUsers?.find(user => user.id === id);
+  function currentUserBeingViewed(userId: string) {
+    const userFound = allUsers?.find(user => user.id === userId);
+
     const totalPostsFilter = postListContent.filter(post => {
-      if (post.postAuthorID === id) {
+      if (post.postAuthorID === userId) {
         return post;
       }
     });
@@ -233,9 +234,11 @@ export function User() {
     const indexOfMainUser = allUsers.findIndex(user => user.id === mainUserInformation?.id);
     updateAllUsers.splice(indexOfMainUser, 1, mainUserInformation!);
 
-    setAllUsers(state => {
-      return state = [...updateAllUsers];
-    });
+    // @WORKAROUND 
+    // use context will solve here, need to update the user with numbers of followers etc etc
+    // setAllUsers(state => {
+    //   return state = [...updateAllUsers];
+    // });
     localStorage.setItem("@NotePost:AllUsers", JSON.stringify(allUsers));
     checkFollows();
   }
@@ -267,9 +270,11 @@ export function User() {
     const indexOfMainUser = allUsers.findIndex(user => user.id === mainUserInformation?.id);
     updateAllUsers.splice(indexOfMainUser, 1, mainUserInformation!);
 
-    setAllUsers(state => {
-      return state = [...updateAllUsers];
-    });
+    // @WORKAROUND 
+    // use context will solve here, need to update the user with numbers of followers etc etc
+    // setAllUsers(state => {
+    //   return state = [...updateAllUsers];
+    // });
     localStorage.setItem("@NotePost:AllUsers", JSON.stringify(allUsers));
     localStorage.setItem("@NotePost:MainUserInformation", JSON.stringify(mainUserInformation));
 
@@ -279,22 +284,16 @@ export function User() {
   useEffect(() => {
     const getLocalStorageMainUser: IUserInformation = JSON.parse(localStorage.getItem("@NotePost:MainUserInformation") as string);
     const getLocalStoragePostList: IPostsListContent[] = JSON.parse(localStorage.getItem("@NotePost:PostList") as string);
-    const getLocalStorageAllAppUsers: IUserInformation[] = JSON.parse(localStorage.getItem("@NotePost:AllUsers") as string);
 
-    const queryId = query.get("id") || mainUserInformation?.id as string;
-
-    setId(queryId);
-
-    setAllUsers(getLocalStorageAllAppUsers);
     setMainUserInformation(getLocalStorageMainUser);
     setPostListContent(getLocalStoragePostList);
 
     const onlyPostsFromTheUser = filterPostList(getLocalStoragePostList);
     setPostListContentFilter(onlyPostsFromTheUser);
 
-    currentUserBeingViewed(queryId);
+    currentUserBeingViewed(id);
     checkFollows();
-  }, [id]);
+  }, []);
 
   Modal.setAppElement('#root');
   return (
