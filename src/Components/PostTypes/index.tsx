@@ -1,15 +1,14 @@
 import { ChangeEvent, useState } from "react";
 import { Pencil, ShareNetwork } from "phosphor-react";
 import { format } from 'date-fns';
-// @ts-ignore
-import { Modal } from 'react-modal-overlay';
-import 'react-modal-overlay/dist/index.css'
+import Modal from 'react-modal';
 
 import { Avatar } from "../Avatar";
 
 import styles from './PostsTypes.module.css';
 import { IPostContent, IQuotePostContent, IRepostAndQuoteContent } from "../../@Types";
 import { Link } from "react-router-dom";
+import { customStyles } from "../../Pages/User";
 
 function FormatDate(dateString: string) {
   const dateInNewFormat = new Date(dateString);
@@ -57,7 +56,7 @@ export function Post(props: IPostContent) {
 
   return (
     <article className={styles.post}>
-      <Modal show={isOpen} closeModal={handleModalQuotePostClose}>
+      <Modal isOpen={isOpen} onRequestClose={handleModalQuotePostClose} style={customStyles}>
         <h4 className={styles.modalH4}><Pencil /> Quote Post about: {props.postAuthor}</h4>
         <div className={styles.modalForm}>
           <div className={styles.modalMaxCharacters}>
