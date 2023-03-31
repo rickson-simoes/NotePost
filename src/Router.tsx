@@ -5,8 +5,8 @@ import { User } from './Pages/User'
 export function Router() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/user" element={<User />} />
+      <Route index element={<Home />} />
+      <Route path="/user/:id" element={<User />} />
     </Routes>
   )
 }
