@@ -56,6 +56,7 @@ export function Post(props: IPostContent) {
 
   return (
     <article className={styles.post}>
+      {/* @WORKAROUND - MOVE THIS MODAL TO A SEPARATED COMPONENT */}
       <Modal isOpen={isOpen} onRequestClose={handleModalQuotePostClose} style={customStyles}>
         <h4 className={styles.modalH4}><Pencil /> Quote Post about: {props.postAuthor}</h4>
         <div className={styles.modalForm}>
@@ -83,7 +84,10 @@ export function Post(props: IPostContent) {
         <div className={styles.postAuthorInfo}>
           <div className={styles.postAuthorNameAndTag}>
             <strong><Link to={`/user/${props.postAuthorID}`}>{props.postAuthor}</Link></strong>
-            <span>{props.isUserPrincipal && "(You)"}</span>
+            {props.isUserPrincipal && <span style={{ color: 'var(--gray-400)' }}>(You)</span>}
+            <span className={styles.LabelTag}>
+              Post <Pencil size={16} weight="fill" />
+            </span>
           </div>
           <time title={postDateFormatted} dateTime={postDateFormatted}>
             {postDateFormatted}
@@ -126,7 +130,7 @@ export function Repost(props: IRepostAndQuoteContent) {
         <div className={styles.postAuthorInfo}>
           <div className={styles.postAuthorNameAndTag}>
             <strong><Link to={`/user/${props.postAuthorID}`}>{props.postAuthor}</Link></strong>
-            <span className={styles.RepostQuotePost}> Repost <ShareNetwork size={14} /></span>
+            <span className={styles.LabelTag}> Repost <ShareNetwork size={14} /></span>
           </div>
           <time title={postDateFormatted} dateTime={postDateFormatted}>
             {postDateFormatted}
@@ -143,7 +147,7 @@ export function Repost(props: IRepostAndQuoteContent) {
           <div className={styles.postAuthorInfo}>
             <div className={styles.postAuthorNameAndTag}>
               <strong><Link to={`/user/${props.postSharedAuthorID}`}>{props.postSharedAuthor}</Link></strong>
-              <span>{props.isUserPrincipal && "(You)"}</span>
+              {props.isUserPrincipal && <span style={{ color: 'var(--gray-400)' }}>(You)</span>}
             </div>
             <time title={postSharedDateFormatted} dateTime={postSharedDateFormatted}>
               {postSharedDateFormatted}
@@ -173,7 +177,7 @@ export function QuotePost(props: IRepostAndQuoteContent) {
         <div className={styles.postAuthorInfo}>
           <div className={styles.postAuthorNameAndTag}>
             <strong><Link to={`/user/${props.postAuthorID}`}>{props.postAuthor}</Link></strong>
-            <span className={styles.RepostQuotePost}> Quote Post <Pencil size={16} /></span>
+            <span className={styles.LabelTag}> Quote Post <Pencil size={16} /></span>
           </div>
           <time title={postDateFormatted} dateTime={postDateFormatted}>
             {postDateFormatted}
@@ -194,7 +198,7 @@ export function QuotePost(props: IRepostAndQuoteContent) {
           <div className={styles.postAuthorInfo}>
             <div className={styles.postAuthorNameAndTag}>
               <strong><Link to={`/user/${props.postSharedAuthorID}`}>{props.postSharedAuthor}</Link></strong>
-              <span>{props.isUserPrincipal && "(You)"}</span>
+              {props.isUserPrincipal && <span style={{ color: 'var(--gray-400)' }}>(You)</span>}
             </div>
             <time title={postSharedDateFormatted} dateTime={postSharedDateFormatted}>
               {postSharedDateFormatted}
