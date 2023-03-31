@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useReducer, useState } from 'react';
 import { IPostsListContent, IUserInformation, MainUserAction } from '../@Types';
+import { MainUserInfoInitializer, MainUserInfoReducer } from './reducers/mainUserInfoReducer';
 
 export interface IUserManagementContextTypes {
   mainUserInfo: IUserInformation;
@@ -14,27 +15,10 @@ export const AppManagementContext = createContext({} as IUserManagementContextTy
 
 export function AppManagementContextProvider({ children }: IAppManagementContextProvider) {
   //@WORKAROUND - CHANGE STATES TO REDUCERS
-  const [mainUserInfo, mainUserInfoDispatch] = useReducer((state: IUserInformation, action: MainUserAction) => {
-    switch (action.type) {
-      case 'GET': {
-        return { ...state }
-      }
-
-      case 'UPDATE': {
-        return { ...action.payload }
-      }
-    }
-  },
+  const [mainUserInfo, mainUserInfoDispatch] = useReducer(
+    MainUserInfoReducer,
     {} as IUserInformation,
-    (state) => {
-      const storedMainUser = localStorage.getItem("@NotePost:MainUserInformation");
-
-      if (storedMainUser) {
-        return JSON.parse(storedMainUser);
-      }
-
-      return state;
-    });
+    MainUserInfoInitializer);
 
 
   // const [postsList, setPostsList] = useState<IPostsListContent[]>(JSON.parse(localStorage.getItem("@NotePost:PostList")!));
