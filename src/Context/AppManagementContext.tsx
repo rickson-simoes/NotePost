@@ -45,6 +45,8 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
       type: 'UPDATE',
       payload: userData
     });
+
+    localStorage.setItem("@NotePost:MainUserInformation", JSON.stringify(userData));
   }
 
   // function getAllUsers() { }
