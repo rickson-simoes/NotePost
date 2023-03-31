@@ -136,7 +136,7 @@ export function MainContent() {
       <PostForm onSubmitNewPost={handleSubmitNewPost} isUserAllowedToPost={isUserAllowedToPost} />
 
       <div className={styles.mainContent}>
-        {postListContent.map(post => {
+        {/* {postListContent.map(post => {
           switch (post.postType) {
             case "Post": {
               return <Post
@@ -185,7 +185,18 @@ export function MainContent() {
               />
             }
           }
-        })}
+        })} */}
+        <Post
+          postAuthor="post author"
+          postAvatarSrc="https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+          postContent="postContent"
+          postDate={String(new Date())}
+          postAuthorID="58e4aa7f-fd4c-4a0b-9333-a6287fce6736"
+          isUserPrincipal={true}
+          onSubmitQuotePost={() => { }}
+          onSubmitRepost={() => { }}
+          key="1"
+        />
       </div>
 
     </div>
