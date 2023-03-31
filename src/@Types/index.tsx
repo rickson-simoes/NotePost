@@ -72,3 +72,17 @@ export interface IUserInfoToFollowUnfollow {
   backgroundAvatar: string;
   bio: string;
 }
+
+export interface MainUserGET {
+  type: 'GET',
+  payload: IUserInformation
+}
+
+export interface MainUserUPDATE {
+  type: 'UPDATE',
+  payload: IUserInformation
+}
+
+export type MainUserAction =
+  | MainUserGET
+  | MainUserUPDATE
