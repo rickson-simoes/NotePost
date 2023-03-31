@@ -27,7 +27,8 @@ export function Sidebar() {
       </div>
 
       <footer>
-        <Link to="/user">
+        {/* @WORKAROUND - GET MAIN USER ID */}
+        <Link to="/user/58e4aa7f-fd4c-4a0b-9333-a6287fce6736">
           <Gear size={40} />
         </Link>
       </footer>
