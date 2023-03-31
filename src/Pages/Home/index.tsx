@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { format } from 'date-fns';
+
 import styles from './Home.module.css';
 import { AppManagementContext } from '../../Context/AppManagementContext';
 import { IPostsListContent, IQuotePostContent } from '../../@Types';
@@ -23,20 +24,20 @@ export function Home() {
     postListQuoteContent?: IQuotePostContent) {
 
     const newPostToInsert: IPostsListContent = {
-      postId: crypto.randomUUID(),
-      postAuthorID: mainUserInfo.id,
-      postAuthor: mainUserInfo.name,
-      postAvatarSrc: mainUserInfo.avatar!,
-      postContent: postTextContent,
-      postDate: format(new Date(Date.now()), "yyyy-LL-dd HH:mm:ss"),
-      postShared: {
-        postSharedAuthor: postListQuoteContent?.postSharedAuthor || "",
-        postSharedAuthorID: postListQuoteContent?.postSharedAuthorID || "",
-        postSharedAvatarSrc: postListQuoteContent?.postSharedAvatarSrc || "",
-        postSharedContent: postListQuoteContent?.postSharedContent || "",
-        postSharedDate: postListQuoteContent?.postSharedDate || ""
+      id: crypto.randomUUID(),
+      authorID: mainUserInfo.id,
+      author: mainUserInfo.name,
+      avatarSrc: mainUserInfo.avatar!,
+      content: postTextContent,
+      date: format(new Date(Date.now()), "yyyy-LL-dd HH:mm:ss"),
+      shared: {
+        sharedAuthor: postListQuoteContent?.sharedAuthor || "",
+        sharedAuthorID: postListQuoteContent?.sharedAuthorID || "",
+        sharedAvatarSrc: postListQuoteContent?.sharedAvatarSrc || "",
+        sharedContent: postListQuoteContent?.sharedContent || "",
+        sharedDate: postListQuoteContent?.sharedDate || ""
       },
-      postType: postType,
+      type: postType,
     };
 
     const newPostListValue = [newPostToInsert, ...postListContent];
@@ -51,10 +52,10 @@ export function Home() {
   }
 
   function handleQuotePostSubmitContent(props: IQuotePostContent) {
-    submitContentToPostList(props.postContent, "QuotePost", props);
+    submitContentToPostList(props.content, "QuotePost", props);
   }
   function handleRepostSubmitContent(props: IQuotePostContent) {
-    submitContentToPostList(props.postContent = "", "Repost", props);
+    submitContentToPostList(props.content = "", "Repost", props);
   }
 
   return (
@@ -71,32 +72,32 @@ export function Home() {
 
           <div className={styles.mainContent}>
             {postListContent.map(post => {
-              switch (post.postType) {
+              switch (post.type) {
                 case "Post": {
                   return <Post
                     {...post}
-                    isUserPrincipal={post.postAuthorID === mainUserInfo.id}
+                    isUserPrincipal={post.authorID === mainUserInfo.id}
                     onSubmitQuotePost={handleQuotePostSubmitContent}
                     onSubmitRepost={handleRepostSubmitContent}
-                    key={post.postId}
+                    key={post.id}
                   />
                 }
 
                 case "Repost": {
                   return <Repost
                     {...post}
-                    {...post.postShared}
-                    isUserPrincipal={post.postShared.postSharedAuthorID === mainUserInfo.id}
-                    key={post.postId}
+                    {...post.shared}
+                    isUserPrincipal={post.shared.sharedAuthorID === mainUserInfo.id}
+                    key={post.id}
                   />
                 }
 
                 case "QuotePost": {
                   return <QuotePost
                     {...post}
-                    {...post.postShared}
-                    isUserPrincipal={post.postShared.postSharedAuthorID === mainUserInfo.id}
-                    key={post.postId}
+                    {...post.shared}
+                    isUserPrincipal={post.shared.sharedAuthorID === mainUserInfo.id}
+                    key={post.id}
                   />
                 }
               }

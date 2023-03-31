@@ -1,20 +1,20 @@
 export interface IPostsListContentShared {
-  postSharedAuthorID: string;
-  postSharedAuthor: string;
-  postSharedAvatarSrc: string;
-  postSharedDate: string | "";
-  postSharedContent: string;
+  sharedAuthorID: string;
+  sharedAuthor: string;
+  sharedAvatarSrc: string;
+  sharedDate: string | "";
+  sharedContent: string;
 }
 
 export interface IPostsListContent {
-  postId: string;
-  postAuthorID: string;
-  postAuthor: string;
-  postAvatarSrc: string;
-  postType: "Post" | "Repost" | "QuotePost";
-  postDate: string;
-  postContent: string;
-  postShared: IPostsListContentShared;
+  id: string;
+  authorID: string;
+  author: string;
+  avatarSrc: string;
+  type: "Post" | "Repost" | "QuotePost";
+  date: string;
+  content: string;
+  shared: IPostsListContentShared;
 };
 
 export interface IUserInformation {
@@ -32,37 +32,37 @@ export interface IUserInformation {
 }
 
 export interface IPostContent {
-  postAuthor: string;
-  postAvatarSrc: string;
-  postDate: string;
-  postContent?: string;
+  author: string;
+  avatarSrc: string;
+  date: string;
+  content?: string;
   isUserPrincipal: boolean;
-  postAuthorID?: string;
+  authorID?: string;
   onSubmitQuotePost?: (props: IQuotePostContent) => void;
   onSubmitRepost?: (props: IQuotePostContent) => void;
 }
 
 export interface IRepostAndQuoteContent {
-  postAuthor: string;
-  postAvatarSrc: string;
-  postDate: string;
-  postContent?: string;
+  author: string;
+  avatarSrc: string;
+  date: string;
+  content?: string;
   isUserPrincipal: boolean;
-  postAuthorID?: string;
-  postSharedAuthor: string;
-  postSharedAvatarSrc: string;
-  postSharedDate: string;
-  postSharedContent: string;
-  postSharedAuthorID: string;
+  authorID?: string;
+  sharedAuthor: string;
+  sharedAvatarSrc: string;
+  sharedDate: string;
+  sharedContent: string;
+  sharedAuthorID: string;
 }
 
 export interface IQuotePostContent {
-  postContent: string;
-  postSharedAuthorID: string;
-  postSharedAuthor: string;
-  postSharedAvatarSrc: string;
-  postSharedContent: string;
-  postSharedDate: string;
+  content: string;
+  sharedAuthorID: string;
+  sharedAuthor: string;
+  sharedAvatarSrc: string;
+  sharedContent: string;
+  sharedDate: string;
 }
 
 export interface IUserInfoToFollowUnfollow {

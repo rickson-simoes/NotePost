@@ -1,39 +1,31 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 import { format, isToday } from "date-fns";
 import { UserCirclePlus, UserMinus } from 'phosphor-react';
 
 import { IPostsListContent, IUserInformation, IUserInfoToFollowUnfollow, IQuotePostContent } from "../../@Types";
-
 import { Home } from "../Home";
 import { Avatar } from "../../Components/Avatar";
-
-import styles from './User.module.css';
-
 import { PostForm } from '../../Components/PostForm';
 import { Post } from "../../Components/PostTypes/components/PostContent";
 import { QuotePost } from "../../Components/PostTypes/components/QuoteContent";
 import { Repost } from "../../Components/PostTypes/components/RepostContent";
+import { AppManagementContext } from "../../Context/AppManagementContext";
+import { customStyles } from "../../utils/customOverlayStyle";
 
-export const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: "#0e0e0e",
-    border: "0"
-  },
-  overlay: {
-    backgroundColor: "rgb(0 0 0 / 68%)"
-  }
-};
+import styles from './User.module.css';
+
+
 
 export function User() {
-  const { id } = useParams();
+  const { mainUserInfo } = useContext(AppManagementContext);
+
+  let { id } = useParams();
+
+  if (id == undefined) {
+    id = mainUserInfo.id
+  }
 
   const [isOpen, setIsOpen] = useState(true);
   const [mainUserInformation, setMainUserInformation] = useState<IUserInformation>();
@@ -65,7 +57,7 @@ export function User() {
 
   function filterPostList(postList: IPostsListContent[]) {
     return postList.filter(val => {
-      if (val.postAuthorID == id) {
+      if (val.authorID == id) {
         return val;
       }
     });
@@ -73,8 +65,8 @@ export function User() {
 
   function isFivePostsAlreadyReached() {
     const todayUserPosts = postListContent.filter(val => {
-      const toDate = new Date(val.postDate);
-      if (isToday(toDate) && mainUserInformation?.id == val.postAuthorID) {
+      const toDate = new Date(val.date);
+      if (isToday(toDate) && mainUserInformation?.id == val.authorID) {
         return val;
       }
     });
@@ -97,20 +89,20 @@ export function User() {
     }
 
     const newPostToInsert: IPostsListContent = {
-      postId: crypto.randomUUID(),
-      postAuthorID: mainUserInformation?.id!,
-      postAuthor: mainUserInformation?.name!,
-      postAvatarSrc: mainUserInformation?.avatar!,
-      postContent: postTextContent,
-      postDate: format(new Date(Date.now()), "yyyy-LL-dd HH:mm:ss"),
-      postShared: {
-        postSharedAuthor: postListQuoteContent?.postSharedAuthor || "",
-        postSharedAuthorID: postListQuoteContent?.postSharedAuthorID || "",
-        postSharedAvatarSrc: postListQuoteContent?.postSharedAvatarSrc || "",
-        postSharedContent: postListQuoteContent?.postSharedContent || "",
-        postSharedDate: postListQuoteContent?.postSharedDate || ""
+      id: crypto.randomUUID(),
+      authorID: mainUserInformation?.id!,
+      author: mainUserInformation?.name!,
+      avatarSrc: mainUserInformation?.avatar!,
+      content: postTextContent,
+      date: format(new Date(Date.now()), "yyyy-LL-dd HH:mm:ss"),
+      shared: {
+        sharedAuthor: postListQuoteContent?.sharedAuthor || "",
+        sharedAuthorID: postListQuoteContent?.sharedAuthorID || "",
+        sharedAvatarSrc: postListQuoteContent?.sharedAvatarSrc || "",
+        sharedContent: postListQuoteContent?.sharedContent || "",
+        sharedDate: postListQuoteContent?.sharedDate || ""
       },
-      postType: postType,
+      type: postType,
     };
 
     const newPostListValue = [newPostToInsert, ...postListContentFilter];
@@ -128,17 +120,17 @@ export function User() {
   }
 
   function handleQuotePostSubmitContent(props: IQuotePostContent) {
-    submitContentToPostList(props.postContent, "QuotePost", props);
+    submitContentToPostList(props.content, "QuotePost", props);
   }
   function handleRepostSubmitContent(props: IQuotePostContent) {
-    submitContentToPostList(props.postContent = "", "Repost", props);
+    submitContentToPostList(props.content = "", "Repost", props);
   }
 
   function currentUserBeingViewed(userId: string) {
     const userFound = allUsers?.find(user => user.id === userId);
 
     const totalPostsFilter = postListContent.filter(post => {
-      if (post.postAuthorID === userId) {
+      if (post.authorID === userId) {
         return post;
       }
     });
@@ -218,7 +210,7 @@ export function User() {
     const totalFollowers = newUserProfile?.followers.length;
     const totalFollows = newUserProfile?.follows.length;
     const totalPosts = postListContent.filter(post => {
-      if (post.postAuthorID === id) {
+      if (post.authorID === id) {
         return post;
       }
     }).length;
@@ -293,7 +285,7 @@ export function User() {
     const onlyPostsFromTheUser = filterPostList(getLocalStoragePostList);
     setPostListContentFilter(onlyPostsFromTheUser);
 
-    currentUserBeingViewed(id);
+    currentUserBeingViewed(id as string);
     checkFollows();
   }, []);
 
@@ -337,52 +329,33 @@ export function User() {
           <div className={styles.containerPostList}>
             <PostForm isUserAllowedToPost={isUserAllowedToPost} onSubmitNewPost={handleSubmitNewPost} />
 
-            {postListContentFilter.map(value => {
-              switch (value.postType) {
+            {postListContentFilter.map(post => {
+              switch (post.type) {
                 case "Post": {
                   return <Post
-                    postAuthor={value.postAuthor}
-                    postAvatarSrc={value.postAvatarSrc}
-                    postContent={value.postContent}
-                    postDate={value.postDate}
-                    postAuthorID={value.postAuthorID}
-                    isUserPrincipal={value.postAuthorID === mainUserInformation?.id}
+                    {...post}
+                    isUserPrincipal={post.authorID === mainUserInformation?.id}
                     onSubmitQuotePost={handleQuotePostSubmitContent}
                     onSubmitRepost={handleRepostSubmitContent}
-                    key={value.postId}
+                    key={post.id}
                   />
                 }
 
                 case "Repost": {
                   return <Repost
-                    postAuthor={value.postAuthor}
-                    postAvatarSrc={value.postAvatarSrc}
-                    postDate={value.postDate}
-                    postAuthorID={value.postAuthorID}
-                    isUserPrincipal={value.postShared.postSharedAuthorID === mainUserInformation?.id}
-                    postSharedAuthor={value.postShared.postSharedAuthor}
-                    postSharedAuthorID={value.postShared.postSharedAuthorID}
-                    postSharedAvatarSrc={value.postShared.postSharedAvatarSrc}
-                    postSharedContent={value.postShared.postSharedContent}
-                    postSharedDate={value.postShared.postSharedDate}
-                    key={value.postId}
+                    {...post}
+                    isUserPrincipal={post.shared.sharedAuthorID === mainUserInformation?.id}
+                    {...post.shared}
+                    key={post.id}
                   />
                 }
 
                 case "QuotePost": {
                   return <QuotePost
-                    postAuthor={value.postAuthor}
-                    postAvatarSrc={value.postAvatarSrc}
-                    postContent={value.postContent}
-                    postDate={value.postDate}
-                    postAuthorID={value.postAuthorID}
-                    isUserPrincipal={value.postShared.postSharedAuthorID === mainUserInformation?.id}
-                    postSharedAuthor={value.postShared.postSharedAuthor}
-                    postSharedAuthorID={value.postShared.postSharedAuthorID}
-                    postSharedAvatarSrc={value.postShared.postSharedAvatarSrc}
-                    postSharedContent={value.postShared.postSharedContent}
-                    postSharedDate={value.postShared.postSharedDate}
-                    key={value.postId}
+                    {...post}
+                    isUserPrincipal={post.shared.sharedAuthorID === mainUserInformation?.id}
+                    {...post.shared}
+                    key={post.id}
                   />
                 }
               }

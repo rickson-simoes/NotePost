@@ -7,20 +7,20 @@ import Modal from 'react-modal';
 import styles from '../../PostsTypes.module.css';
 import { Avatar } from "../../../Avatar";
 import { IPostContent, IQuotePostContent } from "../../../../@Types";
-import { customStyles } from "../../../../Pages/User";
 import { FormatDate } from "../../../../utils/formatDate";
+import { customStyles } from "../../../../utils/customOverlayStyle";
 
 export function Post(props: IPostContent) {
-  const postDateFormatted = FormatDate(props.postDate);
+  const postDateFormatted = FormatDate(props.date);
   const [isOpen, setIsOpen] = useState(false);
   const [quoteRepostText, setQuoteRepostText] = useState("");
   const QuotePostSubmit: IQuotePostContent = {
-    postContent: quoteRepostText,
-    postSharedAuthorID: props.postAuthorID!,
-    postSharedAuthor: props.postAuthor,
-    postSharedAvatarSrc: props.postAvatarSrc,
-    postSharedContent: props.postContent!,
-    postSharedDate: props.postDate
+    content: quoteRepostText,
+    sharedAuthorID: props.authorID!,
+    sharedAuthor: props.author,
+    sharedAvatarSrc: props.avatarSrc,
+    sharedContent: props.content!,
+    sharedDate: props.date
   };
 
   function handleModalQuotePostOpen() {
@@ -52,7 +52,7 @@ export function Post(props: IPostContent) {
     <article className={styles.post}>
       {/* @WORKAROUND - MOVE THIS MODAL TO A SEPARATED COMPONENT */}
       <Modal isOpen={isOpen} onRequestClose={handleModalQuotePostClose} style={customStyles}>
-        <h4 className={styles.modalH4}><Pencil /> Quote Post about: {props.postAuthor}</h4>
+        <h4 className={styles.modalH4}><Pencil /> Quote Post about: {props.author}</h4>
         <div className={styles.modalForm}>
           <div className={styles.modalMaxCharacters}>
             {777 - quoteRepostText.length}
@@ -63,21 +63,21 @@ export function Post(props: IPostContent) {
 
         <div className={styles.modalAuthorQuoteContent}>
           <Avatar
-            src={props.postAvatarSrc}
+            src={props.avatarSrc}
             avatarSideBar={3}
           />
-          <span><i>"{props.postContent}"</i></span>
+          <span><i>"{props.content}"</i></span>
         </div>
       </Modal>
 
       <header className={styles.postAuthor}>
         <Avatar
-          src={props.postAvatarSrc}
+          src={props.avatarSrc}
           avatarSideBar={2}
         />
         <div className={styles.postAuthorInfo}>
           <div className={styles.postAuthorNameAndTag}>
-            <strong><Link to={`/user/${props.postAuthorID}`}>{props.postAuthor}</Link></strong>
+            <strong><Link to={`/user/${props.authorID}`}>{props.author}</Link></strong>
             {props.isUserPrincipal && <span style={{ color: 'var(--gray-400)' }}>(You)</span>}
             <span className={styles.LabelTag}>
               Post <Pencil size={16} weight="fill" />
@@ -90,7 +90,7 @@ export function Post(props: IPostContent) {
       </header>
 
       <section className={styles.postContent}>
-        {props.postContent}
+        {props.content}
       </section>
 
       <footer className={styles.postReactionBox}>
