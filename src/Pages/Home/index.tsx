@@ -9,10 +9,16 @@ import { Sidebar } from '../../Components/Sidebar';
 import { PostForm } from '../../Components/PostForm';
 
 export function Home() {
-  const [postListContent, setPostListContent] = useState<IPostsListContent[]>(JSON.parse(localStorage.getItem("@NotePost:PostList")!));
+  const [postListContent, setPostListContent] = useState<IPostsListContent[]>(
+    JSON.parse(localStorage.getItem("@NotePost:PostList")!)
+  );
+
   const { mainUserInfo } = useContext(AppManagementContext);
 
-  function submitContentToPostList(postTextContent: string, postType: "QuotePost" | "Post" | "Repost", postListQuoteContent?: IQuotePostContent) {
+  function submitContentToPostList(
+    postTextContent: string,
+    postType: "QuotePost" | "Post" | "Repost",
+    postListQuoteContent?: IQuotePostContent) {
 
     const newPostToInsert: IPostsListContent = {
       postId: crypto.randomUUID(),
