@@ -1,8 +1,10 @@
 import { PencilLine } from "phosphor-react";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 
 import styles from './PostForm.module.css';
+import { AppManagementContext } from "../../Context/AppManagementContext";
+import { IUserInformation } from "../../@Types";
 
 interface IPostForm {
   onSubmitNewPost: (text: string) => void;
@@ -10,6 +12,7 @@ interface IPostForm {
 }
 
 export function PostForm({ onSubmitNewPost, isUserAllowedToPost }: IPostForm) {
+  const { mainUserInfo, updateMainUserInfo } = useContext(AppManagementContext);
   const [textAreaPost, setTextAreaPost] = useState("");
   const [textAreaLength, setTextAreaLength] = useState<number>(0);
 
@@ -26,6 +29,14 @@ export function PostForm({ onSubmitNewPost, isUserAllowedToPost }: IPostForm) {
   function handleNewPost(event: FormEvent) {
     event.preventDefault();
     onSubmitNewPost(textAreaPost);
+
+    const updateUser: IUserInformation = {
+      ...mainUserInfo,
+      totalPosts: mainUserInfo.totalPosts + 1
+    }
+
+    updateMainUserInfo(updateUser);
+
     setTextAreaPost("");
     setTextAreaLength(0);
   }
