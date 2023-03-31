@@ -12,7 +12,9 @@ import { Avatar } from "../../Components/Avatar";
 import styles from './User.module.css';
 
 import { PostForm } from '../../Components/PostForm';
-import { Post, QuotePost, Repost } from "../../Components/PostTypes";
+import { Post } from "../../Components/PostTypes/components/PostContent";
+import { QuotePost } from "../../Components/PostTypes/components/QuoteContent";
+import { Repost } from "../../Components/PostTypes/components/RepostContent";
 
 export const customStyles = {
   content: {
