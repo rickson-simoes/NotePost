@@ -1,10 +1,8 @@
 import { PencilLine } from "phosphor-react";
-
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 
 import styles from './PostForm.module.css';
 import { AppManagementContext } from "../../Context/AppManagementContext";
-import { IUserInformation } from "../../@Types";
 
 interface IPostForm {
   onSubmitNewPost: (text: string) => void;
