@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { format } from 'date-fns';
 
 import styles from './Home.module.css';
@@ -13,7 +13,6 @@ import { PostForm } from '../../Components/PostForm';
 
 export function Home() {
   const { mainUserInfo, postList, addPostList } = useContext(AppManagementContext);
-
 
   function submitContentToPostList(
     postTextContent: string,
