@@ -73,17 +73,26 @@ export interface IUserInfoToFollowUnfollow {
   bio: string;
 }
 
-export interface MainUserGET {
-  type: 'GET',
+export interface MainUserUPDATE {
+  type: 'ADDPOST',
   payload: IUserInformation
 }
-export interface MainUserUPDATE {
-  type: 'UPDATE',
-  payload: IUserInformation
+export interface MainUserNEWFOLLOW {
+  type: 'NEWFOLLOW',
+  payload: {
+    newUserFollowed: IUserInfoToFollowUnfollow
+  }
+}
+export interface MainUserREMOVEFOLLOW {
+  type: 'REMOVEFOLLOW',
+  payload: {
+    newUserUnfollowed: IUserInfoToFollowUnfollow
+  }
 }
 export type MainUserAction =
-  | MainUserGET
-  | MainUserUPDATE;
+  | MainUserUPDATE
+  | MainUserNEWFOLLOW
+  | MainUserREMOVEFOLLOW;
 
 
 export interface PostListUPDATE {
