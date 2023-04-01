@@ -12,7 +12,7 @@ interface IPostForm {
 }
 
 export function PostForm({ onSubmitNewPost, isUserAllowedToPost }: IPostForm) {
-  const { mainUserInfo, updateMainUserInfo } = useContext(AppManagementContext);
+  const { mainUserInfo, AddPostMainUserInfo } = useContext(AppManagementContext);
   const [textAreaPost, setTextAreaPost] = useState("");
   const [textAreaLength, setTextAreaLength] = useState<number>(0);
 
@@ -30,12 +30,7 @@ export function PostForm({ onSubmitNewPost, isUserAllowedToPost }: IPostForm) {
     event.preventDefault();
     onSubmitNewPost(textAreaPost);
 
-    const updateUser: IUserInformation = {
-      ...mainUserInfo,
-      totalPosts: mainUserInfo.totalPosts + 1
-    }
-
-    updateMainUserInfo(updateUser);
+    AddPostMainUserInfo(mainUserInfo);
 
     setTextAreaPost("");
     setTextAreaLength(0);
