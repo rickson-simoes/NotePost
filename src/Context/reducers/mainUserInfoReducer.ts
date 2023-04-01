@@ -1,9 +1,30 @@
 import { IUserInformation, MainUserAction } from "../../@Types"
 
-export function MainUserInfoReducer(state: IUserInformation, action: MainUserAction) {
+export function MainUserInfoReducer(state: IUserInformation, action: MainUserAction): IUserInformation {
   switch (action.type) {
-    case 'UPDATE': {
-      return { ...action.payload }
+    case 'ADDPOST': {
+      return {
+        ...action.payload,
+        totalPosts: state.totalPosts + 1
+      }
+    }
+
+    case 'NEWFOLLOW': {
+      return {
+        ...state,
+        follows: [...state.follows, { ...action.payload.newUserFollowed }],
+        totalFollows: state.totalFollows + 1
+      }
+    }
+
+    case 'REMOVEFOLLOW': {
+      return {
+        ...state,
+        follows: state.follows.filter(user => {
+          user.id !== action.payload.newUserUnfollowed.id
+        }),
+        totalFollows: state.totalFollows - 1
+      }
     }
 
     default: {
