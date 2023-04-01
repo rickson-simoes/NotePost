@@ -12,11 +12,8 @@ import { Sidebar } from '../../Components/Sidebar';
 import { PostForm } from '../../Components/PostForm';
 
 export function Home() {
-  const [postListContent, setPostListContent] = useState<IPostsListContent[]>(
-    JSON.parse(localStorage.getItem("@NotePost:PostList")!)
-  );
+  const { mainUserInfo, postList, addPostList } = useContext(AppManagementContext);
 
-  const { mainUserInfo } = useContext(AppManagementContext);
 
   function submitContentToPostList(
     postTextContent: string,
@@ -40,11 +37,7 @@ export function Home() {
       type: postType,
     };
 
-    const newPostListValue = [newPostToInsert, ...postListContent];
-
-    setPostListContent(newPostListValue);
-
-    localStorage.setItem("@NotePost:PostList", JSON.stringify(newPostListValue));
+    addPostList(newPostToInsert);
   }
 
   function handleSubmitNewPost(text: string) {
@@ -71,7 +64,7 @@ export function Home() {
           <PostForm onSubmitNewPost={handleSubmitNewPost} isUserAllowedToPost={true} />
 
           <div className={styles.mainContent}>
-            {postListContent.map(post => {
+            {postList.map(post => {
               switch (post.type) {
                 case "Post": {
                   return <Post

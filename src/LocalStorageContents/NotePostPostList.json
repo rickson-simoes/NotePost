@@ -1,98 +1,98 @@
 [
   {
-    "postId": "88716353-adb4-4568-b75e-46602c4ae0f9",
-    "postAuthorID": "58e4aa7f-fd4c-4a0b-9333-a6287fce6736",
-    "postAuthor": "Annie Doe",
-    "postAvatarSrc": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-    "postContent": "",
-    "postDate": "2022-11-22 08:51:18",
-    "postShared": {
-      "postSharedAuthor": "Thomas Garden",
-      "postSharedAuthorID": "58e4aa7f-fd4c-4d0b-9333-a6287fce6736",
-      "postSharedAvatarSrc": "https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-      "postSharedContent": "post to show some content",
-      "postSharedDate": "2022-11-21 12:10:20"
+    "id": "88716353-adb4-4568-b75e-46602c4ae0f9",
+    "authorID": "58e4aa7f-fd4c-4a0b-9333-a6287fce6736",
+    "author": "Annie Doe",
+    "avatarSrc": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+    "content": "",
+    "date": "2022-11-22 08:51:18",
+    "shared": {
+      "sharedAuthor": "Thomas Garden",
+      "sharedAuthorID": "58e4aa7f-fd4c-4d0b-9333-a6287fce6736",
+      "sharedAvatarSrc": "https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+      "sharedContent": "post to show some content",
+      "sharedDate": "2022-11-21 12:10:20"
     },
-    "postType": "Repost"
+    "type": "Repost"
   },
   {
-    "postId": "255a6b33-9ed1-4f49-af3c-ac416b3b95fd",
-    "postAuthorID": "58e4aa7f-fd4c-4d0b-9333-a6287fce6736",
-    "postAuthor": "Thomas Garden",
-    "postAvatarSrc": "https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-    "postType": "Post",
-    "postDate": "2022-11-21 12:10:20",
-    "postContent": "post to show some content",
-    "postShared": {
-      "postSharedAuthorID": "",
-      "postSharedAuthor": "",
-      "postSharedAvatarSrc": "",
-      "postSharedContent": "",
-      "postSharedDate": ""
+    "id": "255a6b33-9ed1-4f49-af3c-ac416b3b95fd",
+    "authorID": "58e4aa7f-fd4c-4d0b-9333-a6287fce6736",
+    "author": "Thomas Garden",
+    "avatarSrc": "https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+    "type": "Post",
+    "date": "2022-11-21 12:10:20",
+    "content": "post to show some content",
+    "shared": {
+      "sharedAuthorID": "",
+      "sharedAuthor": "",
+      "sharedAvatarSrc": "",
+      "sharedContent": "",
+      "sharedDate": ""
     }
   },
   {
-    "postId": "255a6b33-9ed1-4f48-af3c-ac416b3b95fc",
-    "postAuthorID": "58e4aa7f-fd4c-4d0b-9333-a6287fce6736",
-    "postAuthor": "Thomas Garden",
-    "postAvatarSrc": "https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-    "postType": "QuotePost",
-    "postDate": "2022-11-20 11:10:20",
-    "postContent": "This Makes sense",
-    "postShared": {
-      "postSharedAuthorID": "58e4aa7f-fd4c-4a0b-9333-a6287fce6736",
-      "postSharedAuthor": "Annie Doe",
-      "postSharedAvatarSrc": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-      "postSharedContent": "content of the post with the whole text",
-      "postSharedDate": "2022-11-10 19:20:50"
+    "id": "255a6b33-9ed1-4f48-af3c-ac416b3b95fc",
+    "authorID": "58e4aa7f-fd4c-4d0b-9333-a6287fce6736",
+    "author": "Thomas Garden",
+    "avatarSrc": "https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+    "type": "QuotePost",
+    "date": "2022-11-20 11:10:20",
+    "content": "This Makes sense",
+    "shared": {
+      "sharedAuthorID": "58e4aa7f-fd4c-4a0b-9333-a6287fce6736",
+      "sharedAuthor": "Annie Doe",
+      "sharedAvatarSrc": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+      "sharedContent": "content of the post with the whole text",
+      "sharedDate": "2022-11-10 19:20:50"
     }
   },
   {
-    "postId": "e330a88b-2e5e-4a01-ac92-c0099cece574",
-    "postAuthorID": "58e4aa7f-fd4c-4c0b-9333-a6287fce6736",
-    "postAuthor": "Lee Mel",
-    "postAvatarSrc": "https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-    "postType": "Repost",
-    "postDate": "2022-11-20 02:20:50",
-    "postContent": "",
-    "postShared": {
-      "postSharedAuthorID": "58e4aa7f-fd4c-4a0b-9333-a6287fce6736",
-      "postSharedAuthor": "Annie Doe",
-      "postSharedAvatarSrc": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-      "postSharedContent": "content of the post with the whole text",
-      "postSharedDate": "2022-11-10 19:20:50"
+    "id": "e330a88b-2e5e-4a01-ac92-c0099cece574",
+    "authorID": "58e4aa7f-fd4c-4c0b-9333-a6287fce6736",
+    "author": "Lee Mel",
+    "avatarSrc": "https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+    "type": "Repost",
+    "date": "2022-11-20 02:20:50",
+    "content": "",
+    "shared": {
+      "sharedAuthorID": "58e4aa7f-fd4c-4a0b-9333-a6287fce6736",
+      "sharedAuthor": "Annie Doe",
+      "sharedAvatarSrc": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+      "sharedContent": "content of the post with the whole text",
+      "sharedDate": "2022-11-10 19:20:50"
     }
   },
   {
-    "postId": "db5300ac-31f5-41ac-837b-0192a81ce9db",
-    "postAuthorID": "58e4aa7f-fd4c-4c0b-9333-a6287fce6736",
-    "postAuthor": "Lee Mel",
-    "postAvatarSrc": "https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-    "postType": "Post",
-    "postDate": "2022-11-14 15:40:50",
-    "postContent": "more content lorem ipsum",
-    "postShared": {
-      "postSharedAuthorID": "",
-      "postSharedAuthor": "",
-      "postSharedAvatarSrc": "",
-      "postSharedContent": "",
-      "postSharedDate": ""
+    "id": "db5300ac-31f5-41ac-837b-0192a81ce9db",
+    "authorID": "58e4aa7f-fd4c-4c0b-9333-a6287fce6736",
+    "author": "Lee Mel",
+    "avatarSrc": "https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+    "type": "Post",
+    "date": "2022-11-14 15:40:50",
+    "content": "more content lorem ipsum",
+    "shared": {
+      "sharedAuthorID": "",
+      "sharedAuthor": "",
+      "sharedAvatarSrc": "",
+      "sharedContent": "",
+      "sharedDate": ""
     }
   },
   {
-    "postId": "8cde5a8d-3e38-4887-be4a-6ada85b0dd6a",
-    "postAuthorID": "58e4aa7f-fd4c-4a0b-9333-a6287fce6736",
-    "postAuthor": "Annie Doe",
-    "postAvatarSrc": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-    "postType": "Post",
-    "postDate": "2022-11-10 19:20:50",
-    "postContent": "content of the post with the whole text",
-    "postShared": {
-      "postSharedAuthorID": "",
-      "postSharedAuthor": "",
-      "postSharedAvatarSrc": "",
-      "postSharedContent": "",
-      "postSharedDate": ""
+    "id": "8cde5a8d-3e38-4887-be4a-6ada85b0dd6a",
+    "authorID": "58e4aa7f-fd4c-4a0b-9333-a6287fce6736",
+    "author": "Annie Doe",
+    "avatarSrc": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+    "type": "Post",
+    "date": "2022-11-10 19:20:50",
+    "content": "content of the post with the whole text",
+    "shared": {
+      "sharedAuthorID": "",
+      "sharedAuthor": "",
+      "sharedAvatarSrc": "",
+      "sharedContent": "",
+      "sharedDate": ""
     }
   }
 ]

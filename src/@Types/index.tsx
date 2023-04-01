@@ -77,12 +77,17 @@ export interface MainUserGET {
   type: 'GET',
   payload: IUserInformation
 }
-
 export interface MainUserUPDATE {
   type: 'UPDATE',
   payload: IUserInformation
 }
-
 export type MainUserAction =
   | MainUserGET
-  | MainUserUPDATE
+  | MainUserUPDATE;
+
+
+export interface PostListUPDATE {
+  type: 'ADD',
+  payload: IPostsListContent
+}
+export type PostListAction = | PostListUPDATE

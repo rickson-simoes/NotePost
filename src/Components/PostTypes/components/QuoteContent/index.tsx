@@ -7,19 +7,19 @@ import { IRepostAndQuoteContent } from "../../../../@Types";
 import { FormatDate } from "../../../../utils/formatDate";
 
 export function QuotePost(props: IRepostAndQuoteContent) {
-  const postDateFormatted = FormatDate(props.postDate);
-  const postSharedDateFormatted = FormatDate(props.postSharedDate);
+  const postDateFormatted = FormatDate(props.date);
+  const postSharedDateFormatted = FormatDate(props.sharedDate);
 
   return (
     <article className={styles.post}>
       <header className={styles.postAuthor}>
         <Avatar
-          src={props.postAvatarSrc}
+          src={props.avatarSrc}
           avatarSideBar={2}
         />
         <div className={styles.postAuthorInfo}>
           <div className={styles.postAuthorNameAndTag}>
-            <strong><Link to={`/user/${props.postAuthorID}`}>{props.postAuthor}</Link></strong>
+            <strong><Link to={`/user/${props.authorID}`}>{props.author}</Link></strong>
             <span className={styles.LabelTag}> Quote Post <Pencil size={16} /></span>
           </div>
           <time title={postDateFormatted} dateTime={postDateFormatted}>
@@ -29,18 +29,18 @@ export function QuotePost(props: IRepostAndQuoteContent) {
       </header>
 
       <section className={styles.postContent}>
-        {props.postContent}
+        {props.content}
       </section>
 
       <section className={styles.repostContent}>
         <header className={styles.postAuthor}>
           <Avatar
-            src={props.postSharedAvatarSrc}
+            src={props.sharedAvatarSrc}
             avatarSideBar={3}
           />
           <div className={styles.postAuthorInfo}>
             <div className={styles.postAuthorNameAndTag}>
-              <strong><Link to={`/user/${props.postSharedAuthorID}`}>{props.postSharedAuthor}</Link></strong>
+              <strong><Link to={`/user/${props.sharedAuthorID}`}>{props.sharedAuthor}</Link></strong>
               {props.isUserPrincipal && <span style={{ color: 'var(--gray-400)' }}>(You)</span>}
             </div>
             <time title={postSharedDateFormatted} dateTime={postSharedDateFormatted}>
@@ -50,7 +50,7 @@ export function QuotePost(props: IRepostAndQuoteContent) {
         </header>
 
         <div className={styles.repostContentText}>
-          {props.postSharedContent}
+          {props.sharedContent}
         </div>
       </section>
     </article>
