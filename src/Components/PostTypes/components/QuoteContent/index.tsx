@@ -4,11 +4,11 @@ import { Pencil } from "phosphor-react";
 import styles from '../../PostsTypes.module.css';
 import { Avatar } from "../../../Avatar";
 import { IRepostAndQuoteContent } from "../../../../@Types";
-import { FormatDate } from "../../../../utils/formatDate";
+import { FormatDateHoursMins } from "../../../../utils/dateUtils";
 
 export function QuotePost(props: IRepostAndQuoteContent) {
-  const postDateFormatted = FormatDate(props.date);
-  const postSharedDateFormatted = FormatDate(props.sharedDate);
+  const postDateFormatted = FormatDateHoursMins(props.date);
+  const postSharedDateFormatted = FormatDateHoursMins(props.sharedDate);
 
   return (
     <article className={styles.post}>

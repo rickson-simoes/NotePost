@@ -7,11 +7,11 @@ import Modal from 'react-modal';
 import styles from '../../PostsTypes.module.css';
 import { Avatar } from "../../../Avatar";
 import { IPostContent, IQuotePostContent } from "../../../../@Types";
-import { FormatDate } from "../../../../utils/formatDate";
+import { FormatDateHoursMins } from "../../../../utils/dateUtils";
 import { customStyles } from "../../../../utils/customOverlayStyle";
 
 export function Post(props: IPostContent) {
-  const postDateFormatted = FormatDate(props.date);
+  const postDateFormatted = FormatDateHoursMins(props.date);
   const [isOpen, setIsOpen] = useState(false);
   const [quoteRepostText, setQuoteRepostText] = useState("");
   const QuotePostSubmit: IQuotePostContent = {
