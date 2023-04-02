@@ -60,10 +60,6 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
       type: 'ADD',
       payload: postContent
     })
-
-    const getAllPostListFromLocalStorage = JSON.parse(localStorage.getItem("@NotePost:PostList")!);
-
-    localStorage.setItem("@NotePost:PostList", JSON.stringify([postContent, ...getAllPostListFromLocalStorage]));
   }
 
   // const [allUsers, setAllUsers] = useState<IUserInformation[]>(JSON.parse(localStorage.getItem("@NotePost:MainUserInformation")!));
@@ -74,6 +70,12 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
 
     localStorage.setItem("@NotePost:MainUserInformation", mainUser);
   }, [mainUserInfo])
+
+  useEffect(() => {
+    const posts = JSON.stringify(postList);
+
+    localStorage.setItem("@NotePost:PostList", posts);
+  }, [postList])
 
   return (
     <AppManagementContext.Provider value={{ mainUserInfo, AddPostMainUserInfo, addNewFollowerMainUser, removeFollowerMainUser, postList, addPostList }}>
