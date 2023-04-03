@@ -82,44 +82,7 @@ export function User() {
 
     addNewFollowerMainUser(newFollowUser)
 
-    // @WORKAROUND - PUT NEW CONTEXT TO UPDATE THE NEW 
-    // FOLLOWER INSIDE OTHER USER "FOLLOWERS/FOLLOWS" Options    
-    // const newUserProfile = userProfile;
-    // newUserProfile?.followers.push({
-    //   id: mainUserInfo.id,
-    //   avatar: mainUserInfo.avatar,
-    //   backgroundAvatar: mainUserInfo.backgroundAvatar,
-    //   bio: mainUserInfo.bio,
-    //   name: mainUserInfo.name
-    // });
-
-    // const totalFollowers = newUserProfile?.followers.length;
-    // const totalFollows = newUserProfile?.follows.length;
-    // const totalPosts = postListContent.filter(post => {
-    //   if (post.authorID === id) {
-    //     return post;
-    //   }
-    // }).length;
-
-    // Object.assign(newUserProfile!, { ...newUserProfile, totalFollowers, totalFollows, totalPosts });
-
-    // setUserProfile(state => {
-    //   return state = { ...newUserProfile! }
-    // });
-
-    // const indexOfUserInsideUserList = allUsers.findIndex(user => user.id === id);
-    // const updateAllUsers = allUsers;
-    // updateAllUsers.splice(indexOfUserInsideUserList, 1, userProfile!);
-
-    // const indexOfMainUser = allUsers.findIndex(user => user.id === mainUserInfo.id);
-    // updateAllUsers.splice(indexOfMainUser, 1, mainUserInfo);
-
-    // @WORKAROUND 
-    // use context will solve here, need to update the user with numbers of followers etc etc
-    // setAllUsers(state => {
-    //   return state = [...updateAllUsers];
-    // });
-    // localStorage.setItem("@NotePost:AllUsers", JSON.stringify(allUsers));
+    // @WORKAROUND - Increase the number of followers and also who is following
     checkFollows();
   }
 
@@ -136,12 +99,7 @@ export function User() {
 
     removeFollowerMainUser(user);
 
-    // @WORKAROUND 
-    // use context will solve here, need to update the user with numbers of followers etc etc
-    // setAllUsers(state => {
-    //   return state = [...updateAllUsers];
-    // });
-    // localStorage.setItem("@NotePost:AllUsers", JSON.stringify(allUsers));
+    // @WORKAROUND - Remove the number of followers and also who is following
 
     checkFollows();
   }

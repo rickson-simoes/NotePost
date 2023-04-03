@@ -100,3 +100,10 @@ export interface PostListUPDATE {
   payload: IPostsListContent
 }
 export type PostListAction = | PostListUPDATE
+
+
+export interface GetAllUsersUPDATEUSER {
+  type: 'UPDATE_USER',
+  payload: IUserInformation
+}
+export type GetAllUsersAction = | GetAllUsersUPDATEUSER

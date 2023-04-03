@@ -2,6 +2,7 @@ import { ReactNode, createContext, useEffect, useReducer } from 'react';
 import { IPostsListContent, IUserInfoToFollowUnfollow, IUserInformation } from '../@Types';
 import { MainUserInfoInitializer, MainUserInfoReducer } from './reducers/mainUserInfoReducer';
 import { PostListInitializer, PostListReducer } from './reducers/postListReducer';
+import { GetAllUsersInitializer, GetAllUsersReducer } from './reducers/getAllUsersReducer';
 
 export interface IUserManagementContextTypes {
   mainUserInfo: IUserInformation;
@@ -28,6 +29,11 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
     PostListReducer,
     {} as IPostsListContent[],
     PostListInitializer);
+
+  const [getAllUsers, getAllUsersDispatch] = useReducer(
+    GetAllUsersReducer,
+    {} as IUserInformation[],
+    GetAllUsersInitializer);
 
   function AddPostMainUserInfo(userData: IUserInformation) {
     mainUserInfoDispatch({
