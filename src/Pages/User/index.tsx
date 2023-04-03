@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import Modal from 'react-modal';
-import { format } from "date-fns";
 import { UserCirclePlus, UserMinus } from 'phosphor-react';
 
-import { IPostsListContent, IUserInformation, IUserInfoToFollowUnfollow } from "../../@Types";
+import { IUserInformation, IUserInfoToFollowUnfollow } from "../../@Types";
 import { Home } from "../Home";
 import { Avatar } from "../../Components/Avatar";
 import { AppManagementContext } from "../../Context/AppManagementContext";

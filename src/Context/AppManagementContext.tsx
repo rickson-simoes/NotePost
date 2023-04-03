@@ -19,7 +19,6 @@ export interface IAppManagementContextProvider {
 export const AppManagementContext = createContext({} as IUserManagementContextTypes);
 
 export function AppManagementContextProvider({ children }: IAppManagementContextProvider) {
-  //@WORKAROUND - CHANGE STATES TO REDUCERS
   const [mainUserInfo, mainUserInfoDispatch] = useReducer(
     MainUserInfoReducer,
     {} as IUserInformation,
@@ -61,9 +60,6 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
       payload: postContent
     })
   }
-
-  // const [allUsers, setAllUsers] = useState<IUserInformation[]>(JSON.parse(localStorage.getItem("@NotePost:MainUserInformation")!));
-  // function getAllUsers() { }
 
   useEffect(() => {
     const mainUser = JSON.stringify(mainUserInfo);
