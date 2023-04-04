@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { Pencil, ShareNetwork } from "phosphor-react";
-import { format } from 'date-fns';
 import Modal from 'react-modal';
 
 import styles from '../../PostsTypes.module.css';
@@ -48,9 +47,9 @@ export function Post(props: IPostContent) {
     props.onSubmitRepost?.(QuotePostSubmit);
   }
 
+  Modal.setAppElement('#root');
   return (
     <article className={styles.post}>
-      {/* @WORKAROUND - MOVE THIS MODAL TO A SEPARATED COMPONENT */}
       <Modal isOpen={isOpen} onRequestClose={handleModalQuotePostClose} style={customStyles}>
         <h4 className={styles.modalH4}><Pencil /> Quote Post about: {props.author}</h4>
         <div className={styles.modalForm}>
