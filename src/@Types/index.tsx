@@ -107,8 +107,20 @@ export interface PostListUPDATE {
 export type PostListAction = | PostListUPDATE
 
 
-export interface GetAllUsersUPDATEUSER {
-  type: 'UPDATE_USER',
-  payload: IUserInformation
+export interface GetAllUsersADD_FOLLOWER {
+  type: 'ADD_FOLLOWER',
+  payload: {
+    follower: IUserInformation,
+    user_followed_id: string
+  }
 }
-export type GetAllUsersAction = | GetAllUsersUPDATEUSER
+export interface GetAllUsersREMOVE_FOLLOWER {
+  type: 'REMOVE_FOLLOWER',
+  payload: {
+    follower: IUserInformation,
+    user_unfollowed_id: string
+  }
+}
+export type GetAllUsersAction =
+  | GetAllUsersADD_FOLLOWER
+  | GetAllUsersREMOVE_FOLLOWER

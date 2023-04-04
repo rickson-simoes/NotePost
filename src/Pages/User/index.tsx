@@ -14,14 +14,17 @@ import { SubmitContent } from "../../Components/SubmitContent/SubmitContent";
 import { FormatDateYear } from "../../utils/dateUtils";
 
 export function User() {
-  const { mainUserInfo, addNewFollowerMainUser, removeFollowerMainUser } = useContext(AppManagementContext);
   const { id } = useParams();
+  const { mainUserInfo,
+    getAllUsers,
+    addNewFollowerMainUser,
+    removeFollowerMainUser,
+    AddFollowerGetAllUsers,
+    RemoveFollowerGetAllUsers } = useContext(AppManagementContext);
 
   const [isOpen, setIsOpen] = useState(true);
-  const allUsers: IUserInformation[] = JSON.parse(localStorage.getItem("@NotePost:AllUsers") as string);
   const [userProfile, setUserProfile] = useState<IUserInformation>({} as IUserInformation);
-  const [isAvailableToFollow, setIsAvailableToFollow] = useState<boolean>(true);
-
+  const [isAvailableToFollow, setIsAvailableToFollow] = useState<boolean | null>(null);
 
   const navigate = useNavigate();
 
@@ -31,9 +34,8 @@ export function User() {
   }
 
   function currentUserBeingViewed(userId: string) {
-    const userFound = allUsers?.find(user => user.id === userId);
+    const userFound = getAllUsers.find(user => user.id === userId);
     let updatedUser: IUserInformation;
-    console.log(userFound);
 
     if (userFound == undefined) {
       updatedUser = {
@@ -46,28 +48,21 @@ export function User() {
     }
 
     setUserProfile(updatedUser);
+    checkFollows();
   }
 
   function checkFollows() {
     if (mainUserInfo.id === id) {
-      return setIsAvailableToFollow(state => {
-        return state = false;
-      });
+      setIsAvailableToFollow(false);
     }
 
     const isUserInsideMyFollowersList = mainUserInfo.follows.some(user => user.id === id);
     if (isUserInsideMyFollowersList) {
-      return setIsAvailableToFollow(state => {
-        return state = false;
-      });
+      setIsAvailableToFollow(false);
     } else {
-      return setIsAvailableToFollow(state => {
-        return state = true;
-      });
+      setIsAvailableToFollow(true);
     }
   }
-
-
 
   function FollowButton() {
     const { id: idUserProfile, avatar, backgroundAvatar, bio, name } = userProfile as IUserInformation;
@@ -80,9 +75,9 @@ export function User() {
       name
     };
 
-    addNewFollowerMainUser(newFollowUser)
+    addNewFollowerMainUser(newFollowUser);
+    AddFollowerGetAllUsers(idUserProfile);
 
-    // @WORKAROUND - Increase the number of followers and also who is following
     checkFollows();
   }
 
@@ -98,8 +93,7 @@ export function User() {
     };
 
     removeFollowerMainUser(user);
-
-    // @WORKAROUND - Remove the number of followers and also who is following
+    RemoveFollowerGetAllUsers(idUserProfile);
 
     checkFollows();
   }
@@ -107,8 +101,7 @@ export function User() {
   useEffect(() => {
     currentUserBeingViewed(id as string);
 
-    //@WORKAROUND - PUT ALL USERS HERE TOO TO CHECK IF THEY WERE UPDATED
-  }, [mainUserInfo])
+  }, [mainUserInfo, getAllUsers, id])
 
   Modal.setAppElement('#root');
   return (
@@ -131,19 +124,19 @@ export function User() {
             </div>
 
             <div className={styles.userInformationsTwo}>
-              {/* {isAvailableToFollow && */}
-              <button
-                onClick={FollowButton}
-                className={`${mainUserInfo.id === id && styles.opacityButton} ${styles.buttonFollow}`}>
-                Follow <UserCirclePlus size={25} />
-              </button>
-
-              {/* {(!isAvailableToFollow && mainUserInfo.id != id) && */}
-              <button
-                onClick={UnfollowButton}
-                className={`${mainUserInfo.id === id && styles.opacityButton} ${styles.buttonUnfollow}`}>
-                Unfollow <UserMinus size={25} />
-              </button>
+              {isAvailableToFollow ?
+                <button
+                  onClick={FollowButton}
+                  className={`${mainUserInfo.id === id && styles.opacityButton} ${styles.buttonFollow}`} disabled={mainUserInfo.id === id}>
+                  Follow <UserCirclePlus size={25} />
+                </button>
+                :
+                <button
+                  onClick={UnfollowButton}
+                  className={`${mainUserInfo.id === id && styles.opacityButton} ${styles.buttonUnfollow}`} disabled={mainUserInfo.id === id}>
+                  Unfollow <UserMinus size={25} />
+                </button>
+              }
             </div>
           </section>
 

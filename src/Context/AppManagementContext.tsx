@@ -11,6 +11,9 @@ export interface IUserManagementContextTypes {
   removeFollowerMainUser: (user: IUserInfoToFollowUnfollow) => void;
   postList: IPostsListContent[],
   addPostList: (postContent: IPostsListContent) => void;
+  getAllUsers: IUserInformation[],
+  AddFollowerGetAllUsers: (followed_id: string) => void;
+  RemoveFollowerGetAllUsers: (followed_id: string) => void;
 }
 
 export interface IAppManagementContextProvider {
@@ -67,20 +70,46 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
     })
   }
 
-  useEffect(() => {
-    const mainUser = JSON.stringify(mainUserInfo);
+  function AddFollowerGetAllUsers(followed_id: string) {
+    getAllUsersDispatch({
+      type: 'ADD_FOLLOWER',
+      payload: {
+        follower: mainUserInfo,
+        user_followed_id: followed_id
+      }
+    })
+  }
 
-    localStorage.setItem("@NotePost:MainUserInformation", mainUser);
+  function RemoveFollowerGetAllUsers(followed_id: string) {
+    getAllUsersDispatch({
+      type: 'REMOVE_FOLLOWER',
+      payload: {
+        follower: mainUserInfo,
+        user_unfollowed_id: followed_id
+      }
+    })
+  }
+
+  useEffect(() => {
+    const mainUserStringify = JSON.stringify(mainUserInfo);
+
+    localStorage.setItem("@NotePost:MainUserInformation", mainUserStringify);
   }, [mainUserInfo])
 
   useEffect(() => {
-    const posts = JSON.stringify(postList);
+    const postsStringify = JSON.stringify(postList);
 
-    localStorage.setItem("@NotePost:PostList", posts);
+    localStorage.setItem("@NotePost:PostList", postsStringify);
   }, [postList])
 
+  useEffect(() => {
+    const getAllUsersStringify = JSON.stringify(getAllUsers);
+
+    localStorage.setItem("@NotePost:AllUsers", getAllUsersStringify);
+  }, [getAllUsers])
+
   return (
-    <AppManagementContext.Provider value={{ mainUserInfo, CountPostMainUserInfo, addNewFollowerMainUser, removeFollowerMainUser, postList, addPostList }}>
+    <AppManagementContext.Provider value={{ mainUserInfo, CountPostMainUserInfo, addNewFollowerMainUser, removeFollowerMainUser, postList, addPostList, getAllUsers, AddFollowerGetAllUsers, RemoveFollowerGetAllUsers }}>
       {children}
     </AppManagementContext.Provider>
   )
