@@ -21,7 +21,7 @@ export function MainUserInfoReducer(state: IUserInformation, action: MainUserAct
       return {
         ...state,
         follows: state.follows.filter(user => {
-          user.id !== action.payload.newUserUnfollowed.id
+          return user.id !== action.payload.newUserUnfollowed.id
         }),
         totalFollows: state.totalFollows - 1
       }
