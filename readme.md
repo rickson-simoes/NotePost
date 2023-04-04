@@ -17,9 +17,6 @@
 
 ---
 
-```diff
-- Obs.: This app need some workaround to clean the code inside both pages, soon I'll return and finish here, the code stinks, very bad
-```
 <h2>📝 Description</h2>
 
 _Based on twitter, this is an app to post content, you can see other users profile, see how many people they follow, if you follow them, you can follow, unfollow, see all their posts, you can repost, quotepost and interact with them_
