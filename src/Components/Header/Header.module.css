@@ -13,6 +13,10 @@
   margin-right: 0.312rem;
 }
 
+.header svg>polygon:nth-child(3) {
+  color: var(--gray-200)
+}
+
 span {
   color: var(--gray-200);
 }
