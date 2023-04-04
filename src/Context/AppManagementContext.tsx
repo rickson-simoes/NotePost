@@ -6,7 +6,7 @@ import { GetAllUsersInitializer, GetAllUsersReducer } from './reducers/getAllUse
 
 export interface IUserManagementContextTypes {
   mainUserInfo: IUserInformation;
-  AddPostMainUserInfo: (user: IUserInformation) => void;
+  CountPostMainUserInfo: () => void;
   addNewFollowerMainUser: (user: IUserInfoToFollowUnfollow) => void;
   removeFollowerMainUser: (user: IUserInfoToFollowUnfollow) => void;
   postList: IPostsListContent[],
@@ -35,16 +35,16 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
     {} as IUserInformation[],
     GetAllUsersInitializer);
 
-  function AddPostMainUserInfo(userData: IUserInformation) {
+  function CountPostMainUserInfo() {
     mainUserInfoDispatch({
-      type: 'ADDPOST',
-      payload: userData
+      type: 'COUNT_POST',
+      payload: mainUserInfo,
     });
   }
 
   function addNewFollowerMainUser(user: IUserInfoToFollowUnfollow) {
     mainUserInfoDispatch({
-      type: 'NEWFOLLOW',
+      type: 'NEW_FOLLOW',
       payload: {
         newUserFollowed: user
       }
@@ -53,7 +53,7 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
 
   function removeFollowerMainUser(user: IUserInfoToFollowUnfollow) {
     mainUserInfoDispatch({
-      type: 'REMOVEFOLLOW',
+      type: 'REMOVE_FOLLOW',
       payload: {
         newUserUnfollowed: user
       }
@@ -80,7 +80,7 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
   }, [postList])
 
   return (
-    <AppManagementContext.Provider value={{ mainUserInfo, AddPostMainUserInfo, addNewFollowerMainUser, removeFollowerMainUser, postList, addPostList }}>
+    <AppManagementContext.Provider value={{ mainUserInfo, CountPostMainUserInfo, addNewFollowerMainUser, removeFollowerMainUser, postList, addPostList }}>
       {children}
     </AppManagementContext.Provider>
   )
