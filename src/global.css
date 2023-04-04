@@ -46,17 +46,3 @@ a {
   text-decoration: none;
   color: inherit;
 }
-
-._3qw0K {
-  background: rgb(0 0 0 / 68%) !important;
-}
-
-._3bARu {
-  background-color: var(--black);
-  border: 1px solid var(--yellow-green-brighter);
-  top: 40%;
-}
-
-._2I1sI:hover {
-  color: var(--gray-500);
-}
