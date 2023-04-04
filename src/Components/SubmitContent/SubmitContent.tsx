@@ -10,7 +10,7 @@ import { Repost } from "../PostTypes/components/RepostContent";
 import { QuotePost } from "../PostTypes/components/QuoteContent";
 
 export function SubmitContent() {
-  const { mainUserInfo, postList, addPostList } = useContext(AppManagementContext);
+  const { mainUserInfo, CountPostMainUserInfo, postList, addPostList } = useContext(AppManagementContext);
 
   function submitContentToPostList(
     postTextContent: string,
@@ -35,6 +35,7 @@ export function SubmitContent() {
     };
 
     addPostList(newPostToInsert);
+    CountPostMainUserInfo()
   }
 
   function handleSubmitNewPost(text: string) {
