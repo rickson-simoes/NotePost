@@ -73,26 +73,31 @@ export interface IUserInfoToFollowUnfollow {
   bio: string;
 }
 
-export interface MainUserUPDATE {
-  type: 'ADDPOST',
+export interface MainUserCOUNT_POST {
+  type: 'COUNT_POST',
   payload: IUserInformation
 }
-export interface MainUserNEWFOLLOW {
-  type: 'NEWFOLLOW',
+export interface MainUserPOST_COUNT {
+  type: 'POST_COUNT',
+  payload: IUserInformation
+}
+export interface MainUserNEW_FOLLOW {
+  type: 'NEW_FOLLOW',
   payload: {
     newUserFollowed: IUserInfoToFollowUnfollow
   }
 }
-export interface MainUserREMOVEFOLLOW {
-  type: 'REMOVEFOLLOW',
+export interface MainUserREMOVE_FOLLOW {
+  type: 'REMOVE_FOLLOW',
   payload: {
     newUserUnfollowed: IUserInfoToFollowUnfollow
   }
 }
 export type MainUserAction =
-  | MainUserUPDATE
-  | MainUserNEWFOLLOW
-  | MainUserREMOVEFOLLOW;
+  | MainUserCOUNT_POST
+  | MainUserPOST_COUNT
+  | MainUserNEW_FOLLOW
+  | MainUserREMOVE_FOLLOW;
 
 
 export interface PostListUPDATE {
