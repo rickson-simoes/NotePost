@@ -42,7 +42,6 @@ export function Home() {
       <main className={styles.wrapContent}>
         <Sidebar />
 
-
         <section>
           <Actionbar onToggleChange={handleToggleChange} />
 
