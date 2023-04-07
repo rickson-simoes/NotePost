@@ -123,4 +123,10 @@ export interface GetAllUsersREMOVE_FOLLOWER {
 }
 export type GetAllUsersAction =
   | GetAllUsersADD_FOLLOWER
-  | GetAllUsersREMOVE_FOLLOWER
+  | GetAllUsersREMOVE_FOLLOWER;
+
+
+export enum Toggle {
+  following = 'following',
+  all = 'all'
+};
