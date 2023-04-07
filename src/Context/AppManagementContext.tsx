@@ -6,14 +6,14 @@ import { GetAllUsersInitializer, GetAllUsersReducer } from './reducers/getAllUse
 
 export interface IUserManagementContextTypes {
   mainUserInfo: IUserInformation;
-  CountPostMainUserInfo: () => void;
+  countPostMainUserInfo: () => void;
   addNewFollowerMainUser: (user: IUserInfoToFollowUnfollow) => void;
   removeFollowerMainUser: (user: IUserInfoToFollowUnfollow) => void;
   postList: IPostsListContent[],
   addPostList: (postContent: IPostsListContent) => void;
   getAllUsers: IUserInformation[],
-  AddFollowerGetAllUsers: (followed_id: string) => void;
-  RemoveFollowerGetAllUsers: (followed_id: string) => void;
+  addFollowerGetAllUsers: (followed_id: string) => void;
+  removeFollowerGetAllUsers: (followed_id: string) => void;
 }
 
 export interface IAppManagementContextProvider {
@@ -38,7 +38,7 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
     {} as IUserInformation[],
     GetAllUsersInitializer);
 
-  function CountPostMainUserInfo() {
+  function countPostMainUserInfo() {
     mainUserInfoDispatch({
       type: 'COUNT_POST',
       payload: mainUserInfo,
@@ -70,7 +70,7 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
     })
   }
 
-  function AddFollowerGetAllUsers(followed_id: string) {
+  function addFollowerGetAllUsers(followed_id: string) {
     getAllUsersDispatch({
       type: 'ADD_FOLLOWER',
       payload: {
@@ -80,7 +80,7 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
     })
   }
 
-  function RemoveFollowerGetAllUsers(followed_id: string) {
+  function removeFollowerGetAllUsers(followed_id: string) {
     getAllUsersDispatch({
       type: 'REMOVE_FOLLOWER',
       payload: {
@@ -109,7 +109,7 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
   }, [getAllUsers])
 
   return (
-    <AppManagementContext.Provider value={{ mainUserInfo, CountPostMainUserInfo, addNewFollowerMainUser, removeFollowerMainUser, postList, addPostList, getAllUsers, AddFollowerGetAllUsers, RemoveFollowerGetAllUsers }}>
+    <AppManagementContext.Provider value={{ mainUserInfo, countPostMainUserInfo, addNewFollowerMainUser, removeFollowerMainUser, postList, addPostList, getAllUsers, addFollowerGetAllUsers, removeFollowerGetAllUsers }}>
       {children}
     </AppManagementContext.Provider>
   )

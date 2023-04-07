@@ -19,8 +19,8 @@ export function User() {
     getAllUsers,
     addNewFollowerMainUser,
     removeFollowerMainUser,
-    AddFollowerGetAllUsers,
-    RemoveFollowerGetAllUsers } = useContext(AppManagementContext);
+    addFollowerGetAllUsers,
+    removeFollowerGetAllUsers } = useContext(AppManagementContext);
 
   const [isOpen, setIsOpen] = useState(true);
   const [userProfile, setUserProfile] = useState<IUserInformation>({} as IUserInformation);
@@ -76,7 +76,7 @@ export function User() {
     };
 
     addNewFollowerMainUser(newFollowUser);
-    AddFollowerGetAllUsers(idUserProfile);
+    addFollowerGetAllUsers(idUserProfile);
 
     checkFollows();
   }
@@ -93,7 +93,7 @@ export function User() {
     };
 
     removeFollowerMainUser(user);
-    RemoveFollowerGetAllUsers(idUserProfile);
+    removeFollowerGetAllUsers(idUserProfile);
 
     checkFollows();
   }

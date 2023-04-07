@@ -10,7 +10,7 @@ import { Repost } from "../PostTypes/components/RepostContent";
 import { QuotePost } from "../PostTypes/components/QuoteContent";
 
 export function SubmitContent() {
-  const { mainUserInfo, CountPostMainUserInfo, postList, addPostList } = useContext(AppManagementContext);
+  const { mainUserInfo, countPostMainUserInfo, postList, addPostList } = useContext(AppManagementContext);
 
   function submitContentToPostList(
     postTextContent: string,
@@ -35,7 +35,7 @@ export function SubmitContent() {
     };
 
     addPostList(newPostToInsert);
-    CountPostMainUserInfo()
+    countPostMainUserInfo()
   }
 
   function handleSubmitNewPost(text: string) {
@@ -52,6 +52,7 @@ export function SubmitContent() {
 
   return (
     <div>
+      {/* @WORKAROUND - ADD TOGGLE FEATURE */}
       {/* <Actionbar onToggleChange={handleToggle} /> */}
 
       <PostForm onSubmitNewPost={handleSubmitNewPost} isUserAllowedToPost={true} />
