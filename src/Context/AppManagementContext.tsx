@@ -109,7 +109,17 @@ export function AppManagementContextProvider({ children }: IAppManagementContext
   }, [getAllUsers])
 
   return (
-    <AppManagementContext.Provider value={{ mainUserInfo, countPostMainUserInfo, addNewFollowerMainUser, removeFollowerMainUser, postList, addPostList, getAllUsers, addFollowerGetAllUsers, removeFollowerGetAllUsers }}>
+    <AppManagementContext.Provider value={{
+      mainUserInfo,
+      countPostMainUserInfo,
+      addNewFollowerMainUser,
+      removeFollowerMainUser,
+      postList,
+      addPostList,
+      getAllUsers,
+      addFollowerGetAllUsers,
+      removeFollowerGetAllUsers
+    }}>
       {children}
     </AppManagementContext.Provider>
   )
