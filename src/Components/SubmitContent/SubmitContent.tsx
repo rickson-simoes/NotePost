@@ -9,8 +9,12 @@ import { Post } from "../PostTypes/components/PostContent";
 import { Repost } from "../PostTypes/components/RepostContent";
 import { QuotePost } from "../PostTypes/components/QuoteContent";
 
-export function SubmitContent() {
-  const { mainUserInfo, countPostMainUserInfo, postList, addPostList } = useContext(AppManagementContext);
+interface ISubmitContent {
+  postList: IPostsListContent[]
+}
+
+export function SubmitContent({ postList }: ISubmitContent) {
+  const { mainUserInfo, countPostMainUserInfo, addPostList } = useContext(AppManagementContext);
 
   function submitContentToPostList(
     postTextContent: string,
