@@ -16,6 +16,7 @@ import { FormatDateYear } from "../../utils/dateUtils";
 export function User() {
   const { id } = useParams();
   const { mainUserInfo,
+    postList,
     getAllUsers,
     addNewFollowerMainUser,
     removeFollowerMainUser,
@@ -141,7 +142,7 @@ export function User() {
           </section>
 
           <div className={styles.containerPostList}>
-            <SubmitContent />
+            <SubmitContent postList={postList} />
           </div>
 
         </div>
