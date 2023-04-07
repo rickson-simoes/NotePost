@@ -2,54 +2,62 @@ import { ToggleLeft, ToggleRight } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import { Toggle } from "../../@Types";
 import styles from './Actionbar.module.css';
 
 interface IActionBar {
-  onToggleChange: (value: string) => void;
+  onToggleChange: (value: Toggle) => void;
 }
 
 export function Actionbar({ onToggleChange }: IActionBar) {
-  const [toggle, setToggle] = useState<string>(localStorage.getItem("@NotePost:MainContentToggle")!);
-  const Following = "following";
-  const All = "all";
+  const [toggle, setToggle] = useState<Toggle>(Toggle.all);
 
   function useQuery() {
     const { search } = useLocation();
 
     return new URLSearchParams(search);
   }
-  let query = useQuery();
 
-  const toggleLowerCase = query.get("toggle")?.toLowerCase();
+  const queryParams = useQuery();
+  const getQueryParams = queryParams.get("toggle")?.toLowerCase();
+
+  function switchQueryOptions(queryParams?: string) {
+    switch (queryParams) {
+      case Toggle.all:
+        localStorage.setItem("@NotePost:MainContentToggle", Toggle.all);
+        setToggle(Toggle.all);
+        break;
+
+      case Toggle.following:
+        localStorage.setItem("@NotePost:MainContentToggle", Toggle.following);
+        setToggle(Toggle.following);
+        break;
+
+      default:
+        localStorage.setItem("@NotePost:MainContentToggle", Toggle.all);
+        setToggle(Toggle.all);
+        break;
+    }
+  }
 
   useEffect(() => {
-    if (toggleLowerCase == Following) {
-      localStorage.setItem("@NotePost:MainContentToggle", Following);
-    } else {
-      localStorage.setItem("@NotePost:MainContentToggle", All);
-    }
-
-    const getLocalStorageToggle = localStorage.getItem("@NotePost:MainContentToggle") as string;
-
-    setToggle(getLocalStorageToggle);
+    switchQueryOptions(getQueryParams);
   }, [])
 
   function handleToggleAllPostsFollowing() {
-    if (toggle == All) {
-      localStorage.setItem("@NotePost:MainContentToggle", Following);
-      setToggle(Following);
-      onToggleChange(Following);
+    if (toggle == Toggle.all) {
+      switchQueryOptions(Toggle.following)
+      onToggleChange(Toggle.following);
     } else {
-      localStorage.setItem("@NotePost:MainContentToggle", All);
-      setToggle(All);
-      onToggleChange(All);
+      switchQueryOptions(Toggle.all)
+      onToggleChange(Toggle.all);
     }
   }
 
   return (
     <div className={styles.actionBar}>
       <div className={styles.toggle} onClick={handleToggleAllPostsFollowing}>
-        {toggle == All ?
+        {toggle == Toggle.all ?
           <>
             <Link to="/?toggle=following"><strong> All Posts</strong>&nbsp; / Following &nbsp; <ToggleLeft size={34} /></Link>
           </> :
