@@ -52,9 +52,6 @@ export function SubmitContent() {
 
   return (
     <div>
-      {/* @WORKAROUND - ADD TOGGLE FEATURE */}
-      {/* <Actionbar onToggleChange={handleToggle} /> */}
-
       <PostForm onSubmitNewPost={handleSubmitNewPost} isUserAllowedToPost={true} />
 
       <div className={styles.mainContent}>
