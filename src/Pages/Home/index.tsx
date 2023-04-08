@@ -6,7 +6,7 @@ import { IPostsListContent, Toggle } from "../../@Types";
 import { Header } from '../../Components/Header/Header';
 import { Sidebar } from '../../Components/Sidebar';
 import { SubmitContent } from '../../Components/SubmitContent/SubmitContent';
-import { Actionbar } from '../../Components/Actionbar';
+import { ToggleBar } from '../../Components/Togglebar';
 import { AppManagementContext } from '../../Context/AppManagementContext';
 
 export function Home() {
@@ -43,7 +43,7 @@ export function Home() {
         <Sidebar />
 
         <section>
-          <Actionbar onToggleChange={handleToggleChange} />
+          <ToggleBar onToggleChange={handleToggleChange} />
 
           <SubmitContent postList={postListFiltered} />
         </section>

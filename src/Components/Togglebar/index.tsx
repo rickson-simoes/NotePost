@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { Toggle } from "../../@Types";
-import styles from './Actionbar.module.css';
+import styles from './ToggleBar.module.css';
 
-interface IActionBar {
+interface IToggleBar {
   onToggleChange: (value: Toggle) => void;
 }
 
-export function Actionbar({ onToggleChange }: IActionBar) {
+export function ToggleBar({ onToggleChange }: IToggleBar) {
   const [toggle, setToggle] = useState<Toggle>(Toggle.all);
 
   function useQuery() {
@@ -55,7 +55,7 @@ export function Actionbar({ onToggleChange }: IActionBar) {
   }
 
   return (
-    <div className={styles.actionBar}>
+    <div className={styles.ToggleBar}>
       <div className={styles.toggle} onClick={handleToggleAllPostsFollowing}>
         {toggle == Toggle.all ?
           <>

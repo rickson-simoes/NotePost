@@ -1,9 +1,9 @@
-.actionBar {
+.ToggleBar {
   display: flex;
   justify-content: flex-end;
 }
 
-.actionBar button {
+.ToggleBar button {
   display: flex;
   align-items: center;
   border-radius: 8px;
@@ -16,7 +16,7 @@
   transition: all 0.2s;
 }
 
-.actionBar button:hover {
+.ToggleBar button:hover {
   background-color: var(--yellow-green);
   color: var(--black);
 }
