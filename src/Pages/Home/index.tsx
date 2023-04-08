@@ -33,7 +33,7 @@ export function Home() {
 
   useEffect(() => {
     handleToggleChange(localStorage.getItem("@NotePost:MainContentToggle") as Toggle)
-  }, [])
+  }, [postList])
 
   return (
     <>
@@ -45,7 +45,7 @@ export function Home() {
         <section>
           <ToggleBar onToggleChange={handleToggleChange} />
 
-          <SubmitContent postList={postListFiltered} />
+          <SubmitContent listOfPosts={postListFiltered} />
         </section>
       </main>
     </>

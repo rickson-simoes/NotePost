@@ -142,7 +142,7 @@ export function User() {
           </section>
 
           <div className={styles.containerPostList}>
-            <SubmitContent postList={postList} />
+            <SubmitContent listOfPosts={postList} />
           </div>
 
         </div>
