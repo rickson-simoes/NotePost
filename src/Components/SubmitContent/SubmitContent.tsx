@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { format } from "date-fns";
 
 import styles from './SubmitContent.module.css';
@@ -8,18 +8,27 @@ import { PostForm } from "../PostForm";
 import { Post } from "../PostTypes/components/PostContent";
 import { Repost } from "../PostTypes/components/RepostContent";
 import { QuotePost } from "../PostTypes/components/QuoteContent";
+import { numberOfPostsToday } from "../../utils/numberOfPostsToday";
 
 interface ISubmitContent {
-  postList: IPostsListContent[]
+  listOfPosts: IPostsListContent[]
 }
 
-export function SubmitContent({ postList }: ISubmitContent) {
-  const { mainUserInfo, countPostMainUserInfo, addPostList } = useContext(AppManagementContext);
+export function SubmitContent({ listOfPosts }: ISubmitContent) {
+  const { mainUserInfo, countPostMainUserInfo, addPostList, postList: mainPostList } = useContext(AppManagementContext);
+  const [isUserAllowedToPost, setIsUserAllowedToPost] = useState<boolean>(true);
 
   function submitContentToPostList(
     postTextContent: string,
     postType: "QuotePost" | "Post" | "Repost",
     postListQuoteContent?: IQuotePostContent) {
+
+    const totalNumberOfPostsToday = numberOfPostsToday(mainPostList, mainUserInfo);
+
+    if (totalNumberOfPostsToday === 5) {
+      setIsUserAllowedToPost(false);
+      return;
+    }
 
     const newPostToInsert: IPostsListContent = {
       id: crypto.randomUUID(),
@@ -56,10 +65,10 @@ export function SubmitContent({ postList }: ISubmitContent) {
 
   return (
     <div>
-      <PostForm onSubmitNewPost={handleSubmitNewPost} isUserAllowedToPost={true} />
+      <PostForm onSubmitNewPost={handleSubmitNewPost} isUserAllowedToPost={isUserAllowedToPost} />
 
       <div className={styles.mainContent}>
-        {postList.map(post => {
+        {listOfPosts.map(post => {
           switch (post.type) {
             case "Post": {
               return <Post
