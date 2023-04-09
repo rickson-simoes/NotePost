@@ -17,15 +17,10 @@ export function Home() {
   function handleToggleChange(value?: Toggle) {
     if (value == Toggle.following) {
       setPostListFiltered([]);
-      const userIds: string[] = [];
-      mainUserInfo.follows.filter(user => userIds.push(user.id));
+      const userIds = mainUserInfo.follows.map(user => user.id);
+      const findUsersPostsWhoIFollow = postList.filter(post => userIds.includes(post.authorID));
 
-      for (const userID of userIds) {
-        const findUsersPostsWhoIFollow = postList.filter(post => post.authorID == userID);
-        setPostListFiltered((state) => {
-          return [...findUsersPostsWhoIFollow, ...state]
-        });
-      }
+      setPostListFiltered(findUsersPostsWhoIFollow);
     } else {
       setPostListFiltered(deepClonePostList);
     }
