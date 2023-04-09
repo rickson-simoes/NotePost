@@ -2,15 +2,14 @@ import { isToday } from "date-fns";
 import { IPostsListContent, IUserInformation } from "../@Types";
 
 export function numberOfPostsToday(postList: IPostsListContent[], mainUserInfo: IUserInformation): number {
-  const NumberOfPostsUserHaveToday = postList.filter(post => {
-    const toDate = new Date(post.date);
+  const { id } = mainUserInfo;
 
-    if (isToday(toDate) && mainUserInfo.id == post.authorID) {
-      return post;
-    }
-  });
+  const totalNumberOfPostsToday = postList.reduce((count, post) => {
+    const postDate = new Date(post.date);
+    const countTodayPostWithAuthorID = isToday(postDate) && post.authorID === id ? count + 1 : count;
 
-  const totalNumberOfPostsToday = NumberOfPostsUserHaveToday.length;
+    return countTodayPostWithAuthorID;
+  }, 0);
 
   return totalNumberOfPostsToday;
 }
