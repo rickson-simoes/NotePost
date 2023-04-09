@@ -35,20 +35,9 @@ export function User() {
   }
 
   function currentUserBeingViewed(userId: string) {
-    const userFound = getAllUsers.find(user => user.id === userId);
-    let updatedUser: IUserInformation;
+    const userFound = getAllUsers.find(user => user.id === userId) ?? mainUserInfo;
 
-    if (userFound == undefined) {
-      updatedUser = {
-        ...mainUserInfo
-      }
-    } else {
-      updatedUser = {
-        ...userFound
-      }
-    }
-
-    setUserProfile(updatedUser);
+    setUserProfile(userFound);
     checkFollows();
   }
 
