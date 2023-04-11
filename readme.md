@@ -35,6 +35,5 @@ _Based on twitter, this is an app to post content, you can see other users profi
 
 <h2>📸 App Images</h2>
 
-[![dodoingdid](https://raw.githubusercontent.com/rickson-simoes/NotePost/master/public/imgs_samples/notepost.jpg "Project view")](https://raw.githubusercontent.com/rickson-simoes/NotePost/master/public/imgs_samples/notepost.jpg "Project Demonstration")
-
-[![notepost2](https://raw.githubusercontent.com/rickson-simoes/NotePost/master/public/imgs_samples/notepost2.jpg "Add new task")](https://raw.githubusercontent.com/rickson-simoes/NotePost/master/public/imgs_samples/notepost2.jpg "Project Demonstration")
+![NotePost1](/public/imgs_samples/notepost.jpg "Project View")
+![NotePost2](/public/imgs_samples/notepost2.jpg "Add new task")
