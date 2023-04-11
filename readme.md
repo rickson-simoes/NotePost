@@ -35,5 +35,6 @@ _Based on twitter, this is an app to post content, you can see other users profi
 
 <h2>📸 App Images</h2>
 
-![NotePost1](/public/imgs_samples/notepost.jpg "Project View")
-![NotePost2](/public/imgs_samples/notepost2.jpg "Add new task")
+![NotePost1](/public/imgs_samples/notepost.jpg "Home")
+![NotePost2](/public/imgs_samples/notepost2.jpg "User not followed")
+![NotePost3](/public/imgs_samples/notepost3.jpg "User followed")

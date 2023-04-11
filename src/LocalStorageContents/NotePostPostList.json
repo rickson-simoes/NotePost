@@ -10,7 +10,7 @@
       "sharedAuthor": "Thomas Garden",
       "sharedAuthorID": "58e4aa7f-fd4c-4d0b-9333-a6287fce6736",
       "sharedAvatarSrc": "https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-      "sharedContent": "post to show some content",
+      "sharedContent": "Democracy is the reason we all grow!",
       "sharedDate": "2022-11-21 12:10:20"
     },
     "type": "Repost"
@@ -22,7 +22,7 @@
     "avatarSrc": "https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
     "type": "Post",
     "date": "2022-11-21 12:10:20",
-    "content": "post to show some content",
+    "content": "Democracy is the reason we all grow!",
     "shared": {
       "sharedAuthorID": "",
       "sharedAuthor": "",
@@ -43,7 +43,7 @@
       "sharedAuthorID": "58e4aa7f-fd4c-4a0b-9333-a6287fce6736",
       "sharedAuthor": "Annie Doe",
       "sharedAvatarSrc": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-      "sharedContent": "content of the post with the whole text",
+      "sharedContent": "Politics should never walk with religion.",
       "sharedDate": "2022-11-10 19:20:50"
     }
   },
@@ -59,7 +59,7 @@
       "sharedAuthorID": "58e4aa7f-fd4c-4a0b-9333-a6287fce6736",
       "sharedAuthor": "Annie Doe",
       "sharedAvatarSrc": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
-      "sharedContent": "content of the post with the whole text",
+      "sharedContent": "Politics should never walk with religion.",
       "sharedDate": "2022-11-10 19:20:50"
     }
   },
@@ -70,7 +70,7 @@
     "avatarSrc": "https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
     "type": "Post",
     "date": "2022-11-14 15:40:50",
-    "content": "more content lorem ipsum",
+    "content": "I must say, i love puppies, hahah.",
     "shared": {
       "sharedAuthorID": "",
       "sharedAuthor": "",
@@ -86,7 +86,7 @@
     "avatarSrc": "https://images.unsplash.com/photo-1536416992256-1c91ce9ccdfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
     "type": "Post",
     "date": "2022-11-10 19:20:50",
-    "content": "content of the post with the whole text",
+    "content": "Politics should never walk with religion.",
     "shared": {
       "sharedAuthorID": "",
       "sharedAuthor": "",
